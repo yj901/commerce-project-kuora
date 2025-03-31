@@ -1,8 +1,3 @@
-@use "sass:map";
-
-/* * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-*/
+@import "./styles/variables";
+@import "./styles/global";
+@import "./styles/font";
