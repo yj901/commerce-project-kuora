@@ -2,7 +2,7 @@ import React from "react";
 import "./Event.scss";
 
 const Event = () => {
-  return <div>Event</div>;
+  return <div></div>;
 };
 
 export default Event;
