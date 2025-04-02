@@ -1,0 +1,149 @@
+// Payment.scss
+
+$primary-color: #1ec800;
+$secondary-color: #fee500;
+$divider-color: #ccc;
+$font-size: 16px;
+
+.payment-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.left,
+.right {
+  width: 48%;
+}
+
+.payment-form {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.payment-button {
+  padding: 10px 20px;
+  font-size: $font-size;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease;
+
+  &.naverpay {
+    background-color: $primary-color;
+    color: white;
+  }
+
+  &.kakao {
+    background-color: $secondary-color;
+    color: black;
+  }
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.divider {
+  margin: 20px 0;
+  border-top: 1px solid $divider-color;
+}
+
+.buyer-info,
+.shipping-info,
+.payment-methods {
+  margin-bottom: 20px;
+
+  input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+}
+
+.payment-methods button {
+  width: 100%;
+  padding: 10px;
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.terms {
+  margin-top: 10px;
+
+  label {
+    font-size: $font-size;
+  }
+}
+
+.order-summary {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.product {
+  display: flex;
+  margin-bottom: 20px;
+
+  img {
+    width: 100px;
+    margin-right: 20px;
+  }
+
+  .product-details {
+    p {
+      margin: 5px 0;
+    }
+  }
+}
+
+.discount {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+
+  input {
+    width: 70%;
+    padding: 10px;
+  }
+
+  button {
+    padding: 10px;
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+}
+
+.price-summary {
+  p {
+    margin: 5px 0;
+  }
+
+  hr {
+    margin: 10px 0;
+  }
+}
+
+.pay-button {
+  text-align: center;
+
+  button {
+    padding: 10px 20px;
+    background-color: #1ec800;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}
