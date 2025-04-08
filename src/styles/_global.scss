@@ -1,3 +1,5 @@
+@import "./variables";
+
 * {
   margin: 0;
   padding: 0;
@@ -22,4 +24,8 @@ body {
   font-size: 1.6rem;
   font-family: "Lato", "Pretendard Variable", sans-serif;
   color: map-get($map: $color, $key: dark);
+}
+
+.inner {
+  margin: 0 50px;
 }
