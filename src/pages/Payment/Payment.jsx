@@ -13,50 +13,63 @@ const Payment = () => {
   const [customRequest, setCustomRequest] = useState(false);
   const [requestText, setRequestText] = useState("");
 
-  // 결제수단
-  const [method, setMethod] = useState("card");
-  const [allAgree, setAllAgree] = useState(false);
-  const [agree, setAgree] = useState({ terms: false, privacy: false });
+  // 주소 찾기
 
-  const toggleAll = () => {
-    const next = !allAgree;
-    setAllAgree(next);
-    setAgree({ terms: next, privacy: next });
+  const [zonecode, setZonecode] = useState("");
+  const [address, setAddress] = useState("");
+
+  const handleSearchAddress = () => {
+    new window.daum.Postcode({
+      oncomplete: function (data) {
+        setZonecode(data.zonecode);
+        setAddress(data.roadAddress);
+      },
+    }).open();
+
+    // 결제수단
+    const [method, setMethod] = useState("card");
+    const [allAgree, setAllAgree] = useState(false);
+    const [agree, setAgree] = useState({ terms: false, privacy: false });
+
+    const toggleAll = () => {
+      const next = !allAgree;
+      setAllAgree(next);
+      setAgree({ terms: next, privacy: next });
+    };
+
+    const toggleOne = (key) => {
+      const updated = { ...agree, [key]: !agree[key] };
+      const allChecked = Object.values({ ...agree, [key]: !agree[key] }).every(
+        Boolean
+      );
+      setAgree(updated);
+      setAllAgree(allChecked);
+    };
+
+    // 도메인
+    const domains = ["naver.com", "daum.net", "gmail.com"];
+
+    // 배송 요청사항 <DropDown>
+
+    const requestOptions = [
+      "",
+      "문 앞에 놓아주세요.",
+      "도착 전에 전화 주세요.",
+      "경비실에 맡겨 주세요.",
+      "직접 입력",
+    ];
+
+    const handleChange = (e) => {
+      const selected = e.target.value;
+      if (selected === "직접 입력") {
+        setCustomRequest(true);
+        setRequestText("");
+      } else {
+        setCustomRequest(false);
+        setRequestText(selected);
+      }
+    };
   };
-
-  const toggleOne = (key) => {
-    const updated = { ...agree, [key]: !agree[key] };
-    const allChecked = Object.values({ ...agree, [key]: !agree[key] }).every(
-      Boolean
-    );
-    setAgree(updated);
-    setAllAgree(allChecked);
-  };
-
-  // 도메인
-  const domains = ["naver.com", "daum.net", "gmail.com"];
-
-  // 배송 요청사항 <DropDown>
-
-  const requestOptions = [
-    "",
-    "문 앞에 놓아주세요.",
-    "도착 전에 전화 주세요.",
-    "경비실에 맡겨 주세요.",
-    "직접 입력",
-  ];
-
-  const handleChange = (e) => {
-    const selected = e.target.value;
-    if (selected === "직접 입력") {
-      setCustomRequest(true);
-      setRequestText("");
-    } else {
-      setCustomRequest(false);
-      setRequestText(selected);
-    }
-  };
-
   return (
     <div className="payment_wrapper">
       <div className="payment">
@@ -81,7 +94,7 @@ const Payment = () => {
               <hr />
             </div>
           </div>
-  
+
           {/* 구매자 정보 */}
           <div className="buyer_info">
             <h3>구매자 정보</h3>
@@ -91,7 +104,7 @@ const Payment = () => {
                 placeholder="주문하시는 분의 이름을 입력해주세요."
               />
               <input type="tel" placeholder="연락처를 입력해주세요." />
-  
+
               <div className="email_container">
                 <input
                   type="text"
@@ -141,26 +154,28 @@ const Payment = () => {
               <input type="password" placeholder="주문 비밀번호 확인" />
             </div>
           </div>
-  
+
           {/* 배송지 정보 */}
           <div className="shipping_info">
             <h3>배송지 정보</h3>
             <div className="shipping_form">
               <input type="text" placeholder="받는 분의 이름을 입력해주세요." />
               <input type="tel" placeholder="연락처를 입력해주세요." />
-  
+
               <div className="payment_zipcode">
                 <input
                   type="text"
                   className="zipcode_input"
                   placeholder="우편번호"
+                  value={zonecode}
+                  readOnly
                 />
-                <button>주소 찾기</button>
+                <button onClick={handleSearchAddress}>주소 찾기</button>
               </div>
-  
+
               <input type="text" placeholder="기본 주소" />
               <input type="text" placeholder="상세 주소 입력" />
-  
+
               <select
                 className="request_select"
                 value={customRequest ? "custom" : requestText}
@@ -176,7 +191,7 @@ const Payment = () => {
                 </option>
                 <option value="직접 입력">직접 입력</option>
               </select>
-  
+
               {customRequest && (
                 <input
                   type="text"
@@ -188,7 +203,7 @@ const Payment = () => {
               )}
             </div>
           </div>
-  
+
           {/* 결제수단 */}
           <div className="payment_mean">
             <h3>결제수단</h3>
@@ -207,14 +222,18 @@ const Payment = () => {
                 무통장 입금
               </button>
             </div>
-  
+
             <p className="notice">
               * 소액 결제의 경우 PG사 정책에 따라 제한될 수 있습니다.
             </p>
-  
+
             <div className="agreements">
               <label>
-                <input type="checkbox" checked={allAgree} onChange={toggleAll} />{" "}
+                <input
+                  type="checkbox"
+                  checked={allAgree}
+                  onChange={toggleAll}
+                />{" "}
                 모든 약관 동의
               </label>
               <label>
@@ -236,7 +255,7 @@ const Payment = () => {
             </div>
           </div>
         </div>
-  
+
         {/* 오른쪽 영역 */}
         <div className="payment_right">
           <div className="payment_summary">
@@ -250,12 +269,12 @@ const Payment = () => {
                 </div>
               </div>
             </div>
-  
+
             <div className="summary_coupon">
               <input type="text" placeholder="할인코드" />
               <button>적용</button>
             </div>
-  
+
             <div className="summary_breakdown">
               <div>
                 <span>총 상품금액</span>
@@ -270,14 +289,14 @@ const Payment = () => {
                 <span>20,000원</span>
               </div>
             </div>
-  
+
             <hr />
-  
+
             <div className="summary_total">
               <strong>결제금액</strong>
               <strong>210,920원</strong>
             </div>
-  
+
             <button className="summary_submit">결제하기</button>
           </div>
         </div>
