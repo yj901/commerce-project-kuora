@@ -1,5 +1,150 @@
+@import "/src/styles/variables";
+
 .home {
   width: 100%;
-  height: 100vh;
-  background: #999;
+  background: map-get($map: $color, $key: light);
+  overflow-x: hidden;
+
+  section {
+    &:nth-child(1) {
+      .main_vid_text {
+        h1 {
+          font-size: 5rem;
+        }
+
+        position: absolute;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        justify-content: center;
+        align-items: center;
+        color: map-get($map: $color, $key: light);
+        z-index: 1;
+      }
+
+      .filter {
+        height: 100vh;
+        video {
+          object-fit: cover;
+        }
+      }
+    }
+    &:nth-child(2) {
+      width: 100%;
+      height: 700px;
+    }
+    &:nth-child(3) {
+    }
+    &:nth-child(4) {
+      width: 100%;
+      .category_font {
+        font-size: 3.5rem;
+        font-weight: 300;
+        margin: 229px 0 65px 0;
+      }
+      .grid_container_1 {
+        display: grid;
+        gap: 30px;
+        grid-template-columns: repeat(2, 1fr);
+
+        .grid_item {
+          position: relative;
+          cursor: pointer;
+          .text {
+            // border: 1px solid #f00;
+            &::after {
+              content: "";
+              position: absolute;
+              width: 110px;
+              height: 1px;
+              background: map-get($map: $color, $key: dark);
+              bottom: -15px;
+              left: 386px;
+            }
+          }
+        }
+
+        .img_div {
+          overflow: hidden;
+          img {
+            width: 100%;
+            transition: all 0.5s;
+            cursor: pointer;
+
+            &:hover {
+              scale: 1.1;
+            }
+          }
+        }
+        .text {
+          position: relative;
+          width: 100%;
+          font-size: 2.5rem;
+          font-weight: 300;
+          text-align: center;
+          margin: 25px 0 55px 0;
+
+          cursor: pointer;
+        }
+      }
+      .grid_container_2 {
+        display: grid;
+        gap: 30px;
+        grid-template-columns: repeat(3, 1fr);
+
+        .img_div {
+          overflow: hidden;
+          img {
+            width: 100%;
+            transition: all 0.5s;
+            cursor: pointer;
+
+            &:hover {
+              scale: 1.1;
+            }
+          }
+        }
+        .text {
+          width: 100%;
+          font-size: 2.5rem;
+          font-weight: 300;
+          text-align: center;
+          margin: 25px 0 55px 0;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1600px) {
+  .home {
+    section {
+      padding: 4rem 2rem;
+    }
+
+    .main_vid_text {
+      h1 {
+        font-size: 2.5rem;
+      }
+      p {
+        font-size: 1rem;
+        max-width: 600px;
+      }
+    }
+
+    .grid_container_1,
+    .grid_container_2 {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      .grid_item {
+        width: 45%;
+        margin: 1rem;
+      }
+    }
+  }
 }
