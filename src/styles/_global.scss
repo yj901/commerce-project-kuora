@@ -23,3 +23,7 @@ body {
   font-family: "Lato", "Pretendard Variable", sans-serif;
   color: map-get($map: $color, $key: dark);
 }
+
+.inner {
+  margin: 0 50px;
+}
