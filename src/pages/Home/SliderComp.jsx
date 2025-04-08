@@ -4,6 +4,9 @@ import Slider from "react-slick";
 import "./Slider.scss";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import SLIDER_ARROW from "../../assets/slider_arrow.svg";
+import SLIDER_IMG1 from "../../assets/Main_SliderIMG1.png";
+import SLIDER_IMG2 from "../../assets/Main_SliderIMG2.png";
 
 function AppendDots() {
   const slickRef = useRef(null);
@@ -44,17 +47,13 @@ function AppendDots() {
             {slideState.activeSlide + 1} <p>/ </p>
             <p>3</p>
           </div>
-          <img
-            src="/assets/Main_SliderIMG1.png"
-            className="sliderImg1"
-            alt="sliderImg1"
-          />
+          <img src={SLIDER_IMG1} className="sliderImg1" alt="sliderImg1" />
           <div className="arrow_class">
             <div onClick={previous} className="prev">
-              <img src="/assets/icons/slider_arrow.svg" alt="next-arrow" />
+              <img src={SLIDER_ARROW} alt="next-arrow" />
             </div>
             <div onClick={next} className="next">
-              <img src="/assets/icons/slider_arrow.svg" alt="next-arrow" />
+              <img src={SLIDER_ARROW} alt="next-arrow" />
             </div>
           </div>
         </div>
@@ -69,17 +68,13 @@ function AppendDots() {
             {slideState.activeSlide + 1} <p>/ </p>
             <p>3</p>
           </div>
-          <img
-            src="/assets/Main_SliderIMG2.png"
-            className="sliderImg2"
-            alt="sliderImg2"
-          />
+          <img src={SLIDER_IMG2} className="sliderImg2" alt="sliderImg2" />
           <div className="arrow_class">
             <div onClick={previous} className="prev">
-              <img src="/assets/icons/slider_arrow.svg" alt="next-arrow" />
+              <img src={SLIDER_ARROW} alt="next-arrow" />
             </div>
             <div onClick={next} className="next">
-              <img src="/assets/icons/slider_arrow.svg" alt="next-arrow" />
+              <img src={SLIDER_ARROW} alt="next-arrow" />
             </div>
           </div>
         </div>
