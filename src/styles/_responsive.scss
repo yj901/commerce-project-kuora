@@ -1,5 +1,10 @@
 /* styles/_responsive.scss */
 
+@mixin desktop1600 {
+  @media (max-width: 1600px) {
+    @content;
+  }
+}
 @mixin detailInfoResponsive1600 {
   @media (max-width: 1600px) {
     .detail_info {
@@ -8,7 +13,7 @@
       justify-content: space-between;
       gap: 40px;
       // max-width: 1400px;
-      margin: 0 ;
+      margin: 0;
       // padding: 40px 20px;
       box-sizing: border-box;
 
@@ -48,11 +53,11 @@
         //   gap: 307px;
         // }
       }
-      .left_detail_info{
+      .left_detail_info {
         .detail_info_title {
           font-size: 2rem;
         }
-        p{
+        p {
           font-size: 1.8rem;
         }
       }
