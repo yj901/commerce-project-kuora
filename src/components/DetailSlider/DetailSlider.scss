@@ -1,0 +1,122 @@
+// div{
+//   display: flex;
+//   gap: 10px;
+// }
+.DetailPaging{
+  // object-fit: cover;
+  display: flex;
+  border: 1px solid #ccc;
+  img{
+    width: 128px;
+    height: 80px;
+    // border: 1px solid #f00;
+    object-fit: cover;
+
+    // display: flex;
+  }
+}
+.Detailslider-container{
+  // display: flex;
+  .item{
+
+    img{
+      width: 100%;
+      height: 600px;
+      display: flex;
+      gap: 30px;
+    }
+  }
+  /* Arrows */
+.slick-prev,
+.slick-next
+{
+  // display: none;
+    font-size: 0;
+    line-height: 0;
+
+    position: absolute;
+    top: 50%;
+
+    display: block;
+
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    // -webkit-transform: translate(0, -50%);
+    // -ms-transform: translate(0, -50%);
+    // transform: translate(0%, -50%);
+
+    cursor: pointer;
+
+    // color: black;
+    // border: 1px solid #f00;
+    // outline: none;
+    // background: url("../../assets/icons/VectorNext.png") center/cover no-repeat;
+    // background: black;
+}
+
+
+
+
+
+
+.slick-prev
+{
+    left: 10px;
+    position: absolute;
+    z-index: 1;
+    background: url("../../assets/icons/VectorPrev.png") center/cover no-repeat;
+    object-fit: cover;
+
+}
+
+.slick-next
+{
+    right: 10px;
+    position: absolute;
+    background: url("../../assets/icons/VectorNext.png") center/cover no-repeat;
+
+}
+
+.slick-prev:before,
+.slick-next:before{
+  display: none;
+}
+  /* Dots */
+.slick-dotted.slick-slider
+{
+    margin-bottom: 0px;
+}
+
+.slick-dots
+{
+    position: absolute;
+    bottom: -25px;
+
+    display: block;
+
+    width: 100%;
+    padding: 0;
+    margin: 0;
+
+    list-style: none;
+
+    text-align: center;
+}
+.slick-dots li
+{
+    position: relative;
+
+    display: inline-block;
+
+    width: auto;
+    height: auto;
+    margin: 0 5px;
+    padding: 0;
+
+    cursor: pointer;
+}
+
+
+
+}
