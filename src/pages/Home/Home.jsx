@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import "./Home.scss";
 import ReactPlayer from "react-player";
 import SimpleSlider from "./SliderComp";
-
+import MAIN_BED from "../../assets/MAIN_BED.png";
+import MAIN_SOFA from "../../assets/MAIN_SOFA.png";
+import MAIN_CHAIR from "../../assets/MAIN_CHAIR.png";
+import MAIN_SHELF from "../../assets/MAIN_SHELF.png";
+import MAIN_TABLE from "../../assets/MAIN_TABLE.png";
 export const Home = () => {
   return (
     <div className="home">
@@ -42,13 +46,13 @@ export const Home = () => {
           <div className="grid_container_1">
             <div class="grid_item">
               <div className="img_div">
-                <img src="/assets/MAIN_SOFA.png" alt="Sofa" />
+                <img src={MAIN_SOFA} alt="BED" />
               </div>
               <p className="text">SOFAS</p>
             </div>
             <div class="grid_item">
               <div className="img_div">
-                <img src="/assets/MAIN_BED.png" alt="Bed" />
+                <img src={MAIN_BED} alt="BED" />
               </div>
               <p className="text">BEDS</p>
             </div>
@@ -56,19 +60,19 @@ export const Home = () => {
           <div className="grid_container_2">
             <div class="grid_item">
               <div className="img_div">
-                <img src="/assets/MAIN_TABLE.png" alt="Table" />
+                <img src={MAIN_TABLE} alt="Table" />
               </div>
               <p className="text">TABLES</p>
             </div>
             <div class="grid_item">
               <div className="img_div">
-                <img src="/assets/MAIN_CHAIR.png" alt="Chair" />
+                <img src={MAIN_CHAIR} alt="Chair" />
               </div>
               <p className="text">CHAIRS</p>
             </div>
             <div class="grid_item">
               <div className="img_div">
-                <img src="/assets/MAIN_SHELF.png" alt="Shelf" />
+                <img src={MAIN_SHELF} alt="Shelf" />
               </div>
               <p className="text">SHELVES</p>
             </div>
