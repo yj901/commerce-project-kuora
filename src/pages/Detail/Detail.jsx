@@ -116,51 +116,6 @@ const Detail = () => {
     <span class="underline"></span>
   </li>
 </ul>
-
-          {/* <ul>
-            <li className='first_info' ><span>PRODUCTION TIME</span><span>8 TO 16 WEEKS</span></li>
-            </ul>
-            <div className='line'></div>
-            <ul>
-              <li className='second_info'><span>COLOUR</span><span>SC-WASH OFF BROWN</span></li>
-              </ul>
-            <div className='line'></div>
-            <ul>
-              <li className='third_info'><span>COLLECTIONS</span><span>TIMELESS COLLECTION</span></li>
-              </ul>
-            <div className='line'></div>
-            <ul>
-              <li className='fourth_info'><span>WIDTH</span><span>202CM</span></li>
-              </ul>
-            <div className='line'></div>
-            <ul>
-              <li className='fifth_info'><span>HEIGHT</span><span>77CM</span></li>
-              </ul>
-            <div className='line'></div>
-            <ul>
-              <li className='sixth_info'><span>DEPTH</span><span>93CM</span></li>
-              </ul>
-            <div className='line'></div>
-            <ul>
-              <li className='seventh_info'><span>NUMBER OF SEATS</span><span>3</span></li>
-              </ul>
-            <div className='line'></div>
-            <ul>
-              <li className='eieghtth_info'><span>SEAT HEIGHT</span><span>48CM</span></li>
-              </ul>
-            <div className='line'></div>
-            <ul>
-              <li className='nineth_info'><span>FILTER BY COLLECTION</span><span>TIMELESS COLLECTION</span></li>
-              </ul>
-            <div className='line'></div>
-            <ul>
-              <li className='tenth_info'><span>COLOR</span><span>ANTIQUE BROWN</span></li>
-              </ul>
-            <div className='line'></div>
-            <ul >
-              <li className='eleventh_info'><span>FDFD</span><span>ANTIQUE BROWN</span></li>
-              </ul>
-          <div className='line'></div> */}
       </div>
       </section>
       <section className='more_item'>
