@@ -7,11 +7,12 @@ import {
 import { ProductProvider } from "./contexts/ProductContext";
 import { CartProvider } from "./contexts/CartContext";
 import Header from "./components/Header/Header";
-import { Home } from "./pages/Home/Home";
+import Footer from "./components/Footer/Footer";
 import Payment from "./pages/Payment/Payment";
 import Products from "./pages/Products/Products";
 import Detail from "./pages/Detail/Detail";
 import Event from "./pages/Event/Event";
+import { Home } from "./pages/Home/Home";
 import "./App.scss";
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
             <Route path="/detail/:id" element={<Detail />} />
             <Route path="/payment" element={<Payment />} />
           </Routes>
+          <Footer />
         </CartProvider>
       </BrowserRouter>
     </ProductProvider>

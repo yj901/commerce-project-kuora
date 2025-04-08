@@ -15,12 +15,20 @@ const HeaderLeftMenu = ({ isActive, setisActive }) => {
             <span>PRODUCTS</span>
             <ul className="h_menu_list">
               <li>
-                <Link to={"/products?category=sofas"}>SOFAS</Link>
+                <Link to={"/products/sofas"}>SOFAS</Link>
               </li>
-              <li>TABLES</li>
-              <li>CHAIRS</li>
-              <li>SHELVES</li>
-              <li>BEDS</li>
+              <li>
+                <Link to={"/products/tables"}>TABLES</Link>
+              </li>
+              <li>
+                <Link to={"/products/chairs"}>CHAIRS</Link>
+              </li>
+              <li>
+                <Link to={"/products/shelves"}>SHELVES</Link>
+              </li>
+              <li>
+                <Link to={"/products/beds"}>BEDS</Link>
+              </li>
             </ul>
           </li>
           <li>

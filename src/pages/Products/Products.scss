@@ -166,27 +166,134 @@
 }
 
 // 반응형
-@media (max-width: 992px) {
+@include desktop1600 {
   .products-page {
-    .products-grid {
-      grid-template-columns: repeat(2, 1fr);
+    .filter-bar-wrapper {
+      .filter-bar {
+        gap: 60px;
+      }
     }
 
-    .filter-bar {
-      flex-wrap: wrap;
+    .products-grid {
+      grid-template-columns: repeat(3, 1fr);
+      column-gap: 30px;
+    }
+  }
+}
 
-      .filter-dropdown {
-        margin-bottom: 10px;
+@include desktop {
+  .products-page {
+    .filter-bar-wrapper {
+      .filter-bar {
+        gap: 45px;
+      }
+    }
+
+    .products-grid {
+      grid-template-columns: repeat(3, 1fr);
+      column-gap: 25px;
+    }
+  }
+}
+
+@include desktop1200 {
+  .products-page {
+    .filter-bar-wrapper {
+      .filter-bar {
+        gap: 30px;
+      }
+    }
+
+    .products-grid {
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 25px;
+    }
+  }
+}
+
+@include tablet {
+  .products-page {
+    .filter-bar-wrapper {
+      .filter-bar {
+        flex-wrap: wrap;
+        gap: 20px;
+
+        .filter-dropdown {
+          flex: 0 0 calc(50% - 10px);
+          min-width: 170px;
+        }
+      }
+    }
+
+    .products-grid {
+      grid-template-columns: repeat(2, 1fr);
+      row-gap: 25px;
+      column-gap: 20px;
+    }
+  }
+}
+
+@include mobile {
+  .products-page {
+    .products-header {
+      margin-top: 80px;
+      margin-bottom: 30px;
+
+      h1 {
+        font-size: 30px;
+        margin-bottom: 15px;
+      }
+
+      p {
+        font-size: 16px;
+      }
+    }
+
+    .filter-bar-wrapper {
+      .filter-bar {
+        flex-direction: column;
+        gap: 15px;
+
+        .filter-dropdown {
+          width: 100%;
+          min-width: 100%;
+
+          .filter-dropdown-header {
+            span {
+              font-size: 20px;
+            }
+          }
+        }
+      }
+    }
+
+    .products-grid {
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 15px;
+
+      .product-card {
+        .product-info {
+          h3 {
+            font-size: 18px;
+          }
+
+          .price {
+            font-size: 16px;
+          }
+        }
       }
     }
   }
 }
 
-@media (max-width: 576px) {
+@include mobile500 {
   .products-page {
-    .filter-bar {
-      flex-direction: column;
-      gap: 15px;
+    .products-header {
+      margin-top: 60px;
+
+      h1 {
+        font-size: 26px;
+      }
     }
 
     .products-grid {

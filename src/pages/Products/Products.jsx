@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import "../../styles/_global.scss";
 import "./Products.scss";
 import ProductCard from "../../components/ProductCard/ProductCard";
-import Footer from "../../components/Footer/Footer";
 
 const Products = () => {
   // URL에서 카테고리 파라미터 가져오기
@@ -12,21 +11,85 @@ const Products = () => {
   // 상태 관리
   const [datas, setDatas] = useState([]);
   const [products, setProducts] = useState([]);
-  const [category, setCategory] = useState(
-    urlCategory?.toUpperCase() || "SOFA"
-  );
+  const [category, setCategory] = useState(() => {
+    if (urlCategory) {
+      // URL에서 받은 카테고리를 싱글 폼으로 변환 (예: 'sofas' -> 'sofa')
+      const singularCategory = urlCategory.endsWith("s")
+        ? urlCategory.slice(0, -1)
+        : urlCategory;
+      return singularCategory.toUpperCase();
+    }
+    return "SOFA"; // 기본값
+  });
   const [designers, setDesigners] = useState([]); // 디자이너 목록을 위한 상태
   const [materials, setMaterials] = useState([]); // 재질 목록을 위한 상태
   const [filters, setFilters] = useState({
     materials: "",
     designer: "",
-    price: "",
+    sort: "",
   });
 
   // 드롭다운 메뉴 상태 관리
   const [openDropdown, setOpenDropdown] = useState(null);
 
-  // 제품 데이터 불러오기
+  // // 제품 데이터 불러오기
+  // useEffect(() => {
+  //   const dbData = "https://yj901.github.io/kuora-db/db/products.json";
+
+  //   fetch(dbData)
+  //     .then((response) => {
+  //       if (!response.ok) {
+  //         throw new Error("Network response was not ok");
+  //       }
+  //       return response.json();
+  //     })
+  //     .then((data) => {
+  //       setDatas(data);
+  //       console.log("Loaded data:", data); // 데이터 구조 확인용
+
+  //       // 선택된 카테고리에 맞는 제품 가져오기
+  //       const categoryKey = category.toLowerCase() + "s"; // 'sofa' -> 'sofas'
+  //       const categoryProducts = data.products[categoryKey] || [];
+
+  //       console.log("Category products:", categoryProducts); // 카테고리별 제품 확인
+
+  //       setProducts(categoryProducts);
+
+  //       // 고유한 디자이너 목록 추출
+  //       const uniqueDesigners = [
+  //         ...new Set(categoryProducts.map((product) => product.info.designer)),
+  //       ];
+  //       setDesigners(uniqueDesigners);
+
+  //       // 고유한 재질 목록 추출
+  //       const uniqueMaterials = [
+  //         ...new Set(categoryProducts.map((product) => product.info.materials)),
+  //       ];
+  //       setMaterials(uniqueMaterials);
+
+  //       // 로딩 상태 해제 (선택 사항)
+  //       // setLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching products:", error);
+  //       // 오류 발생 시 더미 데이터 사용
+  //       const dummyProducts = [];
+  //       for (let i = 1; i <= 9; i++) {
+  //         dummyProducts.push({
+  //           code: i,
+  //           title: `BUBBLE ${(i % 3) + 1}`,
+  //           product: "SOFA",
+  //           price: 300000 + (i % 5) * 10000,
+  //           designer: `Designer ${(i % 3) + 1}`,
+  //           materials: i % 2 === 0 ? "fabric" : "leather",
+  //           img: "/path/to/placeholder.jpg",
+  //         });
+  //       }
+  //       setProducts(dummyProducts);
+  //       // 로딩 상태 해제 (선택 사항)
+  //       // setLoading(false);
+  //     });
+
   useEffect(() => {
     const dbData = "https://yj901.github.io/kuora-db/db/products.json";
 
@@ -39,50 +102,93 @@ const Products = () => {
       })
       .then((data) => {
         setDatas(data);
-        console.log("Loaded data:", data); // 데이터 구조 확인용
+        // URL 파라미터 기준 카테고리 설정
+        const rawCategory = urlCategory
+          ? urlCategory.endsWith("s")
+            ? urlCategory.slice(0, -1)
+            : urlCategory
+          : "sofa";
+        const categoryKey = rawCategory.toLowerCase() + "s";
 
-        // 선택된 카테고리에 맞는 제품 가져오기
-        const categoryKey = category.toLowerCase() + "s"; // 'sofa' -> 'sofas'
         const categoryProducts = data.products[categoryKey] || [];
+        console.log("카테고리프로덕츠", categoryProducts);
 
-        console.log("Category products:", categoryProducts); // 카테고리별 제품 확인
-
+        setCategory(rawCategory.toUpperCase());
         setProducts(categoryProducts);
 
-        // 고유한 디자이너 목록 추출
+        // 고유 디자이너 목록 추출
         const uniqueDesigners = [
           ...new Set(categoryProducts.map((product) => product.info.designer)),
         ];
         setDesigners(uniqueDesigners);
 
-        // 고유한 재질 목록 추출
+        // 고유 재질 목록 추출
         const uniqueMaterials = [
           ...new Set(categoryProducts.map((product) => product.info.materials)),
         ];
         setMaterials(uniqueMaterials);
-
-        // 로딩 상태 해제 (선택 사항)
-        // setLoading(false);
       })
       .catch((error) => {
         console.error("Error fetching products:", error);
-        // 오류 발생 시 더미 데이터 사용
-        const dummyProducts = [];
-        for (let i = 1; i <= 9; i++) {
-          dummyProducts.push({
-            code: i,
-            title: `BUBBLE ${(i % 3) + 1}`,
-            product: "SOFA",
-            price: 300000 + (i % 5) * 10000,
-            designer: `Designer ${(i % 3) + 1}`,
-            materials: i % 2 === 0 ? "fabric" : "leather",
-            img: "/path/to/placeholder.jpg",
-          });
-        }
-        setProducts(dummyProducts);
-        // 로딩 상태 해제 (선택 사항)
-        // setLoading(false);
+        // const dummyProducts = [];
+        // for (let i = 1; i <= 9; i++) {
+        //   dummyProducts.push({
+        //     info: {
+        //       code: i,
+        //       designer: `Designer ${(i % 3) + 1}`,
+        //       materials: i % 2 === 0 ? "fabric" : "leather",
+        //     },
+        //     title: `BUBBLE ${(i % 3) + 1}`,
+        //     product: "SOFA",
+        //     price: 300000 + (i % 5) * 10000,
+        //     img: "/path/to/placeholder.jpg",
+        //   });
+        // }
+        // setCategory("SOFA");
+        // setProducts(dummyProducts);
+        // setDesigners(["Designer 1", "Designer 2", "Designer 3"]);
+        // setMaterials(["fabric", "leather"]);
       });
+  }, [urlCategory]);
+
+  // 두 번째 useEffect: 카테고리 상태 변경에 따른 제품 데이터 로드 (기존 코드)
+  useEffect(() => {
+    try {
+      const categoryKey = category.toLowerCase() + "s";
+      const categoryProducts = datas.products[categoryKey] || [];
+
+      setProducts(categoryProducts);
+
+      // 고유한 디자이너 목록 추출
+      const uniqueDesigners = [
+        ...new Set(categoryProducts.map((product) => product.info.designer)),
+      ];
+      setDesigners(uniqueDesigners);
+
+      // 고유한 재질 목록 추출
+      const uniqueMaterials = [
+        ...new Set(categoryProducts.map((product) => product.info.materials)),
+      ];
+      setMaterials(uniqueMaterials);
+    } catch (error) {
+      console.error("Error loading products:", error);
+      // 오류 발생 시 더미 데이터 사용
+      // const dummyProducts = [];
+      // for (let i = 1; i <= 9; i++) {
+      //   dummyProducts.push({
+      //     code: i,
+      //     title: `BUBBLE ${(i % 3) + 1}`,
+      //     product: "SOFA",
+      //     price: 300000 + (i % 5) * 10000,
+      //     designer: `Designer ${(i % 3) + 1}`,
+      //     materials: i % 2 === 0 ? "fabric" : "leather",
+      //     img: "/path/to/placeholder.jpg",
+      //   });
+      // }
+      // setProducts(dummyProducts);
+      // 로딩 상태 해제 (선택 사항)
+      // setLoading(false);
+    }
   }, [category]);
 
   // 카테고리 변경 핸들러 - 여기에 배치
@@ -109,25 +215,30 @@ const Products = () => {
   };
 
   // 필터링된 제품 가져오기 - JSON 구조에 맞게 수정
-  const filteredProducts = products.filter((product) => {
-    // 카테고리 필터링은 이미 fetch에서 처리됨
+  const filteredProducts = products
+    .filter((product) => {
+      // 카테고리 필터링은 이미 fetch에서 처리됨
+      console.log("product는", product);
+      // 재질 필터링
+      if (filters.materials && product.info.materials !== filters.materials)
+        return false;
 
-    // 재질 필터링
-    if (filters.materials && product.info.materials !== filters.materials)
-      return false;
+      // 디자이너 필터링
+      if (filters.designer && product.info.designer !== filters.designer)
+        return false;
 
-    // 디자이너 필터링
-    if (filters.designer && product.info.designer !== filters.designer)
-      return false;
-
-    // 가격 필터링
-    if (filters.price) {
-      const [min, max] = filters.price.split("-").map(Number);
-      if (product.price < min || (max && product.price > max)) return false;
-    }
-
-    return true;
-  });
+      // 가격 필터링
+      return true;
+    })
+    .sort((a, b) => {
+      // 가격 정렬
+      if (filters.sort === "asc") {
+        return a.price - b.price; // 오름차순
+      } else if (filters.sort === "desc") {
+        return b.price - a.price; // 내림차순
+      }
+      return 0; // 기본 정렬 없음
+    });
 
   return (
     <>
@@ -227,56 +338,40 @@ const Products = () => {
             <div className="filter-dropdown">
               <div
                 className="filter-dropdown-header"
-                onClick={() => toggleDropdown("price")}
+                onClick={() => toggleDropdown("sort")}
               >
-                <span>FILTER BY PRICE</span>
+                <span>SORT BY PRICE</span>
                 <i
-                  className={`arrow ${
-                    openDropdown === "price" ? "up" : "down"
-                  }`}
+                  className={`arrow ${openDropdown === "sort" ? "up" : "down"}`}
                 ></i>
               </div>
-              {openDropdown === "price" && (
+              {openDropdown === "sort" && (
                 <div className="filter-dropdown-content">
                   <div className="dropdown-line"></div>
                   <div className="dropdown-options">
                     <label>
                       <input
                         type="checkbox"
-                        checked={filters.price === ""}
-                        onChange={() => handleFilterChange("price", "")}
+                        checked={filters.sort === ""}
+                        onChange={() => handleFilterChange("sort", "")}
                       />
-                      All Prices
+                      Default
                     </label>
                     <label>
                       <input
                         type="checkbox"
-                        checked={filters.price === "0-30000000"}
-                        onChange={() =>
-                          handleFilterChange("price", "0-30000000")
-                        }
+                        checked={filters.sort === "asc"}
+                        onChange={() => handleFilterChange("sort", "asc")}
                       />
-                      Under ₩30,000,000
+                      Price: Low to High
                     </label>
                     <label>
                       <input
                         type="checkbox"
-                        checked={filters.price === "30000000-70000000"}
-                        onChange={() =>
-                          handleFilterChange("price", "30000000-70000000")
-                        }
+                        checked={filters.sort === "desc"}
+                        onChange={() => handleFilterChange("sort", "desc")}
                       />
-                      ₩30,000,000 - ₩70,000,000
-                    </label>
-                    <label>
-                      <input
-                        type="checkbox"
-                        checked={filters.price === "70000000-"}
-                        onChange={() =>
-                          handleFilterChange("price", "70000000-")
-                        }
-                      />
-                      Over ₩70,000,000
+                      Price: High to Low
                     </label>
                   </div>
                 </div>
@@ -287,18 +382,21 @@ const Products = () => {
 
         <div className="products-grid inner">
           {filteredProducts.length > 0 ? (
-            filteredProducts.map((product) => (
-              <ProductCard
-                key={product.info.code}
-                product={{
-                  code: product.info.code,
-                  title: product.title,
-                  price: product.price,
-                  img: product.img,
-                }}
-                showDivider={true}
-              />
-            ))
+            filteredProducts.map((product) => {
+              console.log("Product data:", product);
+              return (
+                <ProductCard
+                  key={product.info.code}
+                  product={{
+                    code: product.info.code,
+                    title: product.title,
+                    price: product.price,
+                    img: product.img,
+                  }}
+                  showDivider={true}
+                />
+              );
+            })
           ) : (
             <div className="no-products">
               <p>No products found matching your filters.</p>
@@ -306,7 +404,6 @@ const Products = () => {
           )}
         </div>
       </div>
-      <Footer />
     </>
   );
 };
