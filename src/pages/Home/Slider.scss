@@ -1,3 +1,4 @@
+@import "../../styles/responsive";
 .slider-container {
   .slider_comments {
     width: 500px;
@@ -26,6 +27,10 @@
     width: 1920px;
     height: 622px;
   }
+  .sliderImg2 {
+    width: 1920px;
+    height: 622px;
+  }
   .arrow_class {
     transform: translate(209px, -230px);
     display: flex;
@@ -40,6 +45,23 @@
     .next {
       img {
         cursor: pointer;
+      }
+    }
+  }
+}
+
+@include desktop1600 {
+  .slider-container {
+    .slide1 {
+      .sliderImg1 {
+        width: 1600px;
+      }
+    }
+    .slide2 {
+      .sliderImg2 {
+        width: 1600px;
+      }
+      .arrow_class {
       }
     }
   }

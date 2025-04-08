@@ -34,7 +34,7 @@ function AppendDots() {
   return (
     <div className="slider-container">
       <Slider {...settings} ref={slickRef}>
-        <div>
+        <div className="slide1">
           <p className="slider_comments">Lorem ipsum dolor sit</p>
           <p className="slider_comments_2">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit.
@@ -59,7 +59,7 @@ function AppendDots() {
           </div>
         </div>
 
-        <div>
+        <div className="slide2">
           <p className="slider_comments">Lorem ipsum dolor sit</p>
           <p className="slider_comments_2">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit.
