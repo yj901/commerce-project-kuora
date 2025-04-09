@@ -3,7 +3,7 @@
 .home {
   width: 100%;
   background: map-get($map: $color, $key: light);
-  // overflow-x: hidden;
+  overflow-x: hidden;
 
   section {
     &:nth-child(1) {
@@ -44,6 +44,9 @@
         font-weight: 300;
         margin: 229px 0 65px 0;
       }
+      .inner {
+        border: 1px solid #f00;
+      }
       .grid_container_1 {
         display: grid;
         gap: 30px;
@@ -74,9 +77,12 @@
         .img_div {
           overflow: hidden;
           img {
-            // width: 100%;
+            width: 100%;
+            max-width: 100%;
+            height: 380px;
             transition: all 0.5s;
             cursor: pointer;
+            object-fit: cover;
 
             &:hover {
               scale: 1.1;
@@ -150,12 +156,14 @@
 
 @include desktop1600 {
   .home {
-    .inner {
-      .grid_container_1 {
-        .grid_item {
-          .img_div {
-            img {
-              width: 100%;
+    section {
+      .inner {
+        .grid_container_1 {
+          .grid_item {
+            .img_div {
+              img {
+                height: 300px;
+              }
             }
           }
         }
