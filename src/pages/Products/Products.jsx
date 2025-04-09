@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "../../styles/_global.scss";
-import productsData from "../../db/products.json"; // JSON 파일 경로 추가
 import "./Products.scss";
 import ProductCard from "../../components/ProductCard/ProductCard";
 
@@ -10,8 +9,8 @@ const Products = () => {
   const { category: urlCategory } = useParams();
 
   // 상태 관리
+  const [datas, setDatas] = useState([]);
   const [products, setProducts] = useState([]);
-
   const [category, setCategory] = useState(() => {
     if (urlCategory) {
       // URL에서 받은 카테고리를 싱글 폼으로 변환 (예: 'sofas' -> 'sofa')
@@ -33,22 +32,130 @@ const Products = () => {
   // 드롭다운 메뉴 상태 관리
   const [openDropdown, setOpenDropdown] = useState(null);
 
-  // 첫 번째 useEffect: URL 파라미터 변경 감지 및 카테고리 상태 업데이트
+  // // 제품 데이터 불러오기
+  // useEffect(() => {
+  //   const dbData = "https://yj901.github.io/kuora-db/db/products.json";
+
+  //   fetch(dbData)
+  //     .then((response) => {
+  //       if (!response.ok) {
+  //         throw new Error("Network response was not ok");
+  //       }
+  //       return response.json();
+  //     })
+  //     .then((data) => {
+  //       setDatas(data);
+  //       console.log("Loaded data:", data); // 데이터 구조 확인용
+
+  //       // 선택된 카테고리에 맞는 제품 가져오기
+  //       const categoryKey = category.toLowerCase() + "s"; // 'sofa' -> 'sofas'
+  //       const categoryProducts = data.products[categoryKey] || [];
+
+  //       console.log("Category products:", categoryProducts); // 카테고리별 제품 확인
+
+  //       setProducts(categoryProducts);
+
+  //       // 고유한 디자이너 목록 추출
+  //       const uniqueDesigners = [
+  //         ...new Set(categoryProducts.map((product) => product.info.designer)),
+  //       ];
+  //       setDesigners(uniqueDesigners);
+
+  //       // 고유한 재질 목록 추출
+  //       const uniqueMaterials = [
+  //         ...new Set(categoryProducts.map((product) => product.info.materials)),
+  //       ];
+  //       setMaterials(uniqueMaterials);
+
+  //       // 로딩 상태 해제 (선택 사항)
+  //       // setLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching products:", error);
+  //       // 오류 발생 시 더미 데이터 사용
+  //       const dummyProducts = [];
+  //       for (let i = 1; i <= 9; i++) {
+  //         dummyProducts.push({
+  //           code: i,
+  //           title: `BUBBLE ${(i % 3) + 1}`,
+  //           product: "SOFA",
+  //           price: 300000 + (i % 5) * 10000,
+  //           designer: `Designer ${(i % 3) + 1}`,
+  //           materials: i % 2 === 0 ? "fabric" : "leather",
+  //           img: "/path/to/placeholder.jpg",
+  //         });
+  //       }
+  //       setProducts(dummyProducts);
+  //       // 로딩 상태 해제 (선택 사항)
+  //       // setLoading(false);
+  //     });
+
   useEffect(() => {
-    if (urlCategory) {
-      // URL이 변경되면 카테고리도 업데이트
-      const singularCategory = urlCategory.endsWith("s")
-        ? urlCategory.slice(0, -1)
-        : urlCategory;
-      setCategory(singularCategory.toUpperCase());
-    }
+    const dbData = "https://yj901.github.io/kuora-db/db/products.json";
+
+    fetch(dbData)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setDatas(data);
+        // URL 파라미터 기준 카테고리 설정
+        const rawCategory = urlCategory
+          ? urlCategory.endsWith("s")
+            ? urlCategory.slice(0, -1)
+            : urlCategory
+          : "sofa";
+        const categoryKey = rawCategory.toLowerCase() + "s";
+
+        const categoryProducts = data.products[categoryKey] || [];
+        console.log("카테고리프로덕츠", categoryProducts);
+
+        setCategory(rawCategory.toUpperCase());
+        setProducts(categoryProducts);
+
+        // 고유 디자이너 목록 추출
+        const uniqueDesigners = [
+          ...new Set(categoryProducts.map((product) => product.info.designer)),
+        ];
+        setDesigners(uniqueDesigners);
+
+        // 고유 재질 목록 추출
+        const uniqueMaterials = [
+          ...new Set(categoryProducts.map((product) => product.info.materials)),
+        ];
+        setMaterials(uniqueMaterials);
+      })
+      .catch((error) => {
+        console.error("Error fetching products:", error);
+        // const dummyProducts = [];
+        // for (let i = 1; i <= 9; i++) {
+        //   dummyProducts.push({
+        //     info: {
+        //       code: i,
+        //       designer: `Designer ${(i % 3) + 1}`,
+        //       materials: i % 2 === 0 ? "fabric" : "leather",
+        //     },
+        //     title: `BUBBLE ${(i % 3) + 1}`,
+        //     product: "SOFA",
+        //     price: 300000 + (i % 5) * 10000,
+        //     img: "/path/to/placeholder.jpg",
+        //   });
+        // }
+        // setCategory("SOFA");
+        // setProducts(dummyProducts);
+        // setDesigners(["Designer 1", "Designer 2", "Designer 3"]);
+        // setMaterials(["fabric", "leather"]);
+      });
   }, [urlCategory]);
 
   // 두 번째 useEffect: 카테고리 상태 변경에 따른 제품 데이터 로드 (기존 코드)
   useEffect(() => {
     try {
       const categoryKey = category.toLowerCase() + "s";
-      const categoryProducts = productsData.products[categoryKey] || [];
+      const categoryProducts = datas.products[categoryKey] || [];
 
       setProducts(categoryProducts);
 
@@ -66,19 +173,19 @@ const Products = () => {
     } catch (error) {
       console.error("Error loading products:", error);
       // 오류 발생 시 더미 데이터 사용
-      const dummyProducts = [];
-      for (let i = 1; i <= 9; i++) {
-        dummyProducts.push({
-          code: i,
-          title: `BUBBLE ${(i % 3) + 1}`,
-          product: "SOFA",
-          price: 300000 + (i % 5) * 10000,
-          designer: `Designer ${(i % 3) + 1}`,
-          materials: i % 2 === 0 ? "fabric" : "leather",
-          img: "/path/to/placeholder.jpg",
-        });
-      }
-      setProducts(dummyProducts);
+      // const dummyProducts = [];
+      // for (let i = 1; i <= 9; i++) {
+      //   dummyProducts.push({
+      //     code: i,
+      //     title: `BUBBLE ${(i % 3) + 1}`,
+      //     product: "SOFA",
+      //     price: 300000 + (i % 5) * 10000,
+      //     designer: `Designer ${(i % 3) + 1}`,
+      //     materials: i % 2 === 0 ? "fabric" : "leather",
+      //     img: "/path/to/placeholder.jpg",
+      //   });
+      // }
+      // setProducts(dummyProducts);
       // 로딩 상태 해제 (선택 사항)
       // setLoading(false);
     }
@@ -111,7 +218,7 @@ const Products = () => {
   const filteredProducts = products
     .filter((product) => {
       // 카테고리 필터링은 이미 fetch에서 처리됨
-
+      console.log("product는", product);
       // 재질 필터링
       if (filters.materials && product.info.materials !== filters.materials)
         return false;

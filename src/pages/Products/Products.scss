@@ -1,11 +1,9 @@
-@import "../../styles/_font";
-@import "../../styles/_global";
-@import "../../styles/_responsive";
-@import "../../styles/_variables";
+@import "/src/styles/variables";
+@import "/src/styles/responsive";
 
 .products-page {
   // max-width: 1820px;
-  // margin: 0 auto;
+  margin-bottom: 162px;
   padding-top: 20px;
 
   .products-header {

@@ -1,0 +1,548 @@
+@import "../../styles/font";
+@import "../../styles/global";
+@import "../../styles/responsive";
+@import "../../styles/variables";
+.payment_wrapper {
+  width: 1200px;
+  margin: 0 auto;
+  overflow: hidden;
+  .payment {
+    display: flex;
+    width: 1100px;
+    // align-items: center;
+    justify-content: space-between;
+    margin: 203px auto 485px auto;
+
+    // @media (max-width: 768px) {
+    //   flex-direction: column;
+    // }
+
+    // @include tablet {
+    //   flex-direction: column;
+    //   width: 90%;
+    //   margin: 120px auto;
+    // }
+
+    // @include mobile {
+    //   margin: 100px auto;
+    // }
+
+    &_left,
+    &_right {
+      width: 50%;
+    }
+
+    &_left {
+      width: 50%;
+      background-color: #f7f7f7;
+
+      // 주문 결제
+      .order_payment {
+        margin-bottom: 110px;
+
+        h2 {
+          font-size: 25px;
+          font-weight: 500;
+          margin-bottom: 45px;
+        }
+
+        .payment_method {
+          display: flex;
+          width: 450px;
+          height: 48px;
+          gap: 0px;
+          margin-bottom: 45px;
+
+          .method_button01,
+          .method_button02 {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            justify-content: center;
+            border: none;
+            font-weight: normal;
+            font-size: 15px;
+            font-family: "Pretendard", sans-serif;
+            cursor: pointer;
+          }
+
+          .method_button01 {
+            background-color: #03c75a;
+            color: #fff;
+          }
+
+          .method_button02 {
+            background-color: #fee500;
+            color: #3d1e1e;
+          }
+        }
+
+        .divider {
+          display: flex;
+          align-items: center;
+          gap: auto;
+          width: 450px;
+
+          hr {
+            flex: 1;
+            border: none;
+            border-top: 1px solid #d1d1d1;
+          }
+
+          span {
+            font-size: 12px;
+            font-weight: lighter;
+            color: #000;
+            font-size: "Lato", sans-serif;
+          }
+        }
+      }
+
+      // 구매자 정보
+      .buyer_info {
+        margin-bottom: 110px;
+        h3 {
+          font-size: 20px;
+          font-weight: 500;
+          font-family: "Pretendard", sans-serif;
+          margin-bottom: 45px;
+        }
+
+        .buyer_form {
+          display: flex;
+          flex-direction: column;
+          gap: 25px;
+
+          input {
+            padding: 12px 14px;
+            font-size: 14px;
+            font-weight: 300;
+            font-family: "Pretendard", sans-serif;
+            color: #333;
+            border: 1px solid #d1d1d1;
+            width: 450px;
+            height: 48px;
+
+            &::placeholder {
+              color: #999;
+            }
+          }
+          .email_container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            max-width: 450px;
+
+            .email_input,
+            .domain_input,
+            .domain_select {
+              flex: 1;
+              height: 48px;
+              padding: 12px 14px;
+              font-size: 14px;
+              color: #333;
+              border: 1px solid #d1d1d1;
+              box-sizing: border-box;
+
+              &::placeholder {
+                color: #999;
+              }
+            }
+
+            .email_at {
+              font-size: 15px;
+              color: #555;
+              line-height: 48px;
+            }
+          }
+        }
+      }
+
+      // 배송지 정보
+      .shipping_info {
+        margin-bottom: 110px;
+        h3 {
+          font-size: 20px;
+          font-weight: 500;
+          font-family: "Pretendard", sans-serif;
+          margin-bottom: 45px;
+        }
+
+        .shipping_form {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+
+          input,
+          select {
+            width: 450px;
+            height: 48px;
+            padding: 12px 14px;
+            font-size: 14px;
+            font-weight: 300;
+            font-family: "Pretendard", sans-serif;
+            color: #333;
+            border: 1px solid #d1d1d1;
+            box-sizing: border-box;
+
+            &::placeholder {
+              color: #999;
+            }
+          }
+
+          .payment_zipcode {
+            display: flex;
+            gap: 10px;
+
+            .zipcode_input {
+              // flex: 1;
+              width: 142px;
+              height: 48px;
+            }
+
+            button {
+              width: 102px;
+              height: 48px;
+              background-color: #f1f1f1;
+              border: 1px solid #d1d1d1;
+              font-size: 14px;
+              font-family: "Pretendard", sans-serif;
+              cursor: pointer;
+
+              &:hover {
+                background-color: #e6e6e6;
+              }
+            }
+          }
+
+          .request_select {
+            appearance: none;
+            background: url("data:image/svg+xml;charset=US-ASCII,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23999' stroke-width='1.5' fill='none' fill-rule='evenodd'/%3E%3C/svg%3E")
+              no-repeat right 14px center;
+            background-color: #fff;
+            background-size: 10px 6px;
+          }
+
+          .custom_request_input {
+            width: 450px;
+            height: 48px;
+            padding: 12px 14px;
+            font-size: 14px;
+            font-weight: 300;
+            font-family: "Pretendard", sans-serif;
+            color: #333;
+            border: 1px solid #d1d1d1;
+
+            &::placeholder {
+              color: #999;
+            }
+          }
+        }
+      }
+
+      // 결제 수단
+      .payment_mean {
+        h3 {
+          font-size: 20px;
+          font-weight: 500;
+          font-family: "Pretendard", sans-serif;
+          margin-bottom: 45px;
+        }
+        h4 {
+          font-size: 16px;
+          font-weight: lighter;
+          font-family: "Pretendard", sans-serif;
+          margin-bottom: 20px;
+        }
+
+        .mean_choice {
+          display: flex;
+          gap: 0px;
+          margin-bottom: 20px;
+          width: 450px;
+          height: 48px;
+
+          .btn--tab {
+            flex: 1;
+            padding: 10px 20px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            font-size: 14px;
+            font-family: "Pretendard", sans-serif;
+            color: #333;
+            cursor: pointer;
+
+            &.active {
+              border-color: #333;
+              background-color: #f7f7f7;
+              font-weight: 500;
+            }
+          }
+        }
+
+        .notice {
+          width: 450px;
+          text-align: center;
+          font-size: 13px;
+          color: #999;
+          margin-bottom: 45px;
+          font-family: "Pretendard", sans-serif;
+        }
+
+        .agreements {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+
+          label {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            font-family: "Pretendard", sans-serif;
+            color: #333;
+
+            input[type="checkbox"] {
+              margin-right: 10px;
+              width: 16px;
+              height: 16px;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+
+    &_right {
+      width: 50%;
+      background-color: #fafafa;
+
+      .payment_summary {
+        width: 450px;
+        height: 514px;
+        margin-left: 100px;
+        background-color: #fafafa;
+        font-family: "Pretendard", sans-serif;
+        display: flex;
+        flex-direction: column;
+        gap: 39px;
+
+        // @include mobile {
+        //   margin-left: 0px;
+        //   margin-top: 110px;
+        // }
+
+        // @include tablet {
+        //   width: 100%;
+        //   margin-left: 0;
+        //   margin-top: 60px;
+        // }
+
+        // @include mobile {
+        //   gap: 24px;
+        // }
+
+        .summary_product {
+          display: flex;
+          align-items: center;
+          gap: 15px;
+
+          img {
+            width: 90px;
+            height: 90px;
+            object-fit: cover;
+          }
+
+          &_info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 15px;
+            & > .summary_product_name {
+              font-size: 20px;
+              font-weight: lighter;
+              font-family: "Lato", sans-serif;
+            }
+
+            & > .summary_product_subinfo {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+
+              .summary_product_quantity {
+                font-size: 14px;
+                font-weight: lighter;
+                font-family: "Pretendard", sans-serif;
+                color: #888;
+              }
+
+              .summary_product_price {
+                font-size: 18px;
+                font-weight: lighter;
+                font-family: "Pretendard", sans-serif;
+                color: #000;
+              }
+            }
+          }
+        }
+
+        .summary_coupon {
+          display: flex;
+          gap: 24px;
+
+          input {
+            flex: 1;
+            width: 349px;
+            height: 50px;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+          }
+
+          button {
+            // padding: 10px 16px;
+            font-weight: lighter;
+            font-family: "Pretendard", sans-serif;
+            font-size: 15px;
+            background-color: #c7d4dd;
+            color: #000;
+            border: none;
+            text-align: center;
+            cursor: pointer;
+            width: 77px;
+            height: 100%;
+
+            // &:hover {
+            //   // background-color: #333;
+            // }
+          }
+        }
+
+        .summary_breakdown {
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+          font-family: "Pretendard", sans-serif;
+          font-size: 16px;
+          font-weight: lighter;
+          div {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+
+            span:last-child {
+              font-weight: lighter;
+              font-size: 16px;
+            }
+          }
+        }
+
+        .summary_total {
+          display: flex;
+          justify-content: space-between;
+          padding-top: 12px;
+          // font-size: 16px;
+          // font-weight: 600;
+
+          strong:first-child {
+            font-size: 20px;
+            font-weight: normal;
+            font-family: "Pretendard Variable", sans-serif;
+          }
+
+          strong:last-child {
+            font-weight: 600;
+            font-family: "Pretendard", sans-serif;
+            font-size: 25px;
+          }
+        }
+
+        hr {
+          border: 1px solid #d1d1d1;
+        }
+        .summary_submit {
+          width: 100%;
+          height: 62px;
+          // padding: 14px;
+          background-color: #8ba4b5;
+          color: #fff;
+          border: none;
+          font-size: 16px;
+          cursor: pointer;
+          transition: background-color 0.2s;
+
+          &:hover {
+            background-color: #8ba4b5;
+            opacity: 0.8;
+          }
+        }
+      }
+    }
+  }
+}
+// 📱 반응형 스타일
+// @include tablet {
+//   flex-direction: column;
+//   width: 90%;
+//   margin: 120px auto;
+
+//   &_left,
+//   &_right {
+//     width: 100%;
+//   }
+
+//   &_right {
+//     margin-top: 60px;
+
+//     .payment_summary {
+//       width: 100%;
+//       margin-left: 0;
+//       gap: 32px;
+//     }
+//   }
+
+//   input,
+
+//   .summary_coupon,
+//   .mean_choice,
+//   .notice {
+//     width: 100% !important;
+//   }
+// }
+
+@include mobile {
+  .payment_wrapper {
+    width: 100%;
+    // overflow: hidden;
+    .payment {
+      flex-direction: column;
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+      // overflow: hidden;
+      // margin-left: 0px;
+      // margin: 0;
+      background-color: #f7f7f7;
+      // align-items: center;
+      .payment_left {
+        // flex: 1;
+        // width: 100%;
+        min-width: auto;
+        display: flex;
+        flex-direction: column;
+        margin-left: 18px;
+      }
+      .payment_right {
+        // flex: 1;
+        // width: 100%;
+        min-width: auto;
+        .payment_summary {
+          margin-left: 18px;
+          margin-top: 110px;
+        }
+      }
+    }
+  }
+}

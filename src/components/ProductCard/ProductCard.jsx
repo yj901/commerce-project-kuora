@@ -1,57 +1,46 @@
-// ProductCard.jsx 파일 수정
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { resolveImage } from "../../utils/resolveImg";
 import "./ProductCard.scss";
 
 const ProductCard = ({ product, showDivider = true }) => {
+  // 마우스 오버 상태를 추적하는 state 추가
+  const [isHovered, setIsHovered] = useState(false);
+
+  // 제품 정보 구조 분해 할당
   const { code, title, price, img } = product;
 
-  const getThumbnailPath = () => {
-    try {
-      if (img && img.thumbnailImg && img.thumbnailImg.length > 0) {
-        let imgPath = img.thumbnailImg[0];
-        console.log("Original imgPath:", imgPath);
+  let thumbnailImage;
+  let backgroundImage;
 
-        // 경로가 ./imgs/로 시작하는 경우 처리
-        if (imgPath.startsWith("./imgs/")) {
-          // React의 public 폴더 기준으로 경로 변환
-          return `${process.env.PUBLIC_URL}${imgPath.substring(1)}`;
-        }
+  // 썸네일 이미지 경로 설정
+  if (img && img.thumbnailImg && img.thumbnailImg.length > 0) {
+    const imgPath = img.thumbnailImg[0];
+    thumbnailImage = resolveImage(imgPath);
+  } else {
+    thumbnailImage = "/img/placeholder.jpg"; // 대체 이미지
+  }
 
-        // 이미지 경로가 상대 경로인 경우 (./로 시작하지 않는 경우)
-        if (!imgPath.startsWith("/") && !imgPath.startsWith("./")) {
-          return `${process.env.PUBLIC_URL}/imgs/${imgPath}`;
-        }
+  // 배경 이미지 경로 설정
+  if (img && img.backgroundImg && img.backgroundImg.length > 0) {
+    const bgImgPath = img.backgroundImg[0];
+    backgroundImage = resolveImage(bgImgPath);
+  } else {
+    backgroundImage = thumbnailImage; // 배경 이미지가 없으면 썸네일 이미지 사용
+  }
 
-        // 경로가 /로 시작하는 경우 (절대 경로)
-        return imgPath;
-      }
-
-      // 단순 문자열인 경우
-      if (typeof img === "string") {
-        if (img.startsWith("./")) {
-          return `${process.env.PUBLIC_URL}${img.substring(1)}`;
-        }
-        return img;
-      }
-
-      // 기본 이미지 (require 사용하지 않음)
-      return `https://via.placeholder.com/300x200?text=${title || "Product"}`;
-    } catch (error) {
-      console.error("이미지 경로 처리 중 오류:", error);
-      console.log("문제가 된 이미지 데이터:", img);
-      return `https://via.placeholder.com/300x200?text=${title || "Error"}`;
-    }
-  };
-
-  const thumbnailImage = getThumbnailPath();
-  console.log("최종 이미지 경로:", thumbnailImage);
+  // 현재 표시할 이미지 결정
+  const currentImage = isHovered ? backgroundImage : thumbnailImage;
 
   return (
-    <div className={`product-card ${showDivider ? "with-divider" : ""}`}>
+    <div
+      className={`product-card ${showDivider ? "with-divider" : ""}`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <Link to={`/detail?id=${code}`}>
         <div className="product-image">
-          <img src={thumbnailImage} alt={title} />
+          <img src={currentImage} alt={title} />
         </div>
         <div className="product-info">
           <h3>{title}</h3>
