@@ -21,7 +21,6 @@ export const ProductProvider = ({ children }) => {
       .then((data) => {
         setDatas(data);
         setAllProducts(data.products);
-        console.log(data);
         setLoading(false);
       })
       .catch((error) => {
