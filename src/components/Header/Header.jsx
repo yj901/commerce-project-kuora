@@ -6,6 +6,7 @@ import HeaderCartModal from "./HeaderCartModal";
 import IconSearchBtn from "../../assets/icons/searchBtn.svg";
 import IconCartBtn from "../../assets/icons/cartBtn.svg";
 import IconLogo from "../../assets/icons/logo_kuora.svg";
+import IconClose from "../../assets/icons/header_search_close.svg";
 
 import "./Header.scss";
 
@@ -65,9 +66,9 @@ const Header = () => {
                   name="search_bar_pc"
                   method="#"
                   action="post"
-                  className="search_bar"
+                  className="search_form"
                 >
-                  <div>
+                  <div className="input_wrap">
                     <input
                       className="search_txt"
                       type="text"
@@ -77,6 +78,10 @@ const Header = () => {
                   <button className="search_btn">
                     <img src={IconSearchBtn} alt="searchBtn" />
                   </button>
+                  <div className="mb_closeBtn ">
+                    <img src={IconSearchBtn} alt="searchBtn" />
+                    <img src={IconClose} alt="closeBtn" />
+                  </div>
                 </form>
               </div>
               <div className="cart_btn" onClick={() => setIsCartOpen(true)}>
@@ -85,6 +90,24 @@ const Header = () => {
             </div>
           </div>
         </div>
+        <form
+          id="search_form_mb"
+          name="search_bar_mb"
+          method="#"
+          action="post"
+          className="search_bar"
+        >
+          <div className="input_wrap">
+            <input
+              className="search_txt"
+              type="text"
+              placeholder="찾으시는 상품을 입력해주세요."
+            />
+          </div>
+          <button className="search_btn">
+            <img src={IconSearchBtn} alt="searchBtn" />
+          </button>
+        </form>
         <HeaderLeftMenu isActive={isMenuActive} setisActive={setIsMenuActive} />
         <HeaderCartModal />
       </header>
