@@ -68,6 +68,7 @@ export const ProductProvider = ({ children }) => {
 // 커스텀 훅으로 Context 사용 간소화
 export const useProducts = () => {
   const context = useContext(ProductContext);
+
   if (context === undefined) {
     throw new Error("useProducts must be used within a ProductProvider");
   }
