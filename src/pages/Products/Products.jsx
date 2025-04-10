@@ -44,13 +44,10 @@ const Products = () => {
   //     })
   //     .then((data) => {
   //       setDatas(data);
-  //       console.log("Loaded data:", data); // 데이터 구조 확인용
 
   //       // 선택된 카테고리에 맞는 제품 가져오기
   //       const categoryKey = category.toLowerCase() + "s"; // 'sofa' -> 'sofas'
   //       const categoryProducts = data.products[categoryKey] || [];
-
-  //       console.log("Category products:", categoryProducts); // 카테고리별 제품 확인
 
   //       setProducts(categoryProducts);
 
@@ -110,7 +107,6 @@ const Products = () => {
         const categoryKey = rawCategory.toLowerCase() + "s";
 
         const categoryProducts = data.products[categoryKey] || [];
-        console.log("카테고리프로덕츠", categoryProducts);
 
         setCategory(rawCategory.toUpperCase());
         setProducts(categoryProducts);
@@ -217,7 +213,6 @@ const Products = () => {
   const filteredProducts = products
     .filter((product) => {
       // 카테고리 필터링은 이미 fetch에서 처리됨
-      console.log("product는", product);
       // 재질 필터링
       if (filters.materials && product.info.materials !== filters.materials)
         return false;
@@ -382,7 +377,6 @@ const Products = () => {
         <div className="products-grid inner">
           {filteredProducts.length > 0 ? (
             filteredProducts.map((product) => {
-              console.log("Product data:", product);
               return (
                 <ProductCard
                   key={product.info.code}

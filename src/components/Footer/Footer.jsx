@@ -1,8 +1,33 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Footer.scss";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  // 스크롤 위치에 따라 버튼 표시 여부 결정
+  useEffect(() => {
+    const toggleVisibility = () => {
+      if (window.pageYOffset > 300) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    };
+
+    window.addEventListener("scroll", toggleVisibility);
+
+    return () => window.removeEventListener("scroll", toggleVisibility);
+  }, []);
+
+  // 상단으로 스크롤 이동 함수
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <footer className="footer">
       <div className="footer-content inner">
@@ -71,6 +96,27 @@ const Footer = () => {
           </div>
         </div>
       </div>
+
+      {/* 상단으로 이동 버튼 */}
+      <button
+        className={`scroll-to-top ${isVisible ? "visible" : ""}`}
+        onClick={scrollToTop}
+        aria-label="상단으로 이동"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M18 15l-6-6-6 6" />
+        </svg>
+      </button>
     </footer>
   );
 };

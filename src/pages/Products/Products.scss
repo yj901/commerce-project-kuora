@@ -228,18 +228,14 @@
           .filter-dropdown-header {
             height: 40px; // 모든 헤더의 높이를 통일
             white-space: nowrap; // 텍스트를 한 줄로 유지
-            overflow: visible; // 넘치는 텍스트 숨김
+            overflow: ellipsis; // 넘치는 텍스트 숨김
 
             span {
               font-size: 20px;
               font-weight: 300;
               white-space: nowrap; // 텍스트를 한 줄로 유지
               overflow: hidden;
-              text-overflow: ellipsis;
               padding-right: 20px; // 화살표 공간 확보
-            }
-
-            .arrow {
             }
           }
         }
