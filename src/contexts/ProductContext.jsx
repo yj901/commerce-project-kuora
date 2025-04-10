@@ -5,6 +5,7 @@ const ProductContext = createContext();
 
 // Context Provider 컴포넌트
 export const ProductProvider = ({ children }) => {
+  const [datas, setDatas] = useState([]);
   const [allProducts, setAllProducts] = useState({});
   const [currentCategory, setCurrentCategory] = useState("SOFA");
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -12,11 +13,15 @@ export const ProductProvider = ({ children }) => {
 
   // 모든 제품 데이터 로드
   useEffect(() => {
+    const dbData = "https://yj901.github.io/kuora-db/db/products.json";
+
     setLoading(true);
-    fetch("/db/products.json")
+    fetch(dbData)
       .then((response) => response.json())
       .then((data) => {
+        setDatas(data);
         setAllProducts(data.products);
+        console.log(data);
         setLoading(false);
       })
       .catch((error) => {

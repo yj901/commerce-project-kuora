@@ -1,6 +1,474 @@
-@import "/src/styles/variables"; //변수 불러오는건 이거로 복붙하시면 됩니다! 절대경로 /src부터 시작하는거라 어느 곳에서 쓰던 동일
+@import "/src/styles/variables";
+@import "/src/styles/responsive";
 
-//variables test용
-// div {
-//   color: map-get($map: $color, $key: gray_9);
-// }
+.bread {
+  margin-top: 54px;
+  padding: 0 50px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid map-get($map: $color, $key: gray_9);
+}
+
+@mixin p_style {
+  font-size: 1.8rem;
+  font-weight: 300;
+  line-height: 2;
+  word-break: keep-all;
+  @include desktop {
+    font-size: 1.6rem;
+  }
+  @include tablet {
+    font-size: 1.5rem;
+    line-height: 1.9;
+  }
+  @include mobile {
+    font-size: 1.4rem;
+  }
+}
+
+.inner1500 {
+  width: 1500px;
+  margin: 0 auto;
+  @include desktop1600 {
+    width: auto;
+    margin: 0 30px;
+  }
+  @include tablet {
+    margin: 0 18px;
+  }
+}
+
+// EventTop
+.sub_event_top {
+  width: 100%;
+  .inner {
+    margin-top: 50px;
+    .banner_bg {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      height: 700px;
+      background: url("../../assets/imgs/events/event_top_banner.jpg") no-repeat
+        center/cover;
+      .txt_wrap {
+        position: absolute;
+        top: 50%;
+        left: 55%;
+        transform: translateY(-50%);
+        color: #fff;
+        padding: 40px;
+        h3 {
+          font-size: 5rem;
+          font-weight: 300;
+          line-height: 1.1;
+        }
+        hr {
+          margin: 38px 0 40px;
+          width: 127px;
+          border: none;
+          border-top: 1px solid map-get($map: $color, $key: light);
+        }
+        p {
+          font-size: 2.3rem;
+          font-weight: 300;
+          span {
+            font-weight: 700;
+          }
+        }
+      }
+    }
+  }
+
+  @include desktop1600 {
+    .inner {
+      margin-top: 30px;
+      .banner_bg {
+        height: 600px;
+        .txt_wrap {
+          left: 50%;
+          h3 {
+            font-size: 4.5rem;
+          }
+          p {
+            font-size: 2rem;
+          }
+        }
+      }
+    }
+  }
+
+  @include tablet {
+    .inner {
+      margin-top: 18px;
+      .banner_bg {
+        height: 400px;
+        .txt_wrap {
+          h3 {
+            font-size: 3.5rem;
+          }
+          hr {
+            margin: 24px 0 30px;
+            width: 100px;
+          }
+          p {
+            font-size: 1.8rem;
+          }
+        }
+      }
+    }
+  }
+
+  @include mobile {
+    .inner {
+      .banner_bg {
+        height: 260px;
+        .txt_wrap {
+          left: 41%;
+          h3 {
+            font-size: 2.3rem;
+          }
+          hr {
+            margin: 16px 0 20px;
+            width: 80px;
+          }
+          p {
+            font-size: 1.6rem;
+          }
+        }
+      }
+    }
+  }
+  @include mobile500 {
+    .inner {
+      .banner_bg {
+        height: 220px;
+        .txt_wrap {
+          h3 {
+            font-size: 2.2rem;
+          }
+          hr {
+            margin: 16px 0 20px;
+            width: 60px;
+          }
+          p {
+            font-size: 1.4rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+// EventProfiles
+.event_profile {
+  dl {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .txt {
+      h5 {
+        font-size: 1.8rem;
+        font-weight: 300;
+        text-transform: uppercase;
+      }
+      h4 {
+        margin: 7px 0 82px;
+        font-size: 6.5rem;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+      p {
+        @include p_style;
+        &:nth-of-type(2) {
+          margin-top: 20px;
+        }
+      }
+    }
+    .img {
+      figure {
+        width: 100%;
+        height: 100%;
+        background: no-repeat center/cover;
+      }
+    }
+  }
+  &.epf1 {
+    margin-top: 150px;
+    dl {
+      .img {
+        width: 780px;
+        height: 834px;
+        .img1 {
+          background-image: url("../../assets/imgs/events/event_profileImg1.jpg");
+        }
+      }
+    }
+  }
+  &.epf2 {
+    margin-top: 130px;
+    dl {
+      flex-direction: row-reverse;
+      justify-content: start;
+      gap: 125px;
+      .img {
+        width: 798px;
+        height: 455px;
+        .img2 {
+          background-image: url("../../assets/imgs/events/event_profileImg2.jpg");
+        }
+      }
+    }
+  }
+
+  @include desktop1600 {
+    dl {
+      .txt {
+        h5 {
+          font-size: 1.7rem;
+        }
+        h4 {
+          margin: 7px 0 70px;
+          font-size: 5.5rem;
+        }
+      }
+    }
+    &.epf1 {
+      margin-top: 120px;
+      dl {
+        .txt {
+          padding-left: 110px;
+        }
+        .img {
+          width: 40vw;
+          height: 50vw;
+        }
+      }
+    }
+    &.epf2 {
+      margin-top: 130px;
+      dl {
+        gap: 110px;
+        .img {
+          width: 50vw;
+          height: 30vw;
+        }
+      }
+    }
+  }
+
+  @include desktop {
+    dl {
+      .txt {
+        h5 {
+          font-size: 1.6rem;
+        }
+        h4 {
+          margin: 7px 0 60px;
+          font-size: 4.8rem;
+        }
+      }
+    }
+    &.epf1 {
+      margin-top: 120px;
+      dl {
+        .txt {
+          padding-left: 60px;
+        }
+      }
+    }
+    &.epf2 {
+      margin-top: 130px;
+      dl {
+        gap: 70px;
+      }
+    }
+  }
+
+  @include tablet {
+    dl {
+      .txt {
+        h5 {
+          font-size: 1.4rem;
+        }
+        h4 {
+          margin: 6px 0 50px;
+          font-size: 4rem;
+        }
+      }
+    }
+    &.epf1 {
+      margin-top: 120px;
+      dl {
+        .txt {
+          padding-left: 40px;
+        }
+      }
+    }
+    &.epf2 {
+      margin-top: 100px;
+      dl {
+        gap: 6vw;
+        .img {
+          width: 47vw;
+          height: 30vw;
+        }
+      }
+    }
+  }
+
+  @include mobile {
+    dl {
+      flex-wrap: wrap;
+      .txt {
+        width: 100%;
+
+        h5 {
+          font-size: 1.4rem;
+        }
+        h4 {
+          margin: 4px 0 40px;
+          font-size: 3rem;
+        }
+        p {
+          br {
+            display: none;
+          }
+        }
+      }
+      .img {
+        max-width: 100%;
+        margin: 0 auto;
+        margin-top: 4vw;
+      }
+    }
+    &.epf1 {
+      margin-top: 100px;
+      dl {
+        .txt {
+          padding-left: 0px;
+        }
+        .img {
+          width: calc(400px + 5vw);
+          height: 62vw;
+        }
+      }
+    }
+    &.epf2 {
+      margin-top: 70px;
+      dl {
+        gap: 0;
+        .img {
+          width: calc(400px + 25vw);
+          height: 40vw;
+        }
+      }
+    }
+  }
+
+  @include mobile500 {
+    dl {
+      .txt {
+        h5 {
+          font-size: 1.3rem;
+        }
+        h4 {
+          margin: 4px 0 30px;
+          font-size: 2.4rem;
+        }
+        p {
+          font-size: 1.3rem;
+        }
+      }
+    }
+    &.epf1 {
+      margin-top: 80px;
+    }
+    &.epf2 {
+      margin-top: 60px;
+    }
+  }
+}
+
+// EventDesigner
+.event_designer_banner {
+  margin-top: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url("../../assets/imgs/events/event_designer_banner.jpg")
+    no-repeat center/cover;
+  padding: 145px 0;
+  p {
+    text-align: center;
+    font-size: 2.2rem;
+    line-height: 1.6;
+    font-weight: 300;
+    color: map-get($map: $color, $key: light);
+    span {
+      font-weight: 600;
+    }
+    br {
+      display: none;
+    }
+  }
+
+  @include desktop1600 {
+    margin-top: 170px;
+    padding: 130px 0;
+    p {
+      font-size: 2rem;
+    }
+  }
+  @include tablet {
+    margin-top: 130px;
+    padding: 110px 0;
+    p {
+      font-size: 1.9rem;
+    }
+  }
+  @include mobile {
+    margin-top: 110px;
+    padding: 90px 0;
+    p {
+      font-size: 1.7rem;
+    }
+  }
+  @include mobile500 {
+    margin-top: 90px;
+    padding: 70px 0;
+    background-position: 60% center;
+    p {
+      font-size: 1.5rem;
+      br {
+        display: block;
+      }
+    }
+  }
+}
+
+.event_furniture {
+  .desc_wrap {
+    margin: 140px 0 140px;
+    .desc {
+      @include p_style;
+      @include mobile500 {
+        br {
+          display: none;
+        }
+      }
+    }
+  }
+
+  @include tablet {
+    .desc_wrap {
+      margin: 100px 0 120px;
+    }
+  }
+
+  @include mobile {
+    .desc_wrap {
+      margin: 80px 0 100px;
+    }
+  }
+}

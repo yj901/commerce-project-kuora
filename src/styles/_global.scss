@@ -1,4 +1,5 @@
-@import "./variables";
+@import "/src/styles/responsive";
+@import "/src/styles/variables";
 
 * {
   margin: 0;
@@ -28,4 +29,10 @@ body {
 
 .inner {
   margin: 0 50px;
+  @include desktop1600 {
+    margin: 0 30px;
+  }
+  @include tablet {
+    margin: 0 18px;
+  }
 }
