@@ -508,6 +508,16 @@
   grid-template-columns: repeat(3, 1fr);
   row-gap: 33px;
   column-gap: 37px;
+  .product-card {
+    &::after {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 1px;
+      background-color: #ddd;
+      margin: 14px 0px 0px;
+    }
+  }
   @include desktop1600 {
     column-gap: 30px;
   }
