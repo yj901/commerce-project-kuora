@@ -14,7 +14,6 @@ const routeNameMap = {
 function Breadcrumb() {
   const location = useLocation();
   const pathnames = location.pathname.split("/").filter((x) => x);
-  console.log(pathnames);
 
   const crumbs = pathnames.map((segment, index) => {
     const path = "/" + pathnames.slice(0, index + 1).join("/");
