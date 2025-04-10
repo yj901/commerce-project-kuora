@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useProducts } from "../../contexts/ProductContext";
 import "./Home.scss";
 import ReactPlayer from "react-player";
@@ -19,7 +20,7 @@ export const Home = () => {
     const filtered = Object.values(allProducts)
       .flat()
       .filter((product) => product?.best === true);
-
+    console.log(filtered);
     const filteredEvent = Object.values(allProducts)
       .flat()
       .filter((product) => product.info?.collection === "Elias Klemens");
@@ -97,38 +98,49 @@ export const Home = () => {
         <div className="inner">
           <p className="category_font">CATEGORY</p>
           <div className="grid_container_1">
-            <div className="grid_item">
-              <div className="img_div">
-                <img src={MAIN_SOFA} alt="BED" />
+            <Link to={"/products/sofas"}>
+              <div className="grid_item">
+                <div className="img_div">
+                  <img src={MAIN_SOFA} alt="BED" />
+                </div>
+                <p className="text">SOFAS</p>
               </div>
-              <p className="text">SOFAS</p>
-            </div>
-            <div className="grid_item">
-              <div className="img_div">
-                <img src={MAIN_BED} alt="BED" />
+            </Link>
+
+            <Link to={"/products/beds"}>
+              <div className="grid_item">
+                <div className="img_div">
+                  <img src={MAIN_BED} alt="BED" />
+                </div>
+                <p className="text">BEDS</p>
               </div>
-              <p className="text">BEDS</p>
-            </div>
+            </Link>
           </div>
           <div className="grid_container_2">
-            <div className="grid_item">
-              <div className="img_div">
-                <img src={MAIN_TABLE} alt="Table" />
+            <Link to={"/products/tables"}>
+              <div className="grid_item">
+                <div className="img_div">
+                  <img src={MAIN_TABLE} alt="Table" />
+                </div>
+                <p className="text">TABLES</p>
               </div>
-              <p className="text">TABLES</p>
-            </div>
-            <div className="grid_item">
-              <div className="img_div">
-                <img src={MAIN_CHAIR} alt="Chair" />
+            </Link>
+            <Link to={"/products/chairs"}>
+              <div className="grid_item">
+                <div className="img_div">
+                  <img src={MAIN_CHAIR} alt="Chair" />
+                </div>
+                <p className="text">CHAIRS</p>
               </div>
-              <p className="text">CHAIRS</p>
-            </div>
-            <div className="grid_item">
-              <div className="img_div">
-                <img src={MAIN_SHELF} alt="Shelf" />
+            </Link>
+            <Link to={"/products/shelves"}>
+              <div className="grid_item">
+                <div className="img_div">
+                  <img src={MAIN_SHELF} alt="Shelf" />
+                </div>
+                <p className="text">SHELVES</p>
               </div>
-              <p className="text">SHELVES</p>
-            </div>
+            </Link>
           </div>
         </div>
       </section>
