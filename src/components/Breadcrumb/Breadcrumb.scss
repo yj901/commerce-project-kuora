@@ -1,0 +1,43 @@
+@import "../../styles/variables";
+@import "../../styles/responsive";
+
+.breadcrumb {
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  height: 58px;
+  top: 50px;
+  color: map-get($map: $color, $key: dark);
+  font-size: 1.7rem;
+  background: map-get($map: $color, $key: light);
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  font-weight: 300;
+  &::after {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background-color: map-get($map: $color, $key: gray_d1);
+  }
+  a {
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  .arrow {
+    margin: 0 5px;
+  }
+}
+
+@include mobile {
+  .breadcrumb {
+    font-size: 1.5rem;
+    height: 52px;
+  }
+}

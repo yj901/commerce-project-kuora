@@ -89,7 +89,7 @@
                 .search_txt {
                   color: map-get($map: $color, $key: dark);
                   &::placeholder {
-                    color: map-get($map: $color, $key: light);
+                    color: map-get($map: $color, $key: gray_9);
                   }
                 }
                 &::before {
@@ -204,7 +204,7 @@
               .input_wrap {
                 margin-bottom: 2px;
                 .search_txt {
-                  width: 200px;
+                  width: 210px;
                   padding-bottom: 8px;
                   &::placeholder {
                     font-size: 1.3rem;
