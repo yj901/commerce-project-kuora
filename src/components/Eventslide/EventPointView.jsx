@@ -1,18 +1,26 @@
+import React from "react";
+import { Link } from "react-router-dom";
 import "./Eventslide.scss";
+import { resolveImage } from "../../utils/resolveImg";
 
-const EventPointView = () => {
+const EventPointView = React.memo(({ data }) => {
+  if (!data) return null;
   return (
     <div className="point_viewBox">
-      <figure>{/* <img src="" alt="" /> */}</figure>
+      <figure>
+        <img src={resolveImage(data?.img.thumbnailImg[0])} alt={data?.title} />
+      </figure>
       <div className="txt">
-        <h5>Products name</h5>
-        <p>desinger name</p>
+        <h5>{data?.title}</h5>
+        <p>{data?.info.designer}</p>
       </div>
-      <div className="productGoBtn">
-        <p>TO THE PRODUCT</p>
-      </div>
+      <Link to={`/detail?id=${data.info.code}`}>
+        <div className="productGoBtn">
+          <p>TO THE PRODUCT</p>
+        </div>
+      </Link>
     </div>
   );
-};
+});
 
 export default EventPointView;

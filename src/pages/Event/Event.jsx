@@ -4,7 +4,11 @@ import "./Event.scss";
 import EventTop from "../../components/EventsComp/EventTop";
 import EventProfiles from "../../components/EventsComp/EventProfiles";
 import EventDesinger from "../../components/EventsComp/EventDesinger";
+<<<<<<< HEAD
 import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
+=======
+import EventProducts from "../../components/EventsComp/EventProducts";
+>>>>>>> 27c2b81b93c637f622387ea9e0a28ab67bc713b9
 
 const Event = () => {
   return (
@@ -30,6 +34,9 @@ const Event = () => {
             </p>
           </div>
           <EventSlide />
+        </div>
+        <div className="inner">
+          <EventProducts />
         </div>
       </section>
     </>
