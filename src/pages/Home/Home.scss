@@ -1,9 +1,9 @@
 @import "/src/styles/variables";
-
+@import "src/styles/responsive.scss";
 .home {
   width: 100%;
   background: map-get($map: $color, $key: light);
-  overflow-x: hidden;
+  // overflow-x: hidden;
 
   section {
     &:nth-child(1) {
@@ -53,16 +53,71 @@
           position: relative;
           cursor: pointer;
           .text {
-            // border: 1px solid #f00;
             &::after {
               content: "";
               position: absolute;
-              width: 110px;
+              width: 0%;
               height: 1px;
               background: map-get($map: $color, $key: dark);
               bottom: -15px;
-              left: 386px;
+              left: 50%;
+              transform: translateX(-50%);
+              transition: all 0.6s;
+              transform-origin: center;
             }
+          }
+          &:hover > ::after {
+            width: 110px;
+          }
+        }
+
+        .img_div {
+          overflow: hidden;
+          img {
+            // width: 100%;
+            transition: all 0.5s;
+            cursor: pointer;
+
+            &:hover {
+              scale: 1.1;
+            }
+          }
+        }
+        .text {
+          position: relative;
+          width: 100%;
+          font-size: 2.5rem;
+          font-weight: 300;
+          text-align: center;
+          margin: 25px 0 55px 0;
+
+          cursor: pointer;
+        }
+      }
+      .grid_container_2 {
+        display: grid;
+        gap: 30px;
+        grid-template-columns: repeat(3, 1fr);
+
+        .grid_item {
+          position: relative;
+          cursor: pointer;
+          .text {
+            &::after {
+              content: "";
+              position: absolute;
+              width: 0%;
+              height: 1px;
+              background: map-get($map: $color, $key: dark);
+              bottom: -15px;
+              left: 50%;
+              transform: translateX(-50%);
+              transition: all 0.6s;
+              transform-origin: center;
+            }
+          }
+          &:hover > ::after {
+            width: 110px;
           }
         }
 
@@ -89,61 +144,21 @@
           cursor: pointer;
         }
       }
-      .grid_container_2 {
-        display: grid;
-        gap: 30px;
-        grid-template-columns: repeat(3, 1fr);
-
-        .img_div {
-          overflow: hidden;
-          img {
-            width: 100%;
-            transition: all 0.5s;
-            cursor: pointer;
-
-            &:hover {
-              scale: 1.1;
-            }
-          }
-        }
-        .text {
-          width: 100%;
-          font-size: 2.5rem;
-          font-weight: 300;
-          text-align: center;
-          margin: 25px 0 55px 0;
-          cursor: pointer;
-        }
-      }
     }
   }
 }
 
-@media (max-width: 1600px) {
+@include desktop1600 {
   .home {
-    section {
-      padding: 4rem 2rem;
-    }
-
-    .main_vid_text {
-      h1 {
-        font-size: 2.5rem;
-      }
-      p {
-        font-size: 1rem;
-        max-width: 600px;
-      }
-    }
-
-    .grid_container_1,
-    .grid_container_2 {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-
-      .grid_item {
-        width: 45%;
-        margin: 1rem;
+    .inner {
+      .grid_container_1 {
+        .grid_item {
+          .img_div {
+            img {
+              width: 100%;
+            }
+          }
+        }
       }
     }
   }

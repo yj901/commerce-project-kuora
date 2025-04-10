@@ -1,7 +1,7 @@
-/* styles/_responsive.scss */
-
 @mixin desktop1600 {
-
+  @media (max-width: 1600px) {
+    @content;
+  }
 }
 @mixin desktop {
   @media (max-width: 1300px) {
