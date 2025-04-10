@@ -1,5 +1,5 @@
 @import "/src/styles/variables";
-
+@import "src/styles/responsive.scss";
 .home {
   width: 100%;
   background: map-get($map: $color, $key: light);
@@ -9,19 +9,45 @@
     &:nth-child(1) {
       .main_vid_text {
         h1 {
-          font-size: 5rem;
+          font-size: 5.2rem;
+          margin-bottom: 10px;
         }
-
+        p {
+          &:nth-of-type(1) {
+            font-size: 2rem;
+            line-height: 1.8;
+          }
+        }
         position: absolute;
         width: 100%;
         height: 100vh;
         display: flex;
         flex-direction: column;
-        gap: 20px;
+
         justify-content: center;
         align-items: center;
         color: map-get($map: $color, $key: light);
         z-index: 1;
+        @include mobile {
+          h1 {
+            font-size: 3.5rem;
+          }
+          p {
+            &:nth-of-type(1) {
+              font-size: 1.5rem;
+            }
+          }
+        }
+        @include mobile500 {
+          h1 {
+            font-size: 3.2rem;
+          }
+          p {
+            &:nth-of-type(1) {
+              font-size: 1.4rem;
+            }
+          }
+        }
       }
 
       .filter {
@@ -32,11 +58,58 @@
       }
     }
     &:nth-child(2) {
-      width: 100%;
-      height: 700px;
+      .inner {
+        .category_font {
+          font-size: 3.5rem;
+          font-weight: 300;
+          margin: 124px 0 0 0;
+        }
+
+        .products-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          row-gap: 33px;
+          column-gap: 37px;
+          .product-card {
+            &::after {
+              content: "";
+              display: block;
+              width: 100%;
+              height: 1px;
+              background-color: #ddd;
+              margin: 14px 0px 0px;
+            }
+          }
+          @include desktop1600 {
+            column-gap: 30px;
+          }
+          @include desktop {
+            column-gap: 25px;
+          }
+          @include desktop1200 {
+            grid-template-columns: repeat(2, 1fr);
+          }
+          @include tablet {
+            row-gap: 25px;
+            column-gap: 20px;
+          }
+          @include mobile {
+            column-gap: 15px;
+          }
+          @include mobile500 {
+            grid-template-columns: 1fr;
+          }
+        }
+      }
     }
     &:nth-child(3) {
+      .category_font {
+        font-size: 3.5rem;
+        font-weight: 300;
+        margin: 217px 0 12px 0;
+      }
     }
+
     &:nth-child(4) {
       width: 100%;
       .category_font {
@@ -53,16 +126,21 @@
           position: relative;
           cursor: pointer;
           .text {
-            // border: 1px solid #f00;
             &::after {
               content: "";
               position: absolute;
-              width: 110px;
+              width: 0%;
               height: 1px;
               background: map-get($map: $color, $key: dark);
               bottom: -15px;
-              left: 386px;
+              left: 50%;
+              transform: translateX(-50%);
+              transition: all 0.6s;
+              transform-origin: center;
             }
+          }
+          &:hover > ::after {
+            width: 110px;
           }
         }
 
@@ -70,8 +148,11 @@
           overflow: hidden;
           img {
             width: 100%;
+            max-width: 100%;
+            height: 380px;
             transition: all 0.5s;
             cursor: pointer;
+            object-fit: cover;
 
             &:hover {
               scale: 1.1;
@@ -94,6 +175,28 @@
         gap: 30px;
         grid-template-columns: repeat(3, 1fr);
 
+        .grid_item {
+          position: relative;
+          cursor: pointer;
+          .text {
+            &::after {
+              content: "";
+              position: absolute;
+              width: 0%;
+              height: 1px;
+              background: map-get($map: $color, $key: dark);
+              bottom: -15px;
+              left: 50%;
+              transform: translateX(-50%);
+              transition: all 0.6s;
+              transform-origin: center;
+            }
+          }
+          &:hover > ::after {
+            width: 110px;
+          }
+        }
+
         .img_div {
           overflow: hidden;
           img {
@@ -107,43 +210,15 @@
           }
         }
         .text {
+          position: relative;
           width: 100%;
           font-size: 2.5rem;
           font-weight: 300;
           text-align: center;
           margin: 25px 0 55px 0;
+
           cursor: pointer;
         }
-      }
-    }
-  }
-}
-
-@media (max-width: 1600px) {
-  .home {
-    section {
-      padding: 4rem 2rem;
-    }
-
-    .main_vid_text {
-      h1 {
-        font-size: 2.5rem;
-      }
-      p {
-        font-size: 1rem;
-        max-width: 600px;
-      }
-    }
-
-    .grid_container_1,
-    .grid_container_2 {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-
-      .grid_item {
-        width: 45%;
-        margin: 1rem;
       }
     }
   }
