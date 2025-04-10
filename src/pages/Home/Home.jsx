@@ -8,33 +8,24 @@ import MAIN_SOFA from "../../assets/MAIN_SOFA.png";
 import MAIN_CHAIR from "../../assets/MAIN_CHAIR.png";
 import MAIN_SHELF from "../../assets/MAIN_SHELF.png";
 import MAIN_TABLE from "../../assets/MAIN_TABLE.png";
-import { resolveImage } from "../../utils/resolveImg";
+import ProductCard from "../../components/ProductCard/ProductCard";
 
 export const Home = () => {
   const { allProducts } = useProducts();
-
-  const [bestBeds, setBestBeds] = useState([]);
-  const [bestChairs, setBestChairs] = useState([]);
-  const [bestShelves, setBestShelves] = useState([]);
-  const [bestSofas, setBestSofas] = useState([]);
-  const [bestTables, setBestTables] = useState([]);
+  const [bestProduct, setBestProduct] = useState([]);
+  const [eliasProducts, setEliasProducts] = useState([]);
 
   useEffect(() => {
-    setBestBeds(
-      Array.from(allProducts?.beds || []).filter((it) => it.best === true)
-    );
-    setBestChairs(
-      Array.from(allProducts?.chairs || []).filter((it) => it.best === true)
-    );
-    setBestShelves(
-      Array.from(allProducts?.shelves || []).filter((it) => it.best === true)
-    );
-    setBestSofas(
-      Array.from(allProducts?.sofas || []).filter((it) => it.best === true)
-    );
-    setBestTables(
-      Array.from(allProducts?.tables || []).filter((it) => it.best === true)
-    );
+    const filtered = Object.values(allProducts)
+      .flat()
+      .filter((product) => product?.best === true);
+
+    const filteredEvent = Object.values(allProducts)
+      .flat()
+      .filter((product) => product.info?.collection === "Elias Klemens");
+
+    setBestProduct(filtered);
+    setEliasProducts(filteredEvent.slice(0, 3));
   }, [allProducts]);
 
   return (
@@ -61,69 +52,39 @@ export const Home = () => {
       {/* secondSection  BESTSELLER*/}
       <section>
         <div className="inner">
-          <p className="category_font">BEST SELLER</p>
-          <div className="bestContents">
-            {bestBeds.map((bed, index) => {
-              console.log(bed);
-              return (
-                <div className="">
-                  <img
-                    key={index}
-                    src={resolveImage(bed.img.thumbnailImg[0])}
-                  ></img>
-                  <p key={index}>{bed.title}</p>
-                  <p key={index}>₩{bed.price.toLocaleString()}</p>
-                </div>
-              );
-            })}
-            {bestChairs.map((chair, index) => {
-              return (
-                <div>
-                  <img
-                    key={index}
-                    src={resolveImage(chair.img.thumbnailImg[0])}
-                  ></img>
-                  <p key={index}>{chair.title}</p>
-                  <p key={index}>₩{chair.price.toLocaleString()}</p>
-                </div>
-              );
-            })}
-            {bestShelves.map((shelve, index) => {
-              return (
-                <div>
-                  <img
-                    key={index}
-                    src={resolveImage(shelve.img.thumbnailImg[0])}
-                  ></img>
-                  <p key={index}>{shelve.title}</p>
-                  <p key={index}>₩{shelve.price.toLocaleString()}</p>
-                </div>
-              );
-            })}
-            {bestSofas.map((sofa, index) => {
-              return (
-                <div>
-                  <img
-                    key={index}
-                    src={resolveImage(sofa.img.thumbnailImg[0])}
-                  ></img>
-                  <p key={index}>{sofa.title}</p>
-                  <p key={index}>₩{sofa.price.toLocaleString()}</p>
-                </div>
-              );
-            })}
-            {bestTables.map((table, index) => {
-              return (
-                <div>
-                  <img
-                    key={index}
-                    src={resolveImage(table.img.thumbnailImg[0])}
-                  ></img>
-                  <p key={index}>{table.title}</p>
-                  <p key={index}>₩{table.price.toLocaleString()}</p>
-                </div>
-              );
-            })}
+          <div className="bestSeller">
+            <p className="category_font">BEST SELLER</p>
+            <div className="products-grid">
+              {bestProduct.map((product) => (
+                <ProductCard
+                  key={product.info.code}
+                  product={{
+                    code: product.info.code,
+                    title: product.title,
+                    price: product.price,
+                    img: product.img,
+                  }}
+                  showDivider={false}
+                />
+              ))}
+            </div>
+          </div>
+          <div className="eventDiv">
+            <p className="category_font">ELIAS KLEMENS COLLECTION</p>
+            <div className="products-grid">
+              {eliasProducts.map((product) => (
+                <ProductCard
+                  key={product.info.code}
+                  product={{
+                    code: product.info.code,
+                    title: product.title,
+                    price: product.price,
+                    img: product.img,
+                  }}
+                  showDivider={false}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>
