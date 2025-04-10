@@ -132,7 +132,7 @@
 
 .productPoint {
   position: relative;
-  z-index: 5;
+  z-index: 10;
   width: 1px;
   height: 1px;
   .bigCirPoint {
@@ -140,7 +140,7 @@
     top: 0;
     left: 0;
     transform: translate(-50%, -50%);
-    z-index: 5;
+    z-index: 50;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -179,9 +179,13 @@
 }
 
 .outsideElement {
+  display: none;
   position: absolute;
   z-index: 2;
   transform: translateX(-50%);
+  &.active {
+    display: block;
+  }
   .point_viewBox {
     z-index: 2;
     margin-top: 40px;
@@ -209,10 +213,12 @@
     figure {
       width: 100%;
       height: 150px;
-      border: 1px solid #ddd;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       img {
-        width: 100%;
         height: 100%;
+        max-height: 100%;
         max-width: 100%;
         object-fit: cover;
       }
@@ -230,6 +236,9 @@
         font-weight: 300;
         text-transform: uppercase;
       }
+    }
+    a {
+      display: block;
     }
     .productGoBtn {
       width: 100%;

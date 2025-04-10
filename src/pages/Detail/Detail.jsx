@@ -5,9 +5,7 @@ import { useCart } from "../../contexts/CartContext";
 import { resolveImage } from "../../utils/resolveImg";
 import CustomPaging from "../../components/DetailSlider/DetailSlider";
 import "./Detail.scss";
-import { info } from "sass";
-
-
+import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
 
 const Detail = () => {
   const { allProducts } = useProducts();
@@ -40,6 +38,7 @@ const Detail = () => {
 
   return (
     <>
+      <Breadcrumb />
       <section className="detail_main">
         <div className="leftmain">
           <CustomPaging product={product}/>

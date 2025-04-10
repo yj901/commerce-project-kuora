@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import { ProductProvider } from "./contexts/ProductContext";
 import { CartProvider } from "./contexts/CartContext";
+import PageTop from "./utils/PageTop";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Payment from "./pages/Payment/Payment";
@@ -20,6 +21,7 @@ function App() {
     <ProductProvider>
       <BrowserRouter>
         <CartProvider>
+          <PageTop />
           <Header />
           <Routes>
             <Route path="/" element={<Home />} />
