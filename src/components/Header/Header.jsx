@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, Navigate, useNavigate } from "react-router-dom";
+import { useProducts } from "../../contexts/ProductContext";
 import { useCart } from "../../contexts/CartContext";
 import HeaderLeftMenu from "./HeaderLeftMenu";
 import HeaderCartModal from "./HeaderCartModal";
@@ -11,12 +12,16 @@ import IconClose from "../../assets/icons/header_search_close.svg";
 import "./Header.scss";
 
 const Header = () => {
-  const { isCartOpen, setIsCartOpen } = useCart();
+  const { setIsCartOpen } = useCart();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuActive, setIsMenuActive] = useState(false);
+  const [isSearchActive, setIsSearchActive] = useState(false);
+  const [showNoResult, setShowNoResult] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { allProducts } = useProducts();
 
-  const isHome = location.pathname === "/"; // 홈 확인
+  const isHome = location.pathname === "/";
 
   useEffect(() => {
     setIsMenuActive(false);
@@ -39,6 +44,31 @@ const Header = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [isHome]);
+
+  const AllsearchProduct = Object.values(allProducts).flat();
+
+  const onCheckEnter = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+
+      const keyword = e.target.value.toLowerCase();
+
+      const filterKeyword = AllsearchProduct.find(
+        (product) => product?.title?.toLowerCase() === keyword
+      );
+
+      const filterCode = filterKeyword?.info?.code;
+
+      if (filterKeyword) {
+        navigate(`/detail?id=${filterCode}`);
+      } else {
+        setShowNoResult(true);
+        setTimeout(() => setShowNoResult(false), 3000);
+      }
+
+      e.target.value = "";
+    }
+  };
 
   return (
     <>
@@ -64,21 +94,30 @@ const Header = () => {
                 <form
                   id="search_form_pc"
                   name="search_bar_pc"
-                  method="#"
-                  action="post"
                   className="search_form"
+                  onSubmit={(e) => e.preventDefault()}
                 >
                   <div className="input_wrap">
                     <input
                       className="search_txt"
                       type="text"
                       placeholder="찾으시는 상품을 입력해주세요."
+                      onKeyUp={onCheckEnter}
                     />
+                    {showNoResult && (
+                      <div className="noSearchbox">
+                        검색하신 상품이 존재하지 않습니다.
+                      </div>
+                    )}
                   </div>
                   <button className="search_btn">
                     <img src={IconSearchBtn} alt="searchBtn" />
                   </button>
-                  <div className="mb_closeBtn ">
+                  <div
+                    id="mb_closeBtn"
+                    className={isSearchActive && "active"}
+                    onClick={() => setIsSearchActive(!isSearchActive)}
+                  >
                     <img src={IconSearchBtn} alt="searchBtn" />
                     <img src={IconClose} alt="closeBtn" />
                   </div>
@@ -93,16 +132,21 @@ const Header = () => {
         <form
           id="search_form_mb"
           name="search_bar_mb"
-          method="#"
-          action="post"
-          className="search_bar"
+          onSubmit={(e) => e.preventDefault()}
+          className={isSearchActive && "active"}
         >
           <div className="input_wrap">
             <input
               className="search_txt"
               type="text"
               placeholder="찾으시는 상품을 입력해주세요."
+              onKeyUp={onCheckEnter}
             />
+            {showNoResult && (
+              <div className="noSearchbox">
+                검색하신 상품이 존재하지 않습니다.
+              </div>
+            )}
           </div>
           <button className="search_btn">
             <img src={IconSearchBtn} alt="searchBtn" />
