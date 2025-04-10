@@ -31,6 +31,8 @@ const Event = () => {
             </p>
           </div>
           <EventSlide />
+        </div>
+        <div className="inner">
           <EventProducts />
         </div>
       </section>
