@@ -20,7 +20,7 @@
   .item{
 
     img{
-      width: 100%;
+      width: 1000px;
       height: 600px;
       display: flex;
       gap: 30px;
@@ -53,6 +53,23 @@
     // outline: none;
     // background: url("../../assets/icons/VectorNext.png") center/cover no-repeat;
     // background: black;
+}
+
+.slick-dots.slick-thumb {
+  bottom: -100px;
+}
+
+// .DetailPaging img {
+//   width: 50px;
+//   height: 50px;
+//   object-fit: cover;
+//   // border-radius: 6px;
+//   // opacity: 0.5;
+// }
+
+.slick-dots li.slick-active .DetailPaging img {
+  opacity: 0.5;
+  // border: 2px solid #000;
 }
 
 

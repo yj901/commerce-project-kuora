@@ -1,9 +1,5 @@
 @import "/src/styles/_variables.scss";
-//Pretendard Variable font
-@import "/src/styles/_font.scss";
 @import "/src/styles/_responsive.scss"; 
-@include detailInfoResponsive1600;
-@import "/src/styles/global";
 
 
 .detail_main {
@@ -14,9 +10,12 @@
   margin-top: 108px;
   display: flex;
   .leftmain{
-    // width: 100%;
+    width: 100%;
     width: 52%;
     height: 823px;
+    img{
+      width: 100%;
+    }
     .detailimgs{
       width: 100px;
       height: 70px;
@@ -119,14 +118,19 @@
   width: 100%;
   h3{
     margin-top: 120px;
+    margin-bottom: 132px;
   }
   .DetailImage{
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    // object-fit: cover;
+    gap: 200px;
     img{
       width: 1000px;
+      max-width: 100%;
+      margin-bottom: 100px;
       // border: 1px solid #f00;
   &:nth-child(3){
     margin-bottom: 214px;
@@ -136,137 +140,149 @@
 }
 .detail_info{
   width: 100%;
-  height: 1040px;
+  height: 100%;
   display: flex;
   gap: 120px;
-
-  background: #ccc;
-  font-size: 2rem;
-  .left_detail_info{
+  background: map-get($map: $color, $key: gray_f2);
+  padding: 70px 0;
+  margin-top: 200px;
+  .detail_info_wrap {
+    display: flex;
     width: 100%;
-    margin-left: 121px;
-    margin-bottom: 222px;
-    .detail_info_title{
-        padding-top:  150px;
+    .detail_info_title {
       margin-bottom: 60px;
       font-size: 3rem;
     }
-  }
-  .between{
-    border: 1px solid #8BA4B5;
-    height: 895px;
-    margin-top: 72px;
-  }
-  // .right_detail_info {
-  //   position: relative;
-  //   width: 100%;
-  //   padding-right: 166px;
-  //   .detail_info_title{
-  //     padding-top:  150px;
-  //     margin-bottom: 35px;
-  //     font-size: 3rem;
-  //   }
-  //   ul{
-  //     position: relative;
-  //     display: flex;
-  //     flex-direction: column;
-  //   }
-  //   li{
-  //     width: 100%;
-  //     display: flex; 
-  //     margin-top: 25px;
-  //     margin-bottom: 12px;
-  //   }
-  //       }
+    .right_detail_info {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      align-items: center;
+      padding: 50px 0;
+      .wrap{
+        width: 70%;
       }
-      //
-      .right_detail_info {
-            // position: relative;
-    width: 100%;
-    padding-right: 166px;
-    .detail_info_title{
-      padding-top:  150px;
-      margin-bottom: 35px;
-      font-size: 3rem;
-    }
-    .info-list {
-      // list-style: none;
-      font-size: 2rem;
-      width: 100%;
-      }
-      .underline {
-        content: "";
+      .info-list {
+        font-size: 2rem;
         width: 100%;
-        position: absolute;
-        bottom: 0;
-        height: 1px;
-        width: calc(100% + 1px);
-        background-color: #f00;
-      }
-      ul li {
-        position: relative;
-          display: grid;
-          grid-template-columns: 200px 1fr; 
+        }
+        li {
+          position: relative;
+          width: 100%;
+          padding: 20px 0;
+          display: flex;
+          justify-content: space-between;
           align-items: center;
           font-size: 2rem;
-          padding-bottom: 12px;
-          margin-bottom: 25px;
+          .label{
+            display: inline-block;
+            width:50%;
+          }
+          .value{
+            display: inline-block;
+            width:50%;
+          }
+          .underline {
+            content: "";
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            height: 1px;
+            width: calc(100%);
+            background-color: map-get($map: $color, $key:main2 );
+          }
         }
-        .value{
-          width: 100%;
-          margin-left: 140px;
-        }
-        .label{
-          width: 100%;
-        }
+    }
+    .left_detail_info {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      align-items: center;
+      border-right: 2px solid map-get($map: $color, $key:main2 );
+      padding: 50px 0;
+      .wrap{
+        width: 70%;
       }
-      
-    // 
-    // .line{
-    //   position: absolute;
-    //   border: 1px solid #8BA4B5;
-    //   width: 85%;
-    //   margin-bottom: 25px;
-    // }
-    // .first_info{
-    //   gap: 176px;
-    // }
-    // .second_info {
-    //   gap: 278px;
-    // }
-    // .third_info {
-    //   gap: 225px;
-    // }
-    // .fourth_info{
-    //   gap: 290px;
-    // }
-    // .fifth_info{
-    //   gap: 283px;
-    // }
-    // .sixth_info{
-    //   gap: 290px;
-    // }
-    // .seventh_info{
-    //   gap: 180px;
-    // }
-    // .eieghtth_info{
-    //   gap: 234px;
-    // }
-    // .nineth_info{
-    //   gap: 140px;
-    // }
-    // .tenth_info{
-    //   gap: 290px;
-    // }
-    // .eleventh_info{
-    //   gap: 307px;
-    // }
-  
+      p {
+        font-size: 2rem;
+        line-height: 1.8;
+        word-break: keep-all;
+        
+      }
+    }
+  }
+  }
 
+    
 
 .more_item{
   h3{
     margin-top: 150px;
     margin-left: 50px;
   }
+}
+
+//responsive.scss
+@include desktop1600 {
+  .detail_info {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 80px;
+    margin: 0;
+    box-sizing: border-box;
+    .right_detail_info {
+      min-width: 0;
+      font-size: 2rem;
+      .detail_info_title {
+        font-size: 2.5rem;
+      }
+    }
+    .left_detail_info{
+      .detail_info_title {
+        font-size: 2.5rem;
+      }
+      p{
+        font-size: 1.8rem;
+        line-height: 1.8;
+      }
+    }
+    li {
+      font-size: 1.8rem;
+    }
+  }
+}
+
+
+@include desktop {
+.detail_info{
+  .detail_info_wrap {
+display: flex;
+flex-direction: column;   
+justify-content: center;
+align-items: center;
+padding: 0;
+font-size: 2rem;
+.left_detail_info{
+  position: relative;
+  // display: inline-block;
+  width: 100%;
+  border: none;
+  .wrap{
+    position: relative;
+    // p{
+    //   position: absolute;
+    // }
+  }
+}
+.right_detail_info{
+  position: relative;
+  width: 100%;
+  // margin-top: 300px;
+  border-top: 1px solid map-get($map: $color, $key: gray_9);
+}
+}
+}
 }
