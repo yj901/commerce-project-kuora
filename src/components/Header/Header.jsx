@@ -99,7 +99,9 @@ const Header = () => {
                 >
                   <div className="input_wrap">
                     <input
-                      className="search_txt"
+                      className={
+                        isSearchActive ? "active search_txt" : "search_txt"
+                      }
                       type="text"
                       placeholder="찾으시는 상품을 입력해주세요."
                       onKeyUp={onCheckEnter}
@@ -110,16 +112,22 @@ const Header = () => {
                       </div>
                     )}
                   </div>
-                  <button className="search_btn">
-                    <img src={IconSearchBtn} alt="searchBtn" />
+
+                  <button
+                    id="search_btn"
+                    onClick={() => {
+                      setIsSearchActive(!isSearchActive);
+                    }}
+                  >
+                    <img src={IconSearchBtn} alt="searchBtn1" />
                   </button>
                   <div
                     id="mb_closeBtn"
-                    className={isSearchActive && "active"}
+                    className={isSearchActive ? "active" : undefined}
                     onClick={() => setIsSearchActive(!isSearchActive)}
                   >
-                    <img src={IconSearchBtn} alt="searchBtn" />
-                    <img src={IconClose} alt="closeBtn" />
+                    <img src={IconSearchBtn} alt="searchBtn2" />
+                    <img src={IconClose} alt="closeBtn2" />
                   </div>
                 </form>
               </div>
@@ -133,7 +141,7 @@ const Header = () => {
           id="search_form_mb"
           name="search_bar_mb"
           onSubmit={(e) => e.preventDefault()}
-          className={isSearchActive && "active"}
+          className={isSearchActive ? "active" : undefined}
         >
           <div className="input_wrap">
             <input
@@ -148,7 +156,7 @@ const Header = () => {
               </div>
             )}
           </div>
-          <button className="search_btn">
+          <button className="search_btn" onClick={onCheckEnter}>
             <img src={IconSearchBtn} alt="searchBtn" />
           </button>
         </form>

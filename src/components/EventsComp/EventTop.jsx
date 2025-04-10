@@ -9,7 +9,7 @@ const EventTop = () => {
             <h3>SPECIAL EXHIBITION</h3>
             <hr />
             <p>
-              <span>ELIAS KLEMENS</span> DESIGNER
+              DESIGNER <span>ELIAS KLEMENS</span>
             </p>
           </div>
         </div>

@@ -9,9 +9,6 @@ import EventProducts from "../../components/EventsComp/EventProducts";
 const Event = () => {
   return (
     <>
-      <div className="bread">
-        <p>HOME &gt; EVENT</p>
-      </div>
       <EventTop />
       <EventProfiles />
       <EventDesinger />
