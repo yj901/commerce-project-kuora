@@ -4,8 +4,11 @@ import { useCart } from "../../contexts/CartContext";
 import { Icon } from "@iconify/react";
 import "./Payment.scss";
 import productImage from "../../assets/images/product.jpg";
+import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
 
 const Payment = () => {
+  <Breadcrumb />;
+
   //카트 아이템 받기
   const location = useLocation();
   const { cartItems, getTotalPrice } = useCart();
@@ -65,6 +68,7 @@ const Payment = () => {
 
   return (
     <>
+      <Breadcrumb />
       <div>
         <h1>Checkout</h1>{" "}
         {cartItems.length === 0 ? (
@@ -83,6 +87,7 @@ const Payment = () => {
           </>
         )}
       </div>
+
       <div className="payment_wrapper">
         <div className="payment">
           {/* 왼쪽 영역 */}

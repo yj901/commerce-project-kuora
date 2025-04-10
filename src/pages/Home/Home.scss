@@ -28,6 +28,26 @@
         align-items: center;
         color: map-get($map: $color, $key: light);
         z-index: 1;
+        @include mobile {
+          h1 {
+            font-size: 3.5rem;
+          }
+          p {
+            &:nth-of-type(1) {
+              font-size: 1.5rem;
+            }
+          }
+        }
+        @include mobile500 {
+          h1 {
+            font-size: 3.2rem;
+          }
+          p {
+            &:nth-of-type(1) {
+              font-size: 1.4rem;
+            }
+          }
+        }
       }
 
       .filter {
@@ -80,6 +100,13 @@
             grid-template-columns: 1fr;
           }
         }
+      }
+    }
+    &:nth-child(3) {
+      .category_font {
+        font-size: 3.5rem;
+        font-weight: 300;
+        margin: 217px 0 12px 0;
       }
     }
 
@@ -191,24 +218,6 @@
           margin: 25px 0 55px 0;
 
           cursor: pointer;
-        }
-      }
-    }
-  }
-}
-
-@include desktop1600 {
-  .home {
-    section {
-      .inner {
-        .grid_container_1 {
-          .grid_item {
-            .img_div {
-              img {
-                height: 300px;
-              }
-            }
-          }
         }
       }
     }
