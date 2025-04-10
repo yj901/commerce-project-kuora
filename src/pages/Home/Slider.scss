@@ -1,22 +1,22 @@
 @import "../../styles/responsive";
+@import "../../styles/responsive";
 .slider-container {
   position: relative;
 
-  .slider_comments {
+  .comments_group {
     position: absolute;
     top: 25%;
     left: 10.5%;
-    font-size: 5rem;
-
-    color: #fff;
-  }
-  .slider_comments_2 {
-    position: absolute;
-    top: 40%;
-    left: 10.5%;
-    font-size: 1.8rem;
-    line-height: 1.5;
-    color: #fff;
+    .slider_comments {
+      font-size: 5rem;
+      color: #fff;
+    }
+    .slider_comments_2 {
+      margin-top: 50px;
+      font-size: 1.8rem;
+      line-height: 1.7;
+      color: #fff;
+    }
   }
   .slider_number {
     display: flex;
@@ -59,6 +59,33 @@
       img {
         cursor: pointer;
       }
+    }
+  }
+  @include desktop1600 {
+    .slider_comments {
+      font-size: 4.8rem;
+    }
+    .slider_comments_2 {
+      font-size: 1.6rem;
+    }
+    .arrow_class {
+      transform: translate(165px, -280px);
+    }
+    .slider_number {
+      transform: translate(265px, 340px);
+    }
+  }
+  @include desktop {
+    .slider_comments {
+      font-size: 4.6rem;
+    }
+    // .slider_comments_2 {
+    // }
+    .arrow_class {
+      transform: translate(133px, -280px);
+    }
+    .slider_number {
+      transform: translate(245px, 340px);
     }
   }
 }

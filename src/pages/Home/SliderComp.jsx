@@ -37,15 +37,20 @@ function AppendDots() {
   };
   return (
     <div className="slider-container">
+      <div className="inner">
+        <p className="category_font">PROMOTION</p>
+      </div>
       <Slider {...settings} ref={slickRef}>
         <div className="slide1">
-          <p className="slider_comments">ELIAS KLEMENS EXHIBITION</p>
-          <p className="slider_comments_2">
-            시간과 공간을 디자인하는 조형의 언어
-            <br />
-            일상을 예술로 완성하는 엘리어스 클레멘스의 하이엔드 가구 컬렉션을
-            만나보세요.
-          </p>
+          <div className="comments_group">
+            <p className="slider_comments">ELIAS KLEMENS EXHIBITION</p>
+            <p className="slider_comments_2">
+              시간과 공간을 디자인하는 조형의 언어
+              <br />
+              일상을 예술로 완성하는 엘리어스 클레멘스의 하이엔드 가구 컬렉션을
+              만나보세요.
+            </p>
+          </div>
           <div className="slider_number">
             {slideState.activeSlide + 1} <p>/ </p>
             <p>3</p>
@@ -62,11 +67,13 @@ function AppendDots() {
         </div>
 
         <div className="slide2">
-          <p className="slider_comments">STYLE YOUR SPACE</p>
-          <p className="slider_comments_2">
-            프리미엄 가구로 당신의 공간을 특별하게
-            <br />단 7일간, 단독 특가 이벤트 진행 중
-          </p>
+          <div className="comments_group">
+            <p className="slider_comments">STYLE YOUR SPACE</p>
+            <p className="slider_comments_2">
+              프리미엄 가구로 당신의 공간을 특별하게
+              <br />단 7일간, 단독 특가 이벤트 진행 중
+            </p>
+          </div>
           <div className="slider_number">
             {slideState.activeSlide + 1} <p>/ </p>
             <p>3</p>
@@ -82,12 +89,14 @@ function AppendDots() {
           </div>
         </div>
         <div className="slide3">
-          <p className="slider_comments">REFINED LIVING SPACES</p>
-          <p className="slider_comments_2">
-            미니멀한 세련됨, 일상에 스며드는 아름다움
-            <br />
-            지금 이 공간에서 실현하세요
-          </p>
+          <div className="comments_group">
+            <p className="slider_comments">REFINED LIVING SPACES</p>
+            <p className="slider_comments_2">
+              미니멀한 세련됨, 일상에 스며드는 아름다움
+              <br />
+              지금 이 공간에서 실현하세요
+            </p>
+          </div>
           <div className="slider_number">
             {slideState.activeSlide + 1} <p>/ </p>
             <p>3</p>

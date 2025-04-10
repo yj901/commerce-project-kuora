@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import "../../styles/_global.scss";
 import "./Products.scss";
 import ProductCard from "../../components/ProductCard/ProductCard";
+import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
 
 const Products = () => {
   // URL에서 카테고리 파라미터 가져오기
@@ -242,6 +243,7 @@ const Products = () => {
 
   return (
     <>
+      <Breadcrumb />;
       <div className="products-page">
         <div className="products-header inner">
           <h1>{category}S</h1>
