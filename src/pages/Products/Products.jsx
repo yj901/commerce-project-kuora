@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import "../../styles/_global.scss";
 import "./Products.scss";
 import ProductCard from "../../components/ProductCard/ProductCard";
 
