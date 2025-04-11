@@ -1,0 +1,351 @@
+@import "/src/styles/variables";
+@import "/src/styles/responsive";
+
+.eventslides {
+  width: 100%;
+  margin-bottom: 100px;
+  position: relative;
+  .eventslide {
+    .item {
+      position: relative;
+      margin: 0 10px;
+      aspect-ratio: 1.75/1;
+      background: no-repeat center/cover;
+      &.bg3 {
+        background-image: url("../../assets/imgs/events/event_full3.jpg");
+      }
+      &.bg2 {
+        background-image: url("../../assets/imgs/events/event_full2.jpg");
+      }
+      &.bg1 {
+        background-image: url("../../assets/imgs/events/event_full1.jpg");
+      }
+    }
+
+    /* Dots */
+    .slick-dotted.slick-slider {
+      margin-bottom: 0px;
+    }
+
+    .slick-dots {
+      position: absolute;
+      height: 0;
+      top: 0;
+      left: 0;
+      display: flex;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      text-align: center;
+    }
+    .slick-dots li {
+      position: relative;
+      display: inline-block;
+      width: auto;
+      height: auto;
+      padding: 0;
+      cursor: pointer;
+      transform: translateY(calc(-100% - 26px));
+      margin: 0;
+      margin-right: 30px;
+      padding-bottom: 3px;
+      font-size: 1.8rem;
+      font-weight: 300;
+      text-transform: uppercase;
+      border-bottom: 1px solid transparent;
+      transition: border 0.4s;
+      &.slick-active {
+        border-bottom: 1px solid map-get($map: $color, $key: dark);
+      }
+      @include desktop {
+        font-size: 1.6rem;
+        margin-right: 20px;
+        transform: translateY(calc(-100% - 23px));
+      }
+      @include mobile {
+        font-size: 1.4rem;
+        margin-right: 12px;
+        transform: translateY(calc(-100% - 21px));
+      }
+      @include mobile500 {
+        font-size: 1.3rem;
+        margin-right: 10px;
+        transform: translateY(calc(-100% - 18px));
+      }
+    }
+  }
+
+  .custom_arrows {
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translateY(calc(-100% - 30px));
+    gap: 40px;
+    li {
+      font-size: 0;
+      cursor: pointer;
+      &:first-child {
+        transform: rotate(180deg);
+      }
+      img {
+        width: 12px;
+      }
+    }
+    @include desktop {
+      transform: translateY(calc(-100% - 25px));
+      gap: 35px;
+      li {
+        img {
+          width: 10px;
+        }
+      }
+    }
+    @include mobile {
+      transform: translateY(calc(-100% - 20px));
+      gap: 30px;
+      li {
+        img {
+          width: 9px;
+        }
+      }
+    }
+    @include mobile500 {
+      transform: translateY(calc(-100% - 18px));
+      gap: 20px;
+      li {
+        img {
+          width: 8px;
+        }
+      }
+    }
+  }
+
+  @include mobile {
+    .eventslide {
+      .item {
+        margin: 0px;
+      }
+    }
+  }
+}
+
+.productPoint {
+  position: relative;
+  z-index: 10;
+  width: 1px;
+  height: 1px;
+  .bigCirPoint {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    z-index: 50;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 27px;
+    height: 27px;
+    border-radius: 50%;
+    background: rgba(#fff, 0.47);
+    cursor: pointer;
+    .smallCirPoint {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: rgba(#fff, 0.9);
+    }
+  }
+  @include desktop {
+    .bigCirPoint {
+      width: 25px;
+      height: 25px;
+      .smallCirPoint {
+        width: 13px;
+        height: 13px;
+      }
+    }
+  }
+  @include mobile {
+    .bigCirPoint {
+      width: 19px;
+      height: 19px;
+      .smallCirPoint {
+        width: 9px;
+        height: 9px;
+      }
+    }
+  }
+}
+
+.outsideElement {
+  display: none;
+  position: absolute;
+  z-index: 2;
+  transform: translateX(-50%);
+  &.active {
+    display: block;
+  }
+  .point_viewBox {
+    z-index: 2;
+    margin-top: 40px;
+    background: map-get($map: $color, $key: light);
+    width: 310px;
+    height: 400px;
+    padding: 50px;
+    box-shadow: 0px 5px 10px rgba(#000, 0.15);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, 26px);
+      width: 26px;
+      height: 15px;
+      background: url("../../assets/icons/event_point_view_tr.svg") no-repeat
+        center/cover;
+    }
+    figure {
+      width: 100%;
+      height: 150px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      img {
+        height: 100%;
+        max-height: 100%;
+        max-width: 100%;
+        object-fit: cover;
+      }
+    }
+    .txt {
+      text-align: center;
+      h5 {
+        font-size: 1.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+      p {
+        margin-top: 12px;
+        font-size: 1.5rem;
+        font-weight: 300;
+        text-transform: uppercase;
+      }
+    }
+    a {
+      display: block;
+    }
+    .productGoBtn {
+      width: 100%;
+      padding: 13px;
+      background: map-get($map: $color, $key: gray_f2);
+      cursor: pointer;
+      p {
+        font-size: 1.4rem;
+        font-weight: 300;
+        text-align: center;
+      }
+    }
+  }
+
+  @include desktop {
+    .point_viewBox {
+      margin-top: 40px;
+      width: 280px;
+      height: 370px;
+      padding: 45px;
+      &::before {
+        width: 26px;
+        height: 15px;
+        transform: translate(-50%, 26px);
+      }
+      figure {
+        height: 130px;
+      }
+      .txt {
+        h5 {
+          font-size: 1.7rem;
+        }
+        p {
+          margin-top: 12px;
+          font-size: 1.4rem;
+        }
+      }
+      .productGoBtn {
+        padding: 13px;
+        p {
+          font-size: 1.3rem;
+        }
+      }
+    }
+  }
+
+  @include tablet {
+    .point_viewBox {
+      margin-top: 30px;
+      width: 230px;
+      height: 320px;
+      padding: 35px;
+      &::before {
+        width: 24px;
+        height: 11px;
+        transform: translate(-50%, 20px);
+      }
+      figure {
+        height: 110px;
+      }
+      .txt {
+        h5 {
+          font-size: 1.6rem;
+        }
+        p {
+          margin-top: 8px;
+          font-size: 1.3rem;
+        }
+      }
+      .productGoBtn {
+        padding: 13px;
+        p {
+          font-size: 1.25rem;
+        }
+      }
+    }
+  }
+
+  @include mobile {
+    .point_viewBox {
+      margin-top: 25px;
+      width: 200px;
+      height: 270px;
+      padding: 30px;
+      &::before {
+        width: 24px;
+        height: 11px;
+        transform: translate(-50%, 17px);
+      }
+      figure {
+        height: 90px;
+      }
+      .txt {
+        h5 {
+          font-size: 1.4rem;
+        }
+        p {
+          margin-top: 6px;
+          font-size: 1.2rem;
+        }
+      }
+      .productGoBtn {
+        padding: 13px;
+        p {
+          font-size: 1.15rem;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,324 @@
+@import "../../styles/_variables";
+@import "../../styles/_responsive";
+
+.products-page {
+  // max-width: 1820px;
+  margin-bottom: 162px;
+  padding-top: 20px;
+
+  .products-header {
+    margin-top: 100px;
+    margin-bottom: 48px;
+
+    h1 {
+      font-size: 36px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 18px;
+      font-weight: 300;
+      color: #222;
+    }
+  }
+
+  .filter-bar-wrapper {
+    display: flex;
+    width: 100%;
+    gap: 60px;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    background-color: white;
+    position: relative;
+
+    .filter-bar {
+      display: flex;
+      padding: 3px 0;
+      align-items: flex-start;
+      gap: 60px;
+      width: 100%; // 전체 너비 사용
+
+      .filter-dropdown {
+        position: relative;
+        min-width: 200px;
+        flex: 1; // 균등하게 공간 분배
+
+        .filter-dropdown-header {
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+          padding: 8px 0;
+          background-color: white;
+          position: relative;
+
+          span {
+            font-size: 23px;
+            font-weight: 300;
+            color: #666;
+            text-transform: uppercase;
+            margin-right: 15px;
+            padding-right: 0;
+          }
+
+          .arrow {
+            border: solid #666;
+            border-width: 0 2px 2px 0;
+            display: inline-block;
+            padding: 3px;
+            position: static;
+            margin-left: auto;
+            transform: rotateY(45deg);
+          }
+        }
+        .arrow.up {
+          transform: rotate(-135deg); // 세로 중앙 정렬 유지하면서 회전
+        }
+
+        .arrow.down {
+          transform: rotate(45deg); // 세로 중앙 정렬 유지하면서 회전
+        }
+
+        .filter-dropdown-content {
+          position: absolute;
+          background-color: white;
+          min-width: 250px;
+          box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.1);
+          z-index: 10;
+          left: 0;
+          margin-top: 5px;
+
+          .dropdown-line {
+            height: 2px;
+            background-color: #000;
+            width: 100%;
+          }
+
+          .dropdown-options {
+            padding: 10px 0;
+
+            label {
+              display: flex;
+              align-items: center;
+              padding: 8px 15px;
+              cursor: pointer;
+              font-size: 14px;
+
+              &:hover {
+                background-color: #f9f9f9;
+              }
+
+              input[type="checkbox"] {
+                margin-right: 10px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 33px;
+    column-gap: 37px;
+
+    .product-card {
+      display: flex;
+      flex-wrap: wrap;
+      // margin-bottom: 30px;
+      cursor: pointer;
+
+      .product-image {
+        width: 100%;
+        height: 0;
+        padding-bottom: 72.79%;
+        background-color: #f5f5f5;
+        margin-bottom: 24px;
+      }
+
+      // .product-info {
+      //   line-height: 30px;
+      //   h3 {
+      //     font-size: 20px;
+      //     font-weight: bold;
+      //     // margin-bottom: 5px;
+      //   }
+
+      //   .price {
+      //     font-size: 20px;
+      //     font-weight: 300;
+      //     color: #333;
+      //     margin-bottom: 10px;
+      //   }
+      // }
+      // 선 추가
+      &::after {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 1px;
+        background-color: #ddd;
+        margin: 14px 0px 0px;
+      }
+    }
+  }
+}
+
+// 반응형
+@include desktop1600 {
+  .products-page {
+    .filter-bar-wrapper {
+      .filter-bar {
+        gap: 60px;
+      }
+    }
+
+    .products-grid {
+      grid-template-columns: repeat(3, 1fr);
+      column-gap: 30px;
+    }
+  }
+}
+// 1300px ~ 1200px
+@include desktop {
+  .products-page {
+    .filter-bar-wrapper {
+      .filter-bar {
+        gap: 45px;
+      }
+    }
+
+    .products-grid {
+      grid-template-columns: repeat(3, 1fr);
+      column-gap: 25px;
+    }
+  }
+}
+// 1200px ~ 1025px
+@include desktop1200 {
+  .products-page {
+    .filter-bar-wrapper {
+      .filter-bar {
+        gap: 45px;
+      }
+    }
+
+    .products-grid {
+      grid-template-columns: repeat(3, 1fr);
+      column-gap: 25px;
+    }
+  }
+}
+// 1025px ~ 769px
+@include tablet {
+  .products-page {
+    .filter-bar-wrapper {
+      .filter-bar {
+        // flex-wrap: wrap;
+        gap: 20px;
+        align-items: center; // 모든 필터 드롭다운 세로 중앙 정렬
+        width: 100%; // 전체 너비 사용
+
+        .filter-dropdown {
+          flex: 1;
+          min-width: 0; // 최소 너비 제거
+
+          .filter-dropdown-header {
+            height: 40px; // 모든 헤더의 높이를 통일
+            white-space: nowrap; // 텍스트를 한 줄로 유지
+            overflow: ellipsis; // 넘치는 텍스트 숨김
+
+            span {
+              font-size: 20px;
+              font-weight: 300;
+              white-space: nowrap; // 텍스트를 한 줄로 유지
+              overflow: hidden;
+              padding-right: 20px; // 화살표 공간 확보
+            }
+          }
+        }
+      }
+    }
+
+    .products-grid {
+      grid-template-columns: repeat(2, 1fr);
+      row-gap: 25px;
+      column-gap: 20px;
+    }
+  }
+}
+// 768px ~ 500px
+@include mobile {
+  .products-page {
+    .products-header {
+      margin-top: 80px;
+      margin-bottom: 30px;
+
+      h1 {
+        font-size: 30px;
+        margin-bottom: 15px;
+      }
+
+      p {
+        font-size: 16px;
+      }
+    }
+
+    .filter-bar-wrapper {
+      margin: 0 -20px; // 화면 전체를 채우기 위한 마진 조정
+      padding: 0 20px; // 내부 여백 추가
+
+      .filter-bar {
+        flex-direction: column;
+        gap: 15px;
+        width: 100%; // 전체 너비 사용
+
+        .filter-dropdown {
+          width: 100%;
+          min-width: 100%;
+
+          .filter-dropdown-header {
+            span {
+              font-size: 20px;
+            }
+          }
+        }
+      }
+    }
+
+    .products-grid {
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 15px;
+
+      // .product-card {
+      //   .product-info {
+      //     h3 {
+      //       font-size: 18px;
+      //     }
+
+      //     .price {
+      //       font-size: 16px;
+      //     }
+      //   }
+      // }
+    }
+  }
+}
+
+@include mobile500 {
+  .products-page {
+    .products-header {
+      // margin-top: 60px;
+
+      h1 {
+        font-size: 26px;
+      }
+    }
+
+    .products-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+}
