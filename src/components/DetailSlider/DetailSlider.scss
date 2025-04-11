@@ -91,15 +91,13 @@
       opacity: 0.5;
       // border: 2px solid #000;
     }
-
-    .slick-prev {
-      left: 2%;
-      position: absolute;
-      z-index: 1;
-      background: url("../../assets/icons/VectorPrev.png") center/cover
-        no-repeat;
-      object-fit: cover;
-    }
+  }
+  .slick-prev {
+    left: 2%;
+    position: absolute;
+    z-index: 1;
+    background: url("../../assets/icons/VectorPrev.png") center/cover no-repeat;
+    object-fit: cover;
   }
 
   .slick-next {
