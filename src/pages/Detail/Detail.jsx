@@ -89,10 +89,10 @@ const Detail = () => {
               </div>
               <div className="quantity">
                 <input className="text" type="text" />
-                <buttonon onClick={handleAddToCart}class="icon_button">
-                  <i class="fas fa-shopping-cart"></i>
+                <button onClick={handleAddToCart}className="icon_button">
+                  <i className="fas fa-shopping-cart"></i>
                   ADD TO CART
-                </buttonon>
+                </button>
               </div>
             </div>
           </div>
@@ -129,73 +129,42 @@ const Detail = () => {
           <div className="right_detail_info">
             <div className="wrap">
               <div className="detail_info_title">MORE IMPORMATION</div>
-              <ul class="info-list">
+              <ul className="info-list">
                 <li>
-                  <span class="label">CODE</span>
-                  <span class="value">{product.info.code}</span>
-                  <span class="underline"></span>
+                  <span className="label">CODE</span>
+                  <span className="value">{product.info.code}</span>
+                  <span className="underline"></span>
                 </li>
                 <li>
-                  <span class="label">DESIGNER</span>
-                  <span class="value">{product.info.designer}</span>
-                  <span class="underline"></span>
+                  <span className="label">DESIGNER</span>
+                  <span className="value">{product.info.designer}</span>
+                  <span className="underline"></span>
                 </li>
                 <li>
-                  <span class="label">COLOR</span>
-                  <span class="value">{product.info.color}</span>
-                  <span class="underline"></span>
+                  <span className="label">COLOR</span>
+                  <span className="value">{product.info.color}</span>
+                  <span className="underline"></span>
                 </li>
                 <li>
-                  <span class="label">SIZE</span>
-                  <span class="value">{product.info.size}</span>
-                  <span class="underline"></span>
+                  <span className="label">SIZE</span>
+                  <span className="value">{product.info.size}</span>
+                  <span className="underline"></span>
                 </li>
                 <li>
-                  <span class="label">MATERIALS</span>
-                  <span class="value">{product.info.materials}</span>
-                  <span class="underline"></span>
+                  <span className="label">MATERIALS</span>
+                  <span className="value">{product.info.materials}</span>
+                  <span className="underline"></span>
                 </li>
                 { product?.info?.collection && <li>
-                  <span class="label">COLLECTION</span>
-                  <span class="value">{product.info.collection}</span>
-                  <span class="underline"></span>
+                  <span className="label">COLLECTION</span>
+                  <span className="value">{product.info.collection}</span>
+                  <span className="underline"></span>
                 </li>}
-                {/* <li>
-                  <span class="label">NUMBER OF SEATS</span>
-                  <span class="value">3</span>
-                  <span class="underline"></span>
-                </li>
-                <li>
-                  <span class="label">SEAT HEIGHT</span>
-                  <span class="value">48CM</span>
-                  <span class="underline"></span>
-                </li>
-                <li>
-                  <span class="label">FILTER BY COLLECTION</span>
-                  <span class="value">TIMELESS COLLECTION</span>
-                  <span class="underline"></span>
-                </li>
-                <li>
-                  <span class="label">COLOR</span>
-                  <span class="value">ANTIQUE BROWN</span>
-                  <span class="underline"></span>
-                </li>
-                <li>
-                  <span class="label">FDFD</span>
-                  <span class="value">ANTIQUE BROWN</span>
-                  <span class="underline"></span>
-                </li> */}
               </ul>
             </div>
           </div>
         </div>
       </section>
-      <section className="more_item">
-        <h3>MORE DETAIL VIEW</h3>
-      </section>
-
-      <div className="detail-page">
-      </div>
     </>
   );
 };
