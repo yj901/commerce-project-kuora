@@ -271,7 +271,6 @@
 @include desktop1600 {
   .detail_main {
     .leftmain {
-      width: 100%; // 원하는 사이즈로 조절
       max-width: 750px;
       img {
         object-fit: cover;
