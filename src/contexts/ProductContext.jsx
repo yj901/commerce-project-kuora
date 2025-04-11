@@ -21,7 +21,6 @@ export const ProductProvider = ({ children }) => {
       .then((data) => {
         setDatas(data);
         setAllProducts(data.products);
-        console.log(data);
         setLoading(false);
       })
       .catch((error) => {
@@ -68,8 +67,13 @@ export const ProductProvider = ({ children }) => {
 // 커스텀 훅으로 Context 사용 간소화
 export const useProducts = () => {
   const context = useContext(ProductContext);
+
   if (context === undefined) {
     throw new Error("useProducts must be used within a ProductProvider");
   }
   return context;
 };
+
+
+
+// 휘찬아 화이팅 

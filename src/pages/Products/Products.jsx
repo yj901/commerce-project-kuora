@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./Products.scss";
 import ProductCard from "../../components/ProductCard/ProductCard";
+import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
 
 const Products = () => {
   // URL에서 카테고리 파라미터 가져오기
@@ -148,6 +149,10 @@ const Products = () => {
 
   // 두 번째 useEffect: 카테고리 상태 변경에 따른 제품 데이터 로드
   useEffect(() => {
+    if (!datas || typeof datas !== "object" || !datas.products) {
+      return;
+    }
+
     try {
       const categoryKey = category.toLowerCase() + "s";
       const categoryProducts = datas.products[categoryKey] || [];
@@ -236,6 +241,7 @@ const Products = () => {
 
   return (
     <>
+      <Breadcrumb />;
       <div className="products-page">
         <div className="products-header inner">
           <h1>{category}S</h1>

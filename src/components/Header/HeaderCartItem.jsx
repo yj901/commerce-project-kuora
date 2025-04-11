@@ -28,7 +28,7 @@ const HeaderCartItem = ({ item }) => {
         <li className="removeBtn" onClick={() => removeFromCart(item.code)}>
           <div className="remove_wrap">
             <img src={IconRemove} alt="removeIcon" />
-            <p>Remove</p>
+            <p>REMOVE</p>
           </div>
         </li>
       </ul>

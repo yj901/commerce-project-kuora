@@ -3,13 +3,18 @@ import ReactDOM from "react-dom";
 import EventPointView from "./EventPointView";
 import "./Eventslide.scss";
 
-const OutsideElement = ({ position, children, slideContainerRef }) => {
+const OutsideElement = ({
+  position,
+  children,
+  slideContainerRef,
+  className = "",
+}) => {
   if (!position) return null;
 
   return slideContainerRef.current
     ? ReactDOM.createPortal(
         <div
-          className="outsideElement"
+          className={`outsideElement ${className}`}
           style={{
             position: "absolute",
             top: `${position.top}px`,
@@ -23,10 +28,27 @@ const OutsideElement = ({ position, children, slideContainerRef }) => {
     : null;
 };
 
-const EventPoint = ({ leftView, topView, slideContainerRef }) => {
+const EventPoint = ({
+  leftView,
+  topView,
+  slideContainerRef,
+  code,
+  productCode,
+  activeCode,
+  setActiveCode,
+}) => {
   const pointRef = useRef(null);
   const [position, setPosition] = useState(null);
   const [isOriginalSlide, setIsOriginalSlide] = useState(true); // 원본 여부 확인
+
+  const isActive = activeCode === productCode;
+  const handleClick = () => {
+    if (isActive) {
+      setActiveCode(null);
+    } else {
+      setActiveCode(productCode); // 다른 거 열기
+    }
+  };
 
   useEffect(() => {
     const updatePosition = () => {
@@ -44,7 +66,7 @@ const EventPoint = ({ leftView, topView, slideContainerRef }) => {
         const pointRect = pointRef.current.getBoundingClientRect();
         const slideRect = slideContainerRef.current.getBoundingClientRect();
 
-        // 🛠 Slick `transform` 영향 보정
+        // Slick `transform` 영향 보정
         const slickTransform = getComputedStyle(
           slideContainerRef.current
         ).transform;
@@ -70,7 +92,7 @@ const EventPoint = ({ leftView, topView, slideContainerRef }) => {
     updatePosition();
     window.addEventListener("resize", updatePosition);
     return () => window.removeEventListener("resize", updatePosition);
-  }, [pointRef, slideContainerRef]);
+  }, [pointRef, slideContainerRef, isActive]);
 
   if (!isOriginalSlide) return null; // 복제된 슬라이드라면 렌더링 X
 
@@ -80,15 +102,16 @@ const EventPoint = ({ leftView, topView, slideContainerRef }) => {
       ref={pointRef}
       style={{ top: `${topView}%`, left: `${leftView}%` }}
     >
-      <div className="bigCirPoint">
+      <div className="bigCirPoint" onClick={handleClick}>
         <div className="smallCirPoint"></div>
       </div>
-      {position && (
+      {isActive && position && (
         <OutsideElement
+          className={`${isActive ? "active" : ""}`}
           position={position}
           slideContainerRef={slideContainerRef}
         >
-          <EventPointView />
+          <EventPointView data={code} />
         </OutsideElement>
       )}
     </div>
