@@ -270,7 +270,6 @@
 //responsive.scss
 @include desktop1600 {
   .detail_main {
-    width: 100%;
     .leftmain {
       width: 100%; // 원하는 사이즈로 조절
       max-width: 750px;
