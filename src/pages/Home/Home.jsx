@@ -20,7 +20,7 @@ export const Home = () => {
     const filtered = Object.values(allProducts)
       .flat()
       .filter((product) => product?.best === true);
-    console.log(filtered);
+
     const filteredEvent = Object.values(allProducts)
       .flat()
       .filter((product) => product.info?.collection === "Elias Klemens");
