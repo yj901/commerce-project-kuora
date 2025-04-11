@@ -144,14 +144,15 @@
           gap: 10px;
           padding: 14px 24px;
           color: map-get($map: $color, $key: dark);
-          background-color: map-get($map: $color, $key: main2);
+          background-color: map-get($map: $color, $key: main);
+
+          transition: background 0.3s ease;
           border: none;
           border-radius: 99px;
           font-size: 18px;
           cursor: pointer;
           &:hover {
-            background: map-get($map: $color, $key: main);
-            transition: color 0.3s ease;
+            background: map-get($map: $color, $key: main2);
             // scale: 1.05;
           }
         }

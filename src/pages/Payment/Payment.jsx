@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useCart } from "../../contexts/CartContext";
 import { Icon } from "@iconify/react";
 import "./Payment.scss";
 import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
 
 const Payment = () => {
-  //카트 아이템 받기
-  const { cartItems, getTotalPrice } = useCart();
+  const navigate = useNavigate();
 
-  const location = useLocation();
+  //카트 아이템 받기
+  const { cartItems, setCartItems, getTotalPrice } = useCart();
 
   // 주문자 정보
   const [emailId, setEmailId] = useState("");
@@ -113,6 +113,8 @@ const Payment = () => {
     // }
 
     alert("결제가 완료되었습니다.");
+    setCartItems([]);
+    navigate("/");
   };
 
   // 도메인
@@ -399,26 +401,20 @@ const Payment = () => {
           </div>
           <div className="payment_right">
             <div className="payment_summary">
-              {cartItems.map((item) => (
-                <div className="summary_product">
+              {cartItems.map((item, index) => (
+                <div className="summary_product" key={index}>
                   <img
                     className="summary_product_price"
-                    key={item.code}
                     src={item.thumbnail}
                     alt={item.title}
                   />
-                  <div className="summary_product_info" key={item.code}>
-                    <p className="summary_product_name" key={item.code}>
-                      {item.title}
-                    </p>
+                  <div className="summary_product_info">
+                    <p className="summary_product_name">{item.title}</p>
                     <div className="summary_product_subinfo">
-                      <span
-                        className="summary_product_quantity"
-                        key={item.code}
-                      >
+                      <span className="summary_product_quantity">
                         {item.quantity} 개
                       </span>
-                      <span className="summary_product_price" key={item.code}>
+                      <span className="summary_product_price">
                         {(item.price * item.quantity).toLocaleString()}원
                       </span>
                     </div>

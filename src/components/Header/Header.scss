@@ -300,17 +300,15 @@
       justify-content: space-between;
       position: absolute;
       top: 50px;
+      height: 52px;
       left: 0;
       width: 100%;
       background: map-get($map: $color, $key: light);
       border-bottom: 1px solid map-get($map: $color, $key: gray_d1);
       opacity: 0;
       visibility: hidden;
-      height: 0;
-      overflow: hidden;
       transition: all 0.4s;
       &.active {
-        height: 100%;
         opacity: 1;
         visibility: visible;
       }
@@ -563,7 +561,7 @@
             &.quantity_controls {
               button {
                 border: none;
-                font-size: 2rem;
+                font-size: 1.3rem;
                 padding: 5px 10px;
                 cursor: pointer;
                 background: none;
@@ -689,7 +687,7 @@
             li {
               &.quantity_controls {
                 button {
-                  font-size: 1.8rem;
+                  font-size: 1.2rem;
                 }
                 .count {
                   font-size: 1.6rem;
