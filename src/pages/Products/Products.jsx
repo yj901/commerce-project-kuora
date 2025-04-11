@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import "../../styles/_global.scss";
 import "./Products.scss";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
@@ -46,13 +45,10 @@ const Products = () => {
   //     })
   //     .then((data) => {
   //       setDatas(data);
-  //       console.log("Loaded data:", data); // 데이터 구조 확인용
 
   //       // 선택된 카테고리에 맞는 제품 가져오기
   //       const categoryKey = category.toLowerCase() + "s"; // 'sofa' -> 'sofas'
   //       const categoryProducts = data.products[categoryKey] || [];
-
-  //       console.log("Category products:", categoryProducts); // 카테고리별 제품 확인
 
   //       setProducts(categoryProducts);
 
@@ -68,7 +64,7 @@ const Products = () => {
   //       ];
   //       setMaterials(uniqueMaterials);
 
-  //       // 로딩 상태 해제 (선택 사항)
+  //
   //       // setLoading(false);
   //     })
   //     .catch((error) => {
@@ -87,7 +83,7 @@ const Products = () => {
   //         });
   //       }
   //       setProducts(dummyProducts);
-  //       // 로딩 상태 해제 (선택 사항)
+  //
   //       // setLoading(false);
   //     });
 
@@ -112,18 +108,17 @@ const Products = () => {
         const categoryKey = rawCategory.toLowerCase() + "s";
 
         const categoryProducts = data.products[categoryKey] || [];
-        console.log("카테고리프로덕츠", categoryProducts);
 
         setCategory(rawCategory.toUpperCase());
         setProducts(categoryProducts);
 
-        // 고유 디자이너 목록 추출
+        // 디자이너 목록 추출
         const uniqueDesigners = [
           ...new Set(categoryProducts.map((product) => product.info.designer)),
         ];
         setDesigners(uniqueDesigners);
 
-        // 고유 재질 목록 추출
+        // 재질 목록 추출
         const uniqueMaterials = [
           ...new Set(categoryProducts.map((product) => product.info.materials)),
         ];
@@ -152,21 +147,25 @@ const Products = () => {
       });
   }, [urlCategory]);
 
-  // 두 번째 useEffect: 카테고리 상태 변경에 따른 제품 데이터 로드 (기존 코드)
+  // 두 번째 useEffect: 카테고리 상태 변경에 따른 제품 데이터 로드
   useEffect(() => {
+    if (!datas || typeof datas !== "object" || !datas.products) {
+      return;
+    }
+
     try {
       const categoryKey = category.toLowerCase() + "s";
       const categoryProducts = datas.products[categoryKey] || [];
 
       setProducts(categoryProducts);
 
-      // 고유한 디자이너 목록 추출
+      // 디자이너 목록 추출
       const uniqueDesigners = [
         ...new Set(categoryProducts.map((product) => product.info.designer)),
       ];
       setDesigners(uniqueDesigners);
 
-      // 고유한 재질 목록 추출
+      // 재질 목록 추출
       const uniqueMaterials = [
         ...new Set(categoryProducts.map((product) => product.info.materials)),
       ];
@@ -187,12 +186,12 @@ const Products = () => {
       //   });
       // }
       // setProducts(dummyProducts);
-      // 로딩 상태 해제 (선택 사항)
+
       // setLoading(false);
     }
   }, [category]);
 
-  // 카테고리 변경 핸들러 - 여기에 배치
+  // 카테고리 변경 핸들러
   const handleCategoryChange = (newCategory) => {
     setCategory(newCategory.toUpperCase());
   };
@@ -215,11 +214,10 @@ const Products = () => {
     }
   };
 
-  // 필터링된 제품 가져오기 - JSON 구조에 맞게 수정
+  // 필터링된 제품 가져오기
   const filteredProducts = products
     .filter((product) => {
       // 카테고리 필터링은 이미 fetch에서 처리됨
-      console.log("product는", product);
       // 재질 필터링
       if (filters.materials && product.info.materials !== filters.materials)
         return false;
@@ -238,7 +236,7 @@ const Products = () => {
       } else if (filters.sort === "desc") {
         return b.price - a.price; // 내림차순
       }
-      return 0; // 기본 정렬 없음
+      return 0;
     });
 
   return (
@@ -385,7 +383,6 @@ const Products = () => {
         <div className="products-grid inner">
           {filteredProducts.length > 0 ? (
             filteredProducts.map((product) => {
-              console.log("Product data:", product);
               return (
                 <ProductCard
                   key={product.info.code}

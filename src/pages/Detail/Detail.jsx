@@ -13,6 +13,7 @@ const Detail = () => {
   const [searchParams] = useSearchParams();
   const productId = parseInt(searchParams.get("id"));
   const [product, setProduct] = useState(null);
+  const [quantity, setQuantity] = useState(1); // 수량 상태 추가
 
   useEffect(() => {
     if (allProducts && productId) {
@@ -23,6 +24,20 @@ const Detail = () => {
     }
   }, [allProducts, productId]);
 
+  // 수량 증가 함수
+  const increaseQuantity = () => {
+    if (quantity < 99) {
+      setQuantity(quantity + 1);
+    }
+  };
+
+  // 수량 감소 함수
+  const decreaseQuantity = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
+
   if (!product) return <div>Loading...</div>;
 
   const handleAddToCart = () => {
@@ -31,8 +46,9 @@ const Detail = () => {
       title: product.title,
       price: product.price,
       thumbnail: resolveImage(product.img.thumbnailImg[0]),
+      quantity: quantity, // 수량 추가
     };
-    addToCart(cartItem);
+    addToCart(cartItem, quantity); // 수량을 addToCart에 전달
     setIsCartOpen(true);
   };
 
@@ -41,17 +57,13 @@ const Detail = () => {
       <Breadcrumb />
       <section className="detail_main">
         <div className="leftmain">
-          <CustomPaging product={product}/>
+          <CustomPaging product={product} />
         </div>
         <div className="rightmain">
           <div className="rightmain_detail">
             <div className="topmain_detail">
-              <div className="topmain_detail_header">
-              {product.title}
-              </div>
-              <p>
-                {product.desc_top}
-              </p>
+              <div className="topmain_detail_header">{product.title}</div>
+              <p>{product.desc_top}</p>
             </div>
             <div className="centermain_detail">
               <div className="maindetail">
@@ -81,15 +93,35 @@ const Detail = () => {
             </div>
             <div className="undermain_detail">
               <div className="undermain_detail_price">
-                <span className="price">₩ {product.price.toLocaleString()} </span>
+                <span className="price">
+                  ₩ {product.price.toLocaleString()}{" "}
+                </span>
                 <span className="tax">Including VAT</span>
               </div>
               <div className="delivery">
                 Delivery Costs <i className="fas fa-circle-info"></i>
               </div>
+
               <div className="quantity">
-                <input className="text" type="text" />
-                <button onClick={handleAddToCart}className="icon_button">
+                <div className="quantity-control">
+                  <button
+                    className="quantity-btn decrease"
+                    onClick={decreaseQuantity}
+                    disabled={quantity <= 1}
+                  >
+                    -
+                  </button>
+                  <span className="quantity-value">{quantity}</span>
+                  <button
+                    className="quantity-btn increase"
+                    onClick={increaseQuantity}
+                    disabled={quantity >= 99}
+                  >
+                    +
+                  </button>
+                </div>
+
+                <button onClick={handleAddToCart} className="icon_button">
                   <i className="fas fa-shopping-cart"></i>
                   ADD TO CART
                 </button>
@@ -103,13 +135,13 @@ const Detail = () => {
           <h3>MORE DETAIL VIEW</h3>
           <div className="detail_image_wrap">
             <div className="DetailImage">
-            {product.img.backgroundImg.map((thumb, index) => (
-          <img
-            key={index}
-            src={resolveImage(thumb)}
-            alt={`${product.title} ${index + 1}`}
-          />
-        ))}
+              {product.img.backgroundImg.map((thumb, index) => (
+                <img
+                  key={index}
+                  src={resolveImage(thumb)}
+                  alt={`${product.title} ${index + 1}`}
+                />
+              ))}
             </div>
           </div>
         </div>
@@ -121,14 +153,12 @@ const Detail = () => {
               <div className="detail_info_title">
                 DESCRIPTION/BETILLA3 SEATER SOFA
               </div>
-              <p>
-              {product.desc_fullView}
-              </p>
+              <p>{product.desc_fullView}</p>
             </div>
           </div>
           <div className="right_detail_info">
             <div className="wrap">
-              <div className="detail_info_title">MORE IMPORMATION</div>
+              <div className="detail_info_title">MORE IMFORMATION</div>
               <ul className="info-list">
                 <li>
                   <span className="label">CODE</span>
@@ -155,11 +185,13 @@ const Detail = () => {
                   <span className="value">{product.info.materials}</span>
                   <span className="underline"></span>
                 </li>
-                { product?.info?.collection && <li>
-                  <span className="label">COLLECTION</span>
-                  <span className="value">{product.info.collection}</span>
-                  <span className="underline"></span>
-                </li>}
+                {product?.info?.collection && (
+                  <li>
+                    <span className="label">COLLECTION</span>
+                    <span className="value">{product.info.collection}</span>
+                    <span className="underline"></span>
+                  </li>
+                )}
               </ul>
             </div>
           </div>
