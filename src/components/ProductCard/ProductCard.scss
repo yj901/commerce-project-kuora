@@ -63,3 +63,17 @@
     margin: 14px 0px 0px;
   }
 }
+
+@include mobile {
+  .product-card {
+    .product-info {
+      h3 {
+        font-size: 18px;
+      }
+
+      .price {
+        font-size: 16px;
+      }
+    }
+  }
+}
