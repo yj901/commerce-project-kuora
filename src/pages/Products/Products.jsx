@@ -44,10 +44,15 @@ const Products = () => {
         setDatas(data);
         // URL 파라미터 기준 카테고리 설정
         const rawCategory = urlCategory
-          ? urlCategory.endsWith("s")
-            ? urlCategory.slice(0, -1)
-            : urlCategory
-          : "sofa";
+          ? // urlCategory가 s로끝나면
+            urlCategory.endsWith("s")
+            ? // 0부터 end(-1)인덱스=5 전까지 잘라냄 / 즉 0부터 4까지 잘라냄 / tables -> table
+              urlCategory.slice(0, -1)
+            : // 아니면 그대로
+              urlCategory
+          : // 그것도아님 즉 undefined - 기본값으로 sofa
+            "sofa";
+
         const categoryKey = rawCategory.toLowerCase() + "s";
 
         const categoryProducts = data.products[categoryKey] || [];
@@ -57,6 +62,7 @@ const Products = () => {
 
         // 디자이너 목록 추출
         const uniqueDesigners = [
+          // Set - 중복제거 - 있을지도 모르니까
           ...new Set(categoryProducts.map((product) => product.info.designer)),
         ];
         setDesigners(uniqueDesigners);
@@ -70,35 +76,7 @@ const Products = () => {
       .catch((error) => {
         console.error("Error fetching products:", error);
       });
-  }, [urlCategory]);
-
-  // 두 번째 useEffect: 카테고리 상태 변경에 따른 제품 데이터 로드
-  useEffect(() => {
-    if (!datas || typeof datas !== "object" || !datas.products) {
-      return;
-    }
-
-    try {
-      const categoryKey = category.toLowerCase() + "s";
-      const categoryProducts = datas.products[categoryKey] || [];
-
-      setProducts(categoryProducts);
-
-      // 디자이너 목록 추출
-      const uniqueDesigners = [
-        ...new Set(categoryProducts.map((product) => product.info.designer)),
-      ];
-      setDesigners(uniqueDesigners);
-
-      // 재질 목록 추출
-      const uniqueMaterials = [
-        ...new Set(categoryProducts.map((product) => product.info.materials)),
-      ];
-      setMaterials(uniqueMaterials);
-    } catch (error) {
-      console.error("Error loading products:", error);
-    }
-  }, [category]);
+  }, []);
 
   //다중선택 체크박스 토글함수
   const toggleMaterialFilter = (material) => {
@@ -164,6 +142,7 @@ const Products = () => {
       // 가격 필터링
       return true;
     })
+
     .sort((a, b) => {
       // 가격 정렬
       if (filters.sort === "asc") {
@@ -179,6 +158,7 @@ const Products = () => {
       <Breadcrumb />;
       <div className="products-page">
         <div className="products-header inner">
+          {/* setCategory(rawCategory.toUpperCase());여기서 rawCategory가 TABLE,.. 이렇게 변형되기 때문에 뒤에 S 붙여야됨 */}
           <h1>{category}S</h1>
           <p>DESIGNED AND MANUFACTURED BY KUORA</p>
         </div>
