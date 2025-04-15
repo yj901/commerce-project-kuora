@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation, Navigate, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useProducts } from "../../contexts/ProductContext";
 import { useCart } from "../../contexts/CartContext";
 import HeaderLeftMenu from "./HeaderLeftMenu";

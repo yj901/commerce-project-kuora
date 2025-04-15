@@ -75,6 +75,10 @@
           font-size: 3.5rem;
           font-weight: 300;
           margin: 160px 0 50px;
+          @include mobile {
+            font-size: 2.5rem;
+            margin: 130px 0 30px;
+          }
         }
 
         .products-grid {
@@ -119,6 +123,10 @@
         font-size: 3.5rem;
         font-weight: 300;
         margin: 120px 0 50px;
+        @include mobile {
+          font-size: 2.5rem;
+          margin: 100px 0 30px;
+        }
       }
     }
 
@@ -128,7 +136,11 @@
       .category_font {
         font-size: 3.5rem;
         font-weight: 300;
-        margin: 160px 0 65px 0;
+        margin: 160px 0 50px 0;
+        @include mobile {
+          font-size: 2.5rem;
+          margin: 100px 0 30px;
+        }
       }
       .grid_container_1 {
         display: grid;
@@ -158,12 +170,14 @@
         }
 
         .img_div {
+          font-size: 0;
           overflow: hidden;
           img {
+            object-fit: cover;
             width: 100%;
+            height: 350px;
             transition: all 0.5s;
             cursor: pointer;
-
             &:hover {
               scale: 1.1;
             }
@@ -179,11 +193,54 @@
 
           cursor: pointer;
         }
+        @include tablet {
+          .grid_item {
+            .img_div {
+              img {
+                height: 250px;
+              }
+            }
+            .text {
+              &::after {
+                bottom: -13px;
+                &:hover > ::after {
+                  width: 95px;
+                }
+              }
+            }
+          }
+          .text {
+            font-size: 2.1rem;
+            margin: 15px 0 40px 0;
+          }
+        }
         @include mobile {
           grid-template-columns: repeat(1, 1fr);
+          gap: 20px;
+          .img_div {
+            overflow: hidden;
+            img {
+              height: 280px;
+            }
+          }
+          .grid_item {
+            .text {
+              &::after {
+                bottom: -13px;
+                &:hover > ::after {
+                  width: 95px;
+                }
+              }
+            }
+          }
+          .text {
+            font-size: 2.1rem;
+            margin: 15px 0 40px 0;
+          }
         }
       }
       .grid_container_2 {
+        margin-top: 30px;
         display: grid;
         gap: 30px;
         grid-template-columns: repeat(3, 1fr);
@@ -211,9 +268,12 @@
         }
 
         .img_div {
+          font-size: 0;
           overflow: hidden;
           img {
+            object-fit: cover;
             width: 100%;
+            height: 350px;
             transition: all 0.5s;
             cursor: pointer;
 
@@ -232,9 +292,57 @@
 
           cursor: pointer;
         }
-        @include mobile {
-          grid-template-columns: repeat(1, 1fr);
+
+        @include tablet {
+          .grid_item {
+            .img_div {
+              img {
+                height: 250px;
+              }
+            }
+            .text {
+              &::after {
+                bottom: -13px;
+                &:hover > ::after {
+                  width: 95px;
+                }
+              }
+            }
+          }
+          .text {
+            font-size: 2.1rem;
+            margin: 15px 0 40px 0;
+          }
         }
+        @include mobile {
+          margin-top: 20px;
+          grid-template-columns: repeat(1, 1fr);
+          gap: 20px;
+          .img_div {
+            overflow: hidden;
+            img {
+              height: 280px;
+            }
+          }
+          .grid_item {
+            .text {
+              &::after {
+                bottom: -13px;
+                &:hover > ::after {
+                  width: 95px;
+                }
+              }
+            }
+          }
+          .text {
+            font-size: 2.1rem;
+            margin: 15px 0 40px 0;
+          }
+        }
+      }
+
+      @include mobile {
+        margin-bottom: 60px;
       }
     }
   }

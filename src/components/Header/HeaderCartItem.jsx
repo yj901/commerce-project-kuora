@@ -21,9 +21,13 @@ const HeaderCartItem = ({ item }) => {
       </div>
       <ul className="bot_items">
         <li className="quantity_controls">
-          <button onClick={() => decreaseQuantity(item.code)}>-</button>
+          <button onClick={() => decreaseQuantity(item.code)}>
+            <i className="fa-solid fa-minus"></i>
+          </button>
           <p className="count">{item.quantity}</p>
-          <button onClick={() => increaseQuantity(item.code)}>+</button>
+          <button onClick={() => increaseQuantity(item.code)}>
+            <i className="fa-solid fa-plus"></i>
+          </button>
         </li>
         <li className="removeBtn" onClick={() => removeFromCart(item.code)}>
           <div className="remove_wrap">
