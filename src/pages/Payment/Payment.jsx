@@ -401,7 +401,33 @@ const Payment = () => {
           </div>
           <div className="payment_right">
             <div className="payment_summary">
-              {cartItems.map((item, index) => (
+              {cartItems.length === 0 ? (
+                <p>장바구니가 비었습니다.</p>
+              ) : (
+                <>
+                  {cartItems.map((item, index) => (
+                    <div className="summary_product" key={index}>
+                      <img
+                        className="summary_product_price"
+                        src={item.thumbnail}
+                        alt={item.title}
+                      />
+                      <div className="summary_product_info">
+                        <p className="summary_product_name">{item.title}</p>
+                        <div className="summary_product_subinfo">
+                          <span className="summary_product_quantity">
+                            {item.quantity} 개
+                          </span>
+                          <span className="summary_product_price">
+                            {(item.price * item.quantity).toLocaleString()}원
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </>
+              )}
+              {/* {cartItems.map((item, index) => (
                 <div className="summary_product" key={index}>
                   <img
                     className="summary_product_price"
@@ -420,7 +446,7 @@ const Payment = () => {
                     </div>
                   </div>
                 </div>
-              ))}
+              ))} */}
 
               <div className="summary_coupon">
                 <input type="text" placeholder="할인코드" />
