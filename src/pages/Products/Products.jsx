@@ -182,6 +182,7 @@ const Products = () => {
         <div className="filter-bar-wrapper">
           <div className="filter-bar inner">
             {/* 재질 필터 */}
+
             <div className="filter-dropdown">
               <div
                 className="filter-dropdown-header"
@@ -198,13 +199,12 @@ const Products = () => {
                 <div className="filter-dropdown-content">
                   <div className="dropdown-line"></div>
                   <div className="dropdown-options">
-                    {console.log(filters)}
                     <label>
                       <input
                         type="checkbox"
                         // 초기 빈 배열일땐 체크됨 즉 초기렌더링단계에선 All materials 디폴트로 체크
                         checked={filters.materials.length === 0}
-                        // 다른 요소 클릭하면 다시 빈배열로 만들어서 allMaterials 체크
+                        // 다시 All materials클릭하면 빈배열로 만들어서 All Materials 체크되게 설정
                         onChange={() => handleFilterChange("materials", [])}
                       />
                       All Materials
