@@ -8,11 +8,13 @@ const Products = () => {
   // URL에서 카테고리 파라미터 가져오기
   // 유즈파람스로 받은 카테고리 변수명을 urlCategory라는 변수명으로 쓰고싶을때 (밑에 category 스테이트가 있기때문)
   // 구조 분해 + 이름 바꾸기(별칭 부여) 문법임
+  // useParams - :id값 즉 tables,.. 값가져옴
   const { category: urlCategory } = useParams();
 
   // 상태 관리
   const [datas, setDatas] = useState([]);
   const [products, setProducts] = useState([]);
+  // useState에 초기값을 계산하는 함수를 넣음/ 이런걸 lazy initializer 이라고 부름 / 컴포넌트 렌더링시 딱 한번 실행됨 즉 TABLES,.. 로 변환
   const [category, setCategory] = useState(() => {
     return urlCategory.toUpperCase();
   });
