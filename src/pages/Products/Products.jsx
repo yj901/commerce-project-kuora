@@ -6,7 +6,7 @@ import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
 
 const Products = () => {
   // URL에서 카테고리 파라미터 가져오기
-  // 유즈파람스로 받은 카테고리 변수명을 urlCategory라는 변수명으로 쓰고싶을때
+  // 유즈파람스로 받은 카테고리 변수명을 urlCategory라는 변수명으로 쓰고싶을때 (밑에 category 스테이트가 있기때문)
   // 구조 분해 + 이름 바꾸기(별칭 부여) 문법임
   const { category: urlCategory } = useParams();
 
@@ -104,8 +104,8 @@ const Products = () => {
       const alreadySelected = prev.materials.includes(material);
       let updatedMaterials;
 
+      // 이미 선택되어 있으면 제거
       if (alreadySelected) {
-        // 이미 선택되어 있으면 제거
         updatedMaterials = prev.materials.filter((m) => m !== material);
       } else {
         // 선택되어 있지 않으면 추가
@@ -113,7 +113,9 @@ const Products = () => {
       }
 
       return {
+        // 기존값복사 후 ,즉 기존값 유지
         ...prev,
+        // 특정필드 업데이트
         materials: updatedMaterials,
       };
     });
@@ -213,9 +215,12 @@ const Products = () => {
                       <label key={material}>
                         <input
                           type="checkbox"
+                          // 체크여부는 includes 불리언값으로 판단
                           checked={filters.materials.includes(material)}
+                          // 체크박스 클릭하면 toggleMaterialFilter 함수호출
                           onChange={() => toggleMaterialFilter(material)}
                         />
+                        {/* 문자열 첫글자를 대문자로 바꾸기 wood -> Wood */}
                         {material.charAt(0).toUpperCase() + material.slice(1)}
                       </label>
                     ))}
