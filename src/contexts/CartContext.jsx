@@ -1,10 +1,28 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState(() => {
+    const localCart = localStorage.getItem("cart");
+    return localCart ? JSON.parse(localCart) : [];
+  });
   const [isCartOpen, setIsCartOpen] = useState(false);
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cartItems));
+  }, [cartItems]);
+
+  useEffect(() => {
+    const handleStorageChange = (e) => {
+      if (e.key === "cart") {
+        const newCart = e.newValue ? JSON.parse(e.newValue) : [];
+        setCartItems(newCart);
+      }
+    };
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
+  }, []);
 
   //상품추가 - 수량도 추가
   const addToCart = (product, quantity = 1) => {
@@ -36,7 +54,6 @@ export const CartProvider = ({ children }) => {
     return cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
   };
 
-  // CartContext.js (계속)
   const increaseQuantity = (productCode) => {
     setCartItems((prevItems) =>
       prevItems.map((item) =>
