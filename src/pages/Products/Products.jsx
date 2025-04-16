@@ -23,7 +23,7 @@ const Products = () => {
   const [materials, setMaterials] = useState([]); // 재질 목록을 위한 상태
   const [filters, setFilters] = useState({
     materials: [],
-    designer: "",
+    designer: [],
     sort: "",
   });
 
@@ -78,7 +78,8 @@ const Products = () => {
       });
   }, []);
 
-  //다중선택 체크박스 토글함수
+  //Material 다중선택 체크박스 토글함수
+  // ...prev가 핵심 - 이전값 유지하는 부분이 있어야 됨
   const toggleMaterialFilter = (material) => {
     setFilters((prev) => {
       const alreadySelected = prev.materials.includes(material);
@@ -101,9 +102,23 @@ const Products = () => {
     });
   };
 
-  // 카테고리 변경 핸들러
-  const handleCategoryChange = (newCategory) => {
-    setCategory(newCategory.toUpperCase());
+  //Designer 다중선택 체크박스 토글함수
+  const toggleDesignerFilter = (designer) => {
+    setFilters((prev) => {
+      const alreadySelected = prev.designer.includes(designer);
+      let updatedDesigners;
+
+      if (alreadySelected) {
+        updatedDesigners = prev.designer.filter((d) => d !== designer);
+      } else {
+        updatedDesigners = [...prev.designer, designer];
+      }
+
+      return {
+        ...prev,
+        designer: updatedDesigners,
+      };
+    });
   };
 
   // 필터 변경 핸들러
@@ -112,14 +127,15 @@ const Products = () => {
       ...prev,
       [type]: value,
     }));
-    setOpenDropdown(null); // 선택 후 드롭다운 닫기
   };
 
   // 드롭다운 토글 함수
   const toggleDropdown = (dropdown) => {
     if (openDropdown === dropdown) {
+      // 처음에 null값 ->만약 클릭한 드롭다운필터가 같으면 null -> 즉 열려있는 드롭다운 박스 닫기
       setOpenDropdown(null);
     } else {
+      // 처음에 null값 -> 클릭한 드롭다운 열기
       setOpenDropdown(dropdown);
     }
   };
@@ -136,13 +152,16 @@ const Products = () => {
         return false;
 
       // 디자이너 필터링
-      if (filters.designer && product.info.designer !== filters.designer)
+      if (
+        filters.designer.length > 0 &&
+        !filters.designer.includes(product.info.designer)
+      )
         return false;
 
       // 가격 필터링
       return true;
     })
-
+    // 온점표기법 구조 보면 필터한 다음에 정렬함수를 그냥 실행 시키고 있음 즉 ui에서 오름차순 내림차순 체크박스를 선택해서 실행되는 논리가 아님
     .sort((a, b) => {
       // 가격 정렬
       if (filters.sort === "asc") {
@@ -231,8 +250,8 @@ const Products = () => {
                     <label>
                       <input
                         type="checkbox"
-                        checked={filters.designer === ""}
-                        onChange={() => handleFilterChange("designer", "")}
+                        checked={filters.designer.length === 0}
+                        onChange={() => handleFilterChange("designer", [])}
                       />
                       All Designers
                     </label>
@@ -240,10 +259,8 @@ const Products = () => {
                       <label key={designer}>
                         <input
                           type="checkbox"
-                          checked={filters.designer === designer}
-                          onChange={() =>
-                            handleFilterChange("designer", designer)
-                          }
+                          checked={filters.designer.includes(designer)}
+                          onChange={() => toggleDesignerFilter(designer)}
                         />
                         {designer}
                       </label>
