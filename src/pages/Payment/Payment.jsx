@@ -103,15 +103,6 @@ const Payment = () => {
   const [inputValue, setInputValue] = useState("");
 
   const handlePayment = () => {
-    // const isFormValid = Object.values(form).every(
-    //   (value) => value.trim() !== ""
-    // );
-
-    // if (!isFormValid) {
-    //   alert("입력값이 필요합니다.");
-    //   return;
-    // }
-
     alert("결제가 완료되었습니다.");
     setCartItems([]);
     navigate("/");
