@@ -5,7 +5,6 @@ const ProductContext = createContext();
 
 // Context Provider 컴포넌트
 export const ProductProvider = ({ children }) => {
-  const [datas, setDatas] = useState([]);
   const [allProducts, setAllProducts] = useState({});
   const [currentCategory, setCurrentCategory] = useState("SOFA");
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -19,7 +18,6 @@ export const ProductProvider = ({ children }) => {
     fetch(dbData)
       .then((response) => response.json())
       .then((data) => {
-        setDatas(data);
         setAllProducts(data.products);
         setLoading(false);
       })
@@ -52,11 +50,11 @@ export const ProductProvider = ({ children }) => {
   // Context 값
   const value = {
     allProducts,
-    currentCategory,
-    changeCategory,
-    selectedProduct,
-    selectProduct,
-    loading,
+    // currentCategory,
+    // changeCategory,
+    // selectedProduct,
+    // selectProduct,
+    // loading,
   };
 
   return (
@@ -74,6 +72,4 @@ export const useProducts = () => {
   return context;
 };
 
-
-
-// 휘찬아 화이팅 
+// 휘찬아 화이팅
