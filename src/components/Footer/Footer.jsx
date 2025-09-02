@@ -110,11 +110,11 @@ const Footer = () => {
             © COPYRIGHT KUORA. ALL RIGHTS RESERVED.
           </div>
           <div className="footer-links">
-            <Link to="/terms">TERMS OF USE</Link>
+            <span>TERMS OF USE</span>
             <span className="divider">|</span>
-            <Link to="/privacy">PRIVACY POLICY</Link>
+            <span>PRIVACY POLICY</span>
             <span className="divider">|</span>
-            <Link to="/guide">SHOP GUIDE</Link>
+            <span>SHOP GUIDE</span>
           </div>
         </div>
       </div>
