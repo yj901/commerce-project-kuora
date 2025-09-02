@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import "./Products.scss";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
+import { useProducts } from "../../contexts/ProductContext";
 
 const Products = () => {
   // URL에서 카테고리 파라미터 가져오기
@@ -12,95 +13,43 @@ const Products = () => {
   const { category: urlCategory } = useParams();
 
   // 상태 관리
-  const [datas, setDatas] = useState([]);
   const [products, setProducts] = useState([]);
   // useState에 초기값을 계산하는 함수를 넣음/ 이런걸 lazy initializer 이라고 부름 / 컴포넌트 렌더링시 딱 한번 실행됨 즉 TABLES,.. 로 변환
   const [category, setCategory] = useState(() => {
-    return urlCategory.toUpperCase();
+    return urlCategory;
   });
 
   const [designers, setDesigners] = useState([]); // 디자이너 목록을 위한 상태
   const [materials, setMaterials] = useState([]); // 재질 목록을 위한 상태
   const [filters, setFilters] = useState({
     materials: [],
-    designer: "",
+    designer: [],
     sort: "",
   });
 
   // 드롭다운 메뉴 상태 관리
   const [openDropdown, setOpenDropdown] = useState(null);
+  const { allProducts } = useProducts();
 
   useEffect(() => {
-    const dbData = "https://yj901.github.io/kuora-db/db/products.json";
+    const categoryProducts = allProducts[urlCategory] || [];
 
-    fetch(dbData)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setDatas(data);
-        // URL 파라미터 기준 카테고리 설정
-        const rawCategory = urlCategory
-          ? urlCategory.endsWith("s")
-            ? urlCategory.slice(0, -1)
-            : urlCategory
-          : "sofa";
-        const categoryKey = rawCategory.toLowerCase() + "s";
+    setCategory(urlCategory.toUpperCase());
+    setProducts(categoryProducts);
 
-        const categoryProducts = data.products[categoryKey] || [];
+    const uniqueDesigners = [
+      ...new Set(categoryProducts.map((product) => product.info.designer)),
+    ];
+    setDesigners(uniqueDesigners);
 
-        setCategory(rawCategory.toUpperCase());
-        setProducts(categoryProducts);
+    const uniqueMaterials = [
+      ...new Set(categoryProducts.map((product) => product.info.materials)),
+    ];
+    setMaterials(uniqueMaterials);
+  }, [urlCategory, allProducts]);
 
-        // 디자이너 목록 추출
-        const uniqueDesigners = [
-          ...new Set(categoryProducts.map((product) => product.info.designer)),
-        ];
-        setDesigners(uniqueDesigners);
-
-        // 재질 목록 추출
-        const uniqueMaterials = [
-          ...new Set(categoryProducts.map((product) => product.info.materials)),
-        ];
-        setMaterials(uniqueMaterials);
-      })
-      .catch((error) => {
-        console.error("Error fetching products:", error);
-      });
-  }, [urlCategory]);
-
-  // 두 번째 useEffect: 카테고리 상태 변경에 따른 제품 데이터 로드
-  useEffect(() => {
-    if (!datas || typeof datas !== "object" || !datas.products) {
-      return;
-    }
-
-    try {
-      const categoryKey = category.toLowerCase() + "s";
-      const categoryProducts = datas.products[categoryKey] || [];
-
-      setProducts(categoryProducts);
-
-      // 디자이너 목록 추출
-      const uniqueDesigners = [
-        ...new Set(categoryProducts.map((product) => product.info.designer)),
-      ];
-      setDesigners(uniqueDesigners);
-
-      // 재질 목록 추출
-      const uniqueMaterials = [
-        ...new Set(categoryProducts.map((product) => product.info.materials)),
-      ];
-      setMaterials(uniqueMaterials);
-    } catch (error) {
-      console.error("Error loading products:", error);
-    }
-  }, [category]);
-
-  //다중선택 체크박스 토글함수
+  //Material 다중선택 체크박스 토글함수
+  // ...prev가 핵심 - 이전값 유지하는 부분이 있어야 됨
   const toggleMaterialFilter = (material) => {
     setFilters((prev) => {
       const alreadySelected = prev.materials.includes(material);
@@ -123,9 +72,23 @@ const Products = () => {
     });
   };
 
-  // 카테고리 변경 핸들러
-  const handleCategoryChange = (newCategory) => {
-    setCategory(newCategory.toUpperCase());
+  //Designer 다중선택 체크박스 토글함수
+  const toggleDesignerFilter = (designer) => {
+    setFilters((prev) => {
+      const alreadySelected = prev.designer.includes(designer);
+      let updatedDesigners;
+
+      if (alreadySelected) {
+        updatedDesigners = prev.designer.filter((d) => d !== designer);
+      } else {
+        updatedDesigners = [...prev.designer, designer];
+      }
+
+      return {
+        ...prev,
+        designer: updatedDesigners,
+      };
+    });
   };
 
   // 필터 변경 핸들러
@@ -134,14 +97,15 @@ const Products = () => {
       ...prev,
       [type]: value,
     }));
-    setOpenDropdown(null); // 선택 후 드롭다운 닫기
   };
 
   // 드롭다운 토글 함수
   const toggleDropdown = (dropdown) => {
     if (openDropdown === dropdown) {
+      // 처음에 null값 ->만약 클릭한 드롭다운필터가 같으면 null -> 즉 열려있는 드롭다운 박스 닫기
       setOpenDropdown(null);
     } else {
+      // 처음에 null값 -> 클릭한 드롭다운 열기
       setOpenDropdown(dropdown);
     }
   };
@@ -149,7 +113,6 @@ const Products = () => {
   // 필터링된 제품 가져오기
   const filteredProducts = products
     .filter((product) => {
-      // 카테고리 필터링은 이미 fetch에서 처리됨
       // 재질 필터링
       if (
         filters.materials.length > 0 &&
@@ -158,12 +121,16 @@ const Products = () => {
         return false;
 
       // 디자이너 필터링
-      if (filters.designer && product.info.designer !== filters.designer)
+      if (
+        filters.designer.length > 0 &&
+        !filters.designer.includes(product.info.designer)
+      )
         return false;
 
       // 가격 필터링
       return true;
     })
+    // 온점표기법 구조 보면 필터한 다음에 정렬함수를 그냥 실행 시키고 있음 즉 ui에서 오름차순 내림차순 체크박스를 선택해서 실행되는 논리가 아님
     .sort((a, b) => {
       // 가격 정렬
       if (filters.sort === "asc") {
@@ -179,7 +146,7 @@ const Products = () => {
       <Breadcrumb />;
       <div className="products-page">
         <div className="products-header inner">
-          <h1>{category}S</h1>
+          <h1>{category}</h1>
           <p>DESIGNED AND MANUFACTURED BY KUORA</p>
         </div>
 
@@ -251,8 +218,8 @@ const Products = () => {
                     <label>
                       <input
                         type="checkbox"
-                        checked={filters.designer === ""}
-                        onChange={() => handleFilterChange("designer", "")}
+                        checked={filters.designer.length === 0}
+                        onChange={() => handleFilterChange("designer", [])}
                       />
                       All Designers
                     </label>
@@ -260,10 +227,8 @@ const Products = () => {
                       <label key={designer}>
                         <input
                           type="checkbox"
-                          checked={filters.designer === designer}
-                          onChange={() =>
-                            handleFilterChange("designer", designer)
-                          }
+                          checked={filters.designer.includes(designer)}
+                          onChange={() => toggleDesignerFilter(designer)}
                         />
                         {designer}
                       </label>
