@@ -1,0 +1,39 @@
+.breadcrumb {
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  height: 58px;
+  top: 50px;
+  color: #222;
+  font-size: 1.7rem;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  font-weight: 300;
+}
+.breadcrumb::after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #d1d1d1;
+}
+.breadcrumb a {
+  text-decoration: none;
+}
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+.breadcrumb .arrow {
+  margin: 0 5px;
+}
+
+@media (max-width: 768px) {
+  .breadcrumb {
+    font-size: 1.5rem;
+    height: 52px;
+  }
+}
