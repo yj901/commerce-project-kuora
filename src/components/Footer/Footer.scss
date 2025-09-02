@@ -30,6 +30,7 @@
 
     .bold-text {
       font-weight: bold;
+      cursor: pointer;
     }
 
     .footer-info {
@@ -37,7 +38,7 @@
         margin-bottom: 8px;
         font-weight: 300;
 
-        a {
+        span {
           color: white;
 
           &:hover {
@@ -63,9 +64,10 @@
   .footer-links {
     display: flex;
 
-    a {
+    p {
       color: white;
       font-weight: 300;
+      cursor: pointer;
 
       &:hover {
         text-decoration: underline;
