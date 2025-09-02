@@ -33,6 +33,17 @@
   .arrow {
     margin: 0 5px;
   }
+
+  .crumb {
+    .disabled {
+      pointer-events: none;
+      cursor: default;
+    }
+    .current {
+      pointer-events: none;
+      font-weight: 600;
+    }
+  }
 }
 
 @include mobile {

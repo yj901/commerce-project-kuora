@@ -167,6 +167,13 @@
           &:hover > ::after {
             width: 110px;
           }
+          &:hover {
+            .img_div {
+              img {
+                scale: 1.1;
+              }
+            }
+          }
         }
 
         .img_div {
@@ -178,9 +185,6 @@
             height: 350px;
             transition: all 0.5s;
             cursor: pointer;
-            &:hover {
-              scale: 1.1;
-            }
           }
         }
         .text {
@@ -265,6 +269,13 @@
           &:hover > ::after {
             width: 110px;
           }
+          &:hover {
+            .img_div {
+              img {
+                scale: 1.1;
+              }
+            }
+          }
         }
 
         .img_div {
@@ -276,10 +287,6 @@
             height: 350px;
             transition: all 0.5s;
             cursor: pointer;
-
-            &:hover {
-              scale: 1.1;
-            }
           }
         }
         .text {

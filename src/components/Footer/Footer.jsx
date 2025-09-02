@@ -92,14 +92,10 @@ const Footer = () => {
             <h3>INFO</h3>
             <div className="footer-info">
               <p>
-                <Link to="/notice" className="bold-text">
-                  NOTICE
-                </Link>
+                <span className="bold-text">NOTICE</span>
               </p>
               <p>
-                <Link to="/qna" className="bold-text">
-                  Q&A
-                </Link>
+                <span className="bold-text">Q&A</span>
               </p>
             </div>
           </div>
@@ -110,11 +106,11 @@ const Footer = () => {
             © COPYRIGHT KUORA. ALL RIGHTS RESERVED.
           </div>
           <div className="footer-links">
-            <Link to="/terms">TERMS OF USE</Link>
+            <p>TERMS OF USE</p>
             <span className="divider">|</span>
-            <Link to="/privacy">PRIVACY POLICY</Link>
+            <p>PRIVACY POLICY</p>
             <span className="divider">|</span>
-            <Link to="/guide">SHOP GUIDE</Link>
+            <p>SHOP GUIDE</p>
           </div>
         </div>
       </div>
