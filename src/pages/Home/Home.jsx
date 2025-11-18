@@ -15,6 +15,7 @@ export const Home = () => {
   const { allProducts } = useProducts();
   const [bestProduct, setBestProduct] = useState([]);
   const [eliasProducts, setEliasProducts] = useState([]);
+  const [videoLoaded, setVideoLoaded] = useState(false);
 
   useEffect(() => {
     const filtered = Object.values(allProducts)
@@ -39,6 +40,8 @@ export const Home = () => {
           <p>Inspiring your space with premium design</p>
         </div>
         <div className="filter">
+          {!videoLoaded && <div className="video-thumb"></div>}
+
           <ReactPlayer
             width="100%"
             height="100%"
@@ -47,6 +50,11 @@ export const Home = () => {
             muted={true}
             controls={false}
             loop={true}
+            onReady={() => setVideoLoaded(true)}
+            style={{
+              opacity: videoLoaded ? 1 : 0,
+              transition: "opacity 0.8s ease-in",
+            }}
           />
         </div>
       </section>
