@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import ReactDOM from "react-dom";
 import EventPointView from "./EventPointView";
 import "./Eventslide.scss";
@@ -42,13 +42,14 @@ const EventPoint = ({
   const [isOriginalSlide, setIsOriginalSlide] = useState(true); // 원본 여부 확인
 
   const isActive = activeCode === productCode;
-  const handleClick = () => {
+
+  const handleClick = useCallback(() => {
     if (isActive) {
       setActiveCode(null);
     } else {
       setActiveCode(productCode); // 다른 거 열기
     }
-  };
+  }, [isActive, productCode, setActiveCode]);
 
   useEffect(() => {
     const updatePosition = () => {
@@ -118,4 +119,10 @@ const EventPoint = ({
   );
 };
 
-export default EventPoint;
+export default React.memo(EventPoint, (prevProps, nextProps) => {
+  const wasActive = prevProps.activeCode === prevProps.productCode;
+  const isActive = nextProps.activeCode === nextProps.productCode;
+
+  // 활성 상태가 안 바뀌었으면 true 반환 (스킵)
+  return wasActive === isActive;
+});

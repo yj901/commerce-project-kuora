@@ -1,18 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useProducts } from "../../contexts/ProductContext";
-import { useCart } from "../../contexts/CartContext";
 import HeaderLeftMenu from "./HeaderLeftMenu";
 import HeaderCartModal from "./HeaderCartModal";
 import IconSearchBtn from "../../assets/icons/searchBtn.svg";
 import IconCartBtn from "../../assets/icons/cartBtn.svg";
 import IconLogo from "../../assets/icons/logo_kuora.svg";
 import IconClose from "../../assets/icons/header_search_close.svg";
+import useCartStore from "../../stores/cartStore";
 
 import "./Header.scss";
 
 const Header = () => {
-  const { setIsCartOpen } = useCart();
+  const setIsCartOpen = useCartStore((state) => state.setIsCartOpen);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuActive, setIsMenuActive] = useState(false);
   const [isSearchActive, setIsSearchActive] = useState(false);
@@ -47,28 +47,31 @@ const Header = () => {
 
   const AllsearchProduct = Object.values(allProducts).flat();
 
-  const onCheckEnter = (e) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
+  const onCheckEnter = useCallback(
+    (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
 
-      const keyword = e.target.value.toLowerCase();
+        const keyword = e.target.value.toLowerCase();
 
-      const filterKeyword = AllsearchProduct.find(
-        (product) => product?.title?.toLowerCase() === keyword
-      );
+        const filterKeyword = AllsearchProduct.find(
+          (product) => product?.title?.toLowerCase() === keyword
+        );
 
-      const filterCode = filterKeyword?.info?.code;
+        const filterCode = filterKeyword?.info?.code;
 
-      if (filterKeyword) {
-        navigate(`/detail?id=${filterCode}`);
-      } else {
-        setShowNoResult(true);
-        setTimeout(() => setShowNoResult(false), 3000);
+        if (filterKeyword) {
+          navigate(`/detail?id=${filterCode}`);
+        } else {
+          setShowNoResult(true);
+          setTimeout(() => setShowNoResult(false), 3000);
+        }
+
+        e.target.value = "";
       }
-
-      e.target.value = "";
-    }
-  };
+    },
+    [AllsearchProduct]
+  );
 
   return (
     <>

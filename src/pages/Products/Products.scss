@@ -1,6 +1,27 @@
 @import "../../styles/_variables";
 @import "../../styles/_responsive";
 
+.no-products {
+  height: 45vh;
+  display: flex;
+  align-items: center;
+  p {
+    font-size: 1.6rem;
+  }
+  @include tablet {
+    height: 25vh;
+    p {
+      font-size: 1.5rem;
+    }
+  }
+  @include mobile {
+    height: 20vh;
+    p {
+      font-size: 1.3rem;
+    }
+  }
+}
+
 .products-page {
   // max-width: 1820px;
   margin-bottom: 162px;

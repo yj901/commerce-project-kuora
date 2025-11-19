@@ -1,10 +1,10 @@
 import React from "react";
-import { useCart } from "../../contexts/CartContext";
 import HeaderCartItem from "./HeaderCartItem";
 import IconCart from "../../assets/icons/cart_icon_bg.svg";
+import useCartStore from "../../stores/cartStore";
 
 const HeaderCartCenter = () => {
-  const { cartItems } = useCart();
+  const cartItems = useCartStore((state) => state.cartItems);
 
   if (cartItems.length === 0) {
     return (
@@ -26,4 +26,4 @@ const HeaderCartCenter = () => {
   );
 };
 
-export default HeaderCartCenter;
+export default React.memo(HeaderCartCenter);

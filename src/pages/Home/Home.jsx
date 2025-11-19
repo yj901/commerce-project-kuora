@@ -11,10 +11,11 @@ import MAIN_SHELF from "../../assets/MAIN_SHELF.png";
 import MAIN_TABLE from "../../assets/MAIN_TABLE.png";
 import ProductCard from "../../components/ProductCard/ProductCard";
 
-export const Home = () => {
+const Home = () => {
   const { allProducts } = useProducts();
   const [bestProduct, setBestProduct] = useState([]);
   const [eliasProducts, setEliasProducts] = useState([]);
+  const [videoLoaded, setVideoLoaded] = useState(false);
 
   useEffect(() => {
     const filtered = Object.values(allProducts)
@@ -39,6 +40,8 @@ export const Home = () => {
           <p>Inspiring your space with premium design</p>
         </div>
         <div className="filter">
+          {!videoLoaded && <div className="video-thumb"></div>}
+
           <ReactPlayer
             width="100%"
             height="100%"
@@ -47,6 +50,11 @@ export const Home = () => {
             muted={true}
             controls={false}
             loop={true}
+            onReady={() => setVideoLoaded(true)}
+            className={"main_video"}
+            style={{
+              opacity: videoLoaded ? 1 : 0,
+            }}
           />
         </div>
       </section>
@@ -147,3 +155,5 @@ export const Home = () => {
     </div>
   );
 };
+
+export default Home;

@@ -1,11 +1,12 @@
 import React from "react";
-import { useCart } from "../../contexts/CartContext";
 import HeaderCartCenter from "./HeaderCartCenter";
 import HeaderCartBottom from "./HeaderCartBottom";
 import ModalBtnClose from "../../assets/icons/modal_btn_x.svg";
+import useCartStore from "../../stores/cartStore";
 
 const HeaderCartModal = () => {
-  const { isCartOpen, setIsCartOpen } = useCart();
+  const isCartOpen = useCartStore((state) => state.isCartOpen);
+  const setIsCartOpen = useCartStore((state) => state.setIsCartOpen);
 
   return (
     <div id="header_cart" className={isCartOpen ? "active" : ""}>
@@ -24,4 +25,4 @@ const HeaderCartModal = () => {
   );
 };
 
-export default HeaderCartModal;
+export default React.memo(HeaderCartModal);

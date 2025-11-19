@@ -1,11 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useCart } from "../../contexts/CartContext";
+import useCartStore from "../../stores/cartStore";
+import { CalcTotalPrice } from "../../utils/cartCalculations";
 
 const HeaderCartBottom = () => {
-  const { cartItems, getTotalPrice } = useCart();
+  const cartItems = useCartStore((state) => state.cartItems);
+  const totalPrice = CalcTotalPrice(cartItems);
   const navigate = useNavigate();
-  const total = getTotalPrice();
 
   const hasItems = cartItems.length > 0;
 
@@ -22,14 +23,14 @@ const HeaderCartBottom = () => {
           <h6>SUBTOTAL : </h6>
           <p>
             <span>￦</span>
-            {total.toLocaleString()}
+            {totalPrice.toLocaleString()}
           </p>
         </li>
         <li className="total">
           <h6>TOTAL : </h6>
           <p>
             <span>￦</span>
-            {total.toLocaleString()}
+            {totalPrice.toLocaleString()}
           </p>
         </li>
       </ul>
@@ -42,4 +43,4 @@ const HeaderCartBottom = () => {
   );
 };
 
-export default HeaderCartBottom;
+export default React.memo(HeaderCartBottom);

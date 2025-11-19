@@ -1,0 +1,340 @@
+.eventslides {
+  width: 100%;
+  margin-bottom: 100px;
+  position: relative;
+}
+.eventslides .eventslide {
+  position: relative;
+  /* Dots */
+}
+.eventslides .eventslide .item {
+  position: relative;
+  margin: 0 10px;
+  aspect-ratio: 1.75/1;
+  background: no-repeat center/cover;
+}
+.eventslides .eventslide .item.bg3 {
+  background-image: url("../../assets/imgs/events/event_full3.jpg");
+}
+.eventslides .eventslide .item.bg2 {
+  background-image: url("../../assets/imgs/events/event_full2.jpg");
+}
+.eventslides .eventslide .item.bg1 {
+  background-image: url("../../assets/imgs/events/event_full1.jpg");
+}
+.eventslides .eventslide .slick-dotted.slick-slider {
+  margin-bottom: 0px;
+}
+.eventslides .eventslide .slick-dots {
+  position: absolute;
+  height: 0;
+  top: 0;
+  left: 0;
+  display: flex;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  text-align: center;
+}
+.eventslides .eventslide .slick-dots li {
+  position: relative;
+  display: inline-block;
+  width: auto;
+  height: auto;
+  padding: 0;
+  cursor: pointer;
+  transform: translateY(calc(-100% - 26px));
+  margin: 0;
+  margin-right: 30px;
+  padding-bottom: 3px;
+  font-size: 1.8rem;
+  font-weight: 300;
+  text-transform: uppercase;
+  border-bottom: 1px solid transparent;
+  transition: border 0.4s;
+}
+.eventslides .eventslide .slick-dots li.slick-active {
+  border-bottom: 1px solid #222;
+}
+@media (max-width: 1300px) {
+  .eventslides .eventslide .slick-dots li {
+    font-size: 1.6rem;
+    margin-right: 20px;
+    transform: translateY(calc(-100% - 23px));
+  }
+}
+@media (max-width: 768px) {
+  .eventslides .eventslide .slick-dots li {
+    font-size: 1.4rem;
+    margin-right: 12px;
+    transform: translateY(calc(-100% - 21px));
+  }
+}
+@media (max-width: 500px) {
+  .eventslides .eventslide .slick-dots li {
+    font-size: 1.3rem;
+    margin-right: 10px;
+    transform: translateY(calc(-100% - 18px));
+  }
+}
+.eventslides .custom_arrows {
+  display: flex;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translateY(calc(-100% - 30px));
+  gap: 40px;
+}
+.eventslides .custom_arrows li {
+  font-size: 0;
+  cursor: pointer;
+}
+.eventslides .custom_arrows li:first-child {
+  transform: rotate(180deg);
+}
+.eventslides .custom_arrows li img {
+  width: 12px;
+}
+@media (max-width: 1300px) {
+  .eventslides .custom_arrows {
+    transform: translateY(calc(-100% - 25px));
+    gap: 35px;
+  }
+  .eventslides .custom_arrows li img {
+    width: 10px;
+  }
+}
+@media (max-width: 768px) {
+  .eventslides .custom_arrows {
+    transform: translateY(calc(-100% - 20px));
+    gap: 30px;
+  }
+  .eventslides .custom_arrows li img {
+    width: 9px;
+  }
+}
+@media (max-width: 500px) {
+  .eventslides .custom_arrows {
+    transform: translateY(calc(-100% - 18px));
+    gap: 20px;
+  }
+  .eventslides .custom_arrows li img {
+    width: 8px;
+  }
+}
+@media (max-width: 768px) {
+  .eventslides .eventslide .item {
+    margin: 0px;
+  }
+}
+
+.productPoint {
+  position: relative;
+  z-index: 10;
+  width: 1px;
+  height: 1px;
+}
+.productPoint .bigCirPoint {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.47);
+  cursor: pointer;
+}
+.productPoint .bigCirPoint .smallCirPoint {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+}
+@media (max-width: 1300px) {
+  .productPoint .bigCirPoint {
+    width: 25px;
+    height: 25px;
+  }
+  .productPoint .bigCirPoint .smallCirPoint {
+    width: 13px;
+    height: 13px;
+  }
+}
+@media (max-width: 768px) {
+  .productPoint .bigCirPoint {
+    width: 19px;
+    height: 19px;
+  }
+  .productPoint .bigCirPoint .smallCirPoint {
+    width: 9px;
+    height: 9px;
+  }
+}
+
+.outsideElement {
+  display: none;
+  position: absolute;
+  z-index: 2;
+  transform: translateX(-50%);
+  margin-top: 25px;
+}
+.outsideElement.active {
+  display: block;
+}
+.outsideElement .point_viewBox {
+  z-index: 2;
+  margin-top: 13px;
+  background: #fff;
+  width: 310px;
+  height: 400px;
+  padding: 50px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.outsideElement .point_viewBox::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 26px;
+  height: 15px;
+  background: url("../../assets/icons/event_point_view_tr.svg") no-repeat center/cover;
+}
+.outsideElement .point_viewBox figure {
+  width: 100%;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.outsideElement .point_viewBox figure img {
+  height: 100%;
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: cover;
+}
+.outsideElement .point_viewBox .txt {
+  text-align: center;
+}
+.outsideElement .point_viewBox .txt h5 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.outsideElement .point_viewBox .txt p {
+  margin-top: 12px;
+  font-size: 1.5rem;
+  font-weight: 300;
+  text-transform: uppercase;
+}
+.outsideElement .point_viewBox a {
+  display: block;
+}
+.outsideElement .point_viewBox .productGoBtn {
+  width: 100%;
+  padding: 13px;
+  background: #f2f2f2;
+  cursor: pointer;
+}
+.outsideElement .point_viewBox .productGoBtn p {
+  font-size: 1.4rem;
+  font-weight: 300;
+  text-align: center;
+}
+@media (max-width: 1300px) {
+  .outsideElement {
+    margin-top: 20px;
+  }
+  .outsideElement .point_viewBox {
+    width: 280px;
+    height: 370px;
+    padding: 45px;
+  }
+  .outsideElement .point_viewBox figure {
+    height: 130px;
+  }
+  .outsideElement .point_viewBox .txt h5 {
+    font-size: 1.7rem;
+  }
+  .outsideElement .point_viewBox .txt p {
+    margin-top: 12px;
+    font-size: 1.4rem;
+  }
+  .outsideElement .point_viewBox .productGoBtn {
+    padding: 13px;
+  }
+  .outsideElement .point_viewBox .productGoBtn p {
+    font-size: 1.3rem;
+  }
+}
+@media (max-width: 1025px) {
+  .outsideElement {
+    margin-top: 15px;
+  }
+  .outsideElement .point_viewBox {
+    width: 230px;
+    height: 320px;
+    padding: 35px;
+    margin-top: 10px;
+  }
+  .outsideElement .point_viewBox::before {
+    width: 24px;
+    height: 11px;
+  }
+  .outsideElement .point_viewBox figure {
+    height: 110px;
+  }
+  .outsideElement .point_viewBox .txt h5 {
+    font-size: 1.6rem;
+  }
+  .outsideElement .point_viewBox .txt p {
+    margin-top: 8px;
+    font-size: 1.3rem;
+  }
+  .outsideElement .point_viewBox .productGoBtn {
+    padding: 13px;
+  }
+  .outsideElement .point_viewBox .productGoBtn p {
+    font-size: 1.25rem;
+  }
+}
+@media (max-width: 768px) {
+  .outsideElement {
+    margin-top: 15px;
+  }
+  .outsideElement .point_viewBox {
+    width: 200px;
+    height: 270px;
+    padding: 30px;
+  }
+  .outsideElement .point_viewBox::before {
+    width: 24px;
+    height: 11px;
+  }
+  .outsideElement .point_viewBox figure {
+    height: 90px;
+  }
+  .outsideElement .point_viewBox .txt h5 {
+    font-size: 1.4rem;
+  }
+  .outsideElement .point_viewBox .txt p {
+    margin-top: 6px;
+    font-size: 1.2rem;
+  }
+  .outsideElement .point_viewBox .productGoBtn {
+    padding: 13px;
+  }
+  .outsideElement .point_viewBox .productGoBtn p {
+    font-size: 1.15rem;
+  }
+}

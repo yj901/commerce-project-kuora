@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useCart } from "../../contexts/CartContext";
 import { Icon } from "@iconify/react";
 import "./Payment.scss";
 import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
+import useCartStore from "../../stores/cartStore";
+import { CalcTotalPrice } from "../../utils/cartCalculations";
 
 const Payment = () => {
   const navigate = useNavigate();
 
   //카트 아이템 받기
-  const { cartItems, setCartItems, getTotalPrice } = useCart();
+  const cartItems = useCartStore((state) => state.cartItems);
+  const clearCart = useCartStore((state) => state.clearCart);
+  const totalPrice = CalcTotalPrice(cartItems);
 
   // 주문자 정보
   const [emailId, setEmailId] = useState("");
@@ -104,7 +107,7 @@ const Payment = () => {
 
   const handlePayment = () => {
     alert("결제가 완료되었습니다.");
-    setCartItems([]);
+    clearCart();
     navigate("/");
   };
 
@@ -368,26 +371,6 @@ const Payment = () => {
                   </div>
                 </div>
               </div>
-
-              {/* <div>
-        <h1>Checkout</h1>{" "}
-        {cartItems.length === 0 ? (
-          <p>장바구니가 비었습니다.</p>
-        ) : (
-          <>
-            <ul>
-              {cartItems.map((item) => (
-                <li key={item.code}>
-                  {item.title} - {item.quantity}개 - ₩
-                  {(item.price * item.quantity).toLocaleString()}
-                </li>
-              ))}
-            </ul>
-            <h2>총 합계: ₩{getTotalPrice().toLocaleString()}</h2>
-          </>
-        )}
-      </div> */}
-              {/* 오른쪽 영역 */}
             </div>
           </div>
           <div className="payment_right">
@@ -418,26 +401,6 @@ const Payment = () => {
                   ))}
                 </>
               )}
-              {/* {cartItems.map((item, index) => (
-                <div className="summary_product" key={index}>
-                  <img
-                    className="summary_product_price"
-                    src={item.thumbnail}
-                    alt={item.title}
-                  />
-                  <div className="summary_product_info">
-                    <p className="summary_product_name">{item.title}</p>
-                    <div className="summary_product_subinfo">
-                      <span className="summary_product_quantity">
-                        {item.quantity} 개
-                      </span>
-                      <span className="summary_product_price">
-                        {(item.price * item.quantity).toLocaleString()}원
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              ))} */}
 
               <div className="summary_coupon">
                 <input type="text" placeholder="할인코드" />
@@ -447,7 +410,7 @@ const Payment = () => {
               <div className="summary_breakdown">
                 <div>
                   <span>총 상품금액</span>
-                  <span>{getTotalPrice().toLocaleString()}원</span>
+                  <span>{totalPrice.toLocaleString()}원</span>
                 </div>
                 <div>
                   <span>할인금액</span>
@@ -459,17 +422,10 @@ const Payment = () => {
 
               <div className="summary_total">
                 <strong>결제금액</strong>
-                <strong>{getTotalPrice().toLocaleString()}원</strong>
+                <strong>{totalPrice.toLocaleString()}원</strong>
               </div>
 
               <div>
-                {/* <input
-                  type="text"
-                  placeholder="입력하세요"
-                  value={inputValue}
-                  onChange={(e) => setInputValue(e.target.value)}
-                  className="border rounded-xl px-4 py-2 w-80"
-                /> */}
                 <button
                   onClick={handlePayment}
                   // disabled={!inputValue.trim()}
@@ -486,30 +442,3 @@ const Payment = () => {
   );
 };
 export default Payment;
-
-// import React from "react";
-// import { useLocation } from "react-router-dom";
-// import { useCart } from "../../contexts/CartContext";
-
-// const Payment = () => {
-//   const location = useLocation();
-//   const { cartItems, getTotalPrice } = useCart();
-
-//   return (
-//     <div className="checkout">
-//       <h1>Checkout</h1>
-//       {cartItems.length === 0 ? (
-//         <p>장바구니가 비었습니다.</p>
-//       ) : (
-//         <>
-//           <ul>
-//             {cartItems.map((item) => (
-//               <li key={item.code}>
-//                 {item.title} - {item.quantity}개 - ₩
-//                 {(item.price * item.quantity).toLocaleString()}
-//               </li>
-//             ))}
-//           </ul>
-//           <h2>총 합계: ₩{getTotalPrice().toLocaleString()}</h2>
-//         </>
-//       )} */

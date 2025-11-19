@@ -3,17 +3,13 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./DetailSlider.scss";
-import {resolveImage} from "../../utils/resolveImg";
-
-
-
+import { resolveImage } from "../../utils/resolveImg";
 
 const CustomPaging = ({ product }) => {
   const images = product.img.thumbnailImg;
 
   const settings = {
-
-    customPaging: i => (
+    customPaging: (i) => (
       <a className="DetailPaging">
         <img
           src={resolveImage(images[i])}
@@ -43,17 +39,11 @@ const CustomPaging = ({ product }) => {
         </Slider>
       ) : (
         <div className="item">
-          <img
-            src={resolveImage(images[0])}
-            alt={`${product.title} 1`}
-          />
+          <img src={resolveImage(images[0])} alt={`${product.title} 1`} />
         </div>
       )}
     </div>
   );
 };
 
-export default CustomPaging
-
-
-
+export default CustomPaging;

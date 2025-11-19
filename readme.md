@@ -19,41 +19,35 @@ KUORA는 독창적인 디자인과 기능성을 추구하는 프리미엄 가구
 - **구여진 (PM)**
 
   - 프로젝트 일정 관리 및 UI 가이드 총괄
-  - 이벤트 페이지 제작
-  - 헤더(네비게이션/검색/카트) 제작
-  - 상품 DB 취합 및 GitHub Pages JSON 배포
+  - 이벤트 페이지 담당
+  - 헤더 공통 UI 설계 및 구현
 
 - **이경문**
 
-  - 메인 홈 페이지 제작
-  - 브레드크럼브 컴포넌트 제작
-  - 홈 전반의 사용자 흐름 및 레이아웃 정리
+  - 메인 홈 페이지 담당
+  - 브레드크럼브 공통 UI 설계 및 구현
 
 - **현윤섭**
 
-  - 상품 리스트 페이지 제작
-  - 푸터 제작 및 공통 레이아웃 정리
-  - 리스트/푸터 전반의 반응형 대응 검수
+  - 상품 리스트 페이지 담당
+  - 푸터 공통 UI 설계 및 구현
 
 - **정휘찬**
 
-  - 상품 디테일 페이지 제작
-  - 상품 정보 출력 및 장바구니 담기 로직 구현
-  - 디테일 페이지 UI/UX 개선 및 상태 관리 보완
+  - 상품 디테일 페이지 담당
+  - 상품 정보 표시 및 이미지 갤러리 구현
 
 - **황예진**
-  - 결제 페이지 제작
-  - 카카오 주소 API 연동 및 결제 흐름 구현
-  - 주문·결제 UI 및 사용자 입력 검증 처리
+  - 결제 페이지 담당
+  - 카카오 주소 API 연동 및 결제 흐름 구축
 
 ---
 
 ## 🛠️ 기술 스택
 
-- **Frontend:** React (CRA), React Router, Context API, SCSS
-- **Data & State:** Fetch API, LocalStorage
-- **Infra:** GitHub Pages (상품 DB JSON), Netlify (웹 배포)
-- **Library & API:** react-slick, Kakao 주소 API, React Portal
+- **Frontend:** React, React Router, Context API, SCSS
+- **Infra:** GitHub Pages, Netlify
+- **Library & API:** react-slick, Kakao 주소 API
 - **Design & Collaboration:** Figma, GitHub, Slack
 
 ---
@@ -80,36 +74,35 @@ KUORA는 독창적인 디자인과 기능성을 추구하는 프리미엄 가구
   약관 동의 후 결제 시뮬레이션 (실결제 제외)
 
 - **이벤트(Event Page)**  
-  컬렉션 전용 슬라이드  
+  컬렉션 전용 상품 슬라이드  
   상품 포인트 클릭 → 상세 카드 표시 → 상품 상세 페이지 연결
 
 - **공통 UI**  
-  Header(내비게이션/검색/카트), Breadcrumb, Footer(Scroll To Top 버튼)
+  Header(메뉴/검색/장바구니), Breadcrumb, Footer(Scroll To Top 버튼)
 
-## ✅ 구현 포인트
+<!-- ## ✅ 구현 포인트
 
-- **상품 데이터 관리**  
-  상품 DB를 JSON으로 구성해 GitHub Pages에 배포 → Fetch API로 서버리스 데이터 제공
+- **상품 데이터 관리**
+  상품 DB를 JSON으로 구성해 GitHub Pages에 정적 배포
+  Fetch API로 클라이언트에서 데이터 호출
 
-- **상태 관리**  
-  Context API + LocalStorage 기반으로 장바구니 상태를 유지, 새로고침·탭 전환에도 데이터 보존
-
-- **상품 리스트 페이지**  
+- **상품 리스트 페이지**
   조건부 필터링(재질/디자이너/가격)과 정렬 로직을 적용해 탐색 UX 강화
 
-- **상품 상세 페이지**  
-  React 상태 관리로 수량 조절, 다중 이미지 뷰·갤러리 구성, 장바구니 연동 구현
+- **상품 상세 페이지**
+  React 상태 관리로 수량 조절, 다중 이미지 뷰·갤러리 구성
+  Context API를 통해 장바구니에 상품 추가
 
-- **장바구니 & 결제**  
-  CartContext를 통해 결제 페이지로 데이터 흐름 연결  
-  카카오 주소 API 연동으로 실제 쇼핑몰과 유사한 배송 경험 제공
-
-- **이벤트 페이지**  
+- **이벤트 페이지**
   react-slick 커스텀과 React Portal을 활용해 클론 문제를 해결하고, 안정적인 핫스팟 오버레이 UX 구현
 
-- **공통 UI**  
-  Header에서 검색어 미스매치 안내 처리  
-  Footer에 Scroll To Top 버튼을 추가해 사용자 편의성 향상
+- **장바구니 & 결제**
+  Context API를 활용한 장바구니 데이터 의존성 주입
+  카카오 주소 API 연동으로 실제 쇼핑몰과 유사한 배송 경험 제공
+
+- **공통 UI**
+  Header에서 검색어 미스매치 안내 처리
+  Footer에 Scroll To Top 버튼을 추가해 사용자 편의성 향상 -->
 
 <!-- 하이엔드 가구 브랜드 이커머스 사이트 제작 - KOURA
 2025.03.21 ~ 2025.04.11
