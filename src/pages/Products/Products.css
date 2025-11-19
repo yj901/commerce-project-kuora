@@ -1,3 +1,28 @@
+.no-products {
+  height: 45vh;
+  display: flex;
+  align-items: center;
+}
+.no-products p {
+  font-size: 1.6rem;
+}
+@media (max-width: 1025px) {
+  .no-products {
+    height: 25vh;
+  }
+  .no-products p {
+    font-size: 1.5rem;
+  }
+}
+@media (max-width: 768px) {
+  .no-products {
+    height: 20vh;
+  }
+  .no-products p {
+    font-size: 1.3rem;
+  }
+}
+
 .products-page {
   margin-bottom: 162px;
   padding-top: 20px;

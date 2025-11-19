@@ -40,5 +40,3 @@ export const useProducts = () => {
   }
   return context;
 };
-
-// 휘찬아 화이팅

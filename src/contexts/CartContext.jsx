@@ -1,6 +1,21 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+} from "react";
+import {
+  addItemToCart,
+  removeItemFromCart,
+  increaseItemQuantity,
+  decreaseItemQuantity,
+  CalcTotalPrice,
+} from "../utils/cartCalculations";
 
-const CartContext = createContext();
+const CartStateContext = createContext();
+const CartActionsContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState(() => {
@@ -24,94 +39,92 @@ export const CartProvider = ({ children }) => {
     return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
 
-  //상품추가 - 수량도 추가
-  const addToCart = (product, quantity = 1) => {
-    // quantity 파라미터가 없으면 기본값 1로 설정
-    setCartItems((prevItems) => {
-      const existingItem = prevItems.find((item) => item.code === product.code);
-      if (existingItem) {
-        // 이미 있는 경우 수량추가
-        return prevItems.map((item) =>
-          item.code === product.code
-            ? { ...item, quantity: item.quantity + quantity }
-            : item
-        );
-      } else {
-        return [...prevItems, { ...product, quantity: quantity }];
-      }
-    });
-  };
+  //상품추가
+  const addToCart = useCallback((product, quantity = 1) => {
+    setCartItems((prevItems) => addItemToCart(prevItems, product, quantity));
+  }, []);
 
   //상품삭제
-  const removeFromCart = (productCode) => {
-    setCartItems((prevItems) =>
-      prevItems.filter((item) => item.code !== productCode)
-    );
-  };
+  const removeFromCart = useCallback((productCode) => {
+    setCartItems((prevItems) => removeItemFromCart(prevItems, productCode));
+  }, []);
+
+  //수량 증가
+  const increaseQuantity = useCallback((productCode) => {
+    setCartItems((prevItems) => increaseItemQuantity(prevItems, productCode));
+  }, []);
+
+  //수량 감소
+  const decreaseQuantity = useCallback((productCode) => {
+    setCartItems((prevItems) => decreaseItemQuantity(prevItems, productCode));
+  }, []);
 
   // 전체 가격 계산
-  const getTotalPrice = () => {
-    return cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
-  };
+  const totalPrice = useMemo(() => {
+    return CalcTotalPrice(cartItems);
+  }, [cartItems]);
 
-  const increaseQuantity = (productCode) => {
-    setCartItems((prevItems) =>
-      prevItems.map((item) =>
-        item.code === productCode
-          ? { ...item, quantity: item.quantity + 1 }
-          : item
-      )
-    );
-  };
+  //장바구니 비우기
+  const clearCart = useCallback(() => {
+    setCartItems([]);
+  }, []);
 
-  const decreaseQuantity = (productCode) => {
-    setCartItems(
-      (prevItems) =>
-        prevItems
-          .map((item) =>
-            item.code === productCode
-              ? { ...item, quantity: item.quantity - 1 }
-              : item
-          )
-          .filter((item) => item.quantity > 0) // 수량이 0이 되면 자동 제거
-    );
-  };
+  const stateValue = useMemo(
+    () => ({
+      cartItems,
+      totalPrice,
+    }),
+    [cartItems, totalPrice]
+  );
 
-  // 장바구니 내 특정 상품의 수량을 직접 설정하는 함수 추가
-  const setItemQuantity = (productCode, newQuantity) => {
-    if (newQuantity <= 0) {
-      // 수량이 0 이하면 상품 삭제
-      removeFromCart(productCode);
-      return;
-    }
+  const actionsValue = useMemo(
+    () => ({
+      addToCart,
+      removeFromCart,
+      increaseQuantity,
+      decreaseQuantity,
+      clearCart,
+      isCartOpen,
+      setIsCartOpen,
+    }),
+    [
+      addToCart,
+      removeFromCart,
+      increaseQuantity,
+      decreaseQuantity,
+      clearCart,
+      isCartOpen,
+    ]
+  );
 
-    setCartItems((prevItems) =>
-      prevItems.map((item) =>
-        item.code === productCode ? { ...item, quantity: newQuantity } : item
-      )
-    );
-  };
+  return (
+    <CartStateContext.Provider value={stateValue}>
+      <CartActionsContext.Provider value={actionsValue}>
+        {children}
+      </CartActionsContext.Provider>
+    </CartStateContext.Provider>
+  );
+};
 
-  const value = {
-    cartItems,
-    setCartItems,
-    addToCart,
-    removeFromCart,
-    getTotalPrice,
-    increaseQuantity,
-    decreaseQuantity,
-    setItemQuantity, // 신규 함수 export
-    isCartOpen,
-    setIsCartOpen,
-  };
+export const useCartState = () => {
+  const context = useContext(CartStateContext);
+  if (context === undefined) {
+    throw new Error("useCartState must be used within CartProvider");
+  }
+  return context;
+};
 
-  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
+export const useCartActions = () => {
+  const context = useContext(CartActionsContext);
+  if (context === undefined) {
+    throw new Error("useCartActions must be used within CartProvider");
+  }
+  return context;
 };
 
 export const useCart = () => {
-  const context = useContext(CartContext);
-  if (context === undefined) {
-    console.error("useCart is undefined");
-  }
-  return context;
+  return {
+    ...useCartState(),
+    ...useCartActions(),
+  };
 };

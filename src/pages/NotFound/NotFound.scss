@@ -1,0 +1,161 @@
+@import "../../styles/variables";
+@import "../../styles/responsive";
+
+.notfound_wrapper {
+  min-height: calc(100vh - 200px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  background-color: map-get($map: $color, $key: gray_f2);
+
+  .notfound_content {
+    text-align: center;
+    max-width: 600px;
+
+    .notfound_icon {
+      font-size: 100px;
+      color: map-get($map: $color, $key: main2);
+      margin-bottom: 30px;
+
+      @include tablet {
+        font-size: 8rem;
+      }
+
+      @include mobile {
+        font-size: 6rem;
+      }
+
+      i {
+        display: inline-block;
+      }
+    }
+
+    .notfound_title {
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: map-get($map: $color, $key: dark);
+      margin: 0 0 20px 0;
+      font-family: map-get($map: $font, $key: pretendard);
+
+      @include tablet {
+        font-size: 2.4rem;
+      }
+
+      @include mobile {
+        font-size: 2rem;
+      }
+    }
+
+    .notfound_description {
+      font-size: 1.6rem;
+      color: #666;
+      margin-bottom: 10px;
+      line-height: 1.5;
+      word-break: keep-all;
+      font-family: map-get($map: $font, $key: pretendard);
+
+      @include tablet {
+        font-size: 1.5rem;
+        margin-bottom: 8px;
+      }
+
+      @include mobile {
+        font-size: 1.3rem;
+        margin-bottom: 6px;
+      }
+    }
+
+    .notfound_guide {
+      font-size: 1.4rem;
+      color: #999;
+      margin-bottom: 40px;
+      font-family: map-get($map: $font, $key: pretendard);
+
+      @include tablet {
+        font-size: 1.4rem;
+        margin-bottom: 30px;
+      }
+
+      @include mobile {
+        font-size: 1.2rem;
+      }
+    }
+
+    .notfound_buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+
+      @include mobile {
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+      }
+
+      .btn_back,
+      .btn_home {
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 14px 32px;
+        font-size: 1.4rem;
+        font-weight: 500;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        cursor: pointer;
+
+        @include mobile {
+          gap: 6px;
+          width: 100%;
+          max-width: 300px;
+          padding: 12px 24px;
+          font-size: 1.3rem;
+        }
+      }
+
+      .btn_back {
+        i {
+          font-size: 1.4rem;
+          transform: translateY(1px);
+          @include mobile {
+            font-size: 1.3rem;
+          }
+        }
+      }
+      .btn_home {
+        i {
+          font-size: 1.3rem;
+          transform: translateY(1px);
+          @include mobile {
+            font-size: 1.1rem;
+          }
+        }
+      }
+
+      .btn_back {
+        background-color: map-get($map: $color, $key: light);
+        color: map-get($map: $color, $key: dark);
+        border: 1px solid map-get($map: $color, $key: main2);
+
+        &:hover {
+          background-color: map-get($map: $color, $key: main2);
+          color: map-get($map: $color, $key: light);
+        }
+      }
+
+      .btn_home {
+        background-color: map-get($map: $color, $key: dark);
+        color: map-get($map: $color, $key: light);
+        border: 1px solid map-get($map: $color, $key: dark);
+
+        &:hover {
+          background-color: map-get($map: $color, $key: black);
+        }
+      }
+    }
+  }
+}

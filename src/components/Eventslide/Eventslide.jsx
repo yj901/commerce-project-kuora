@@ -23,12 +23,16 @@ const EventSlide = () => {
     setEliasProducts(filtered);
   }, [allProducts]);
 
-  const findCode = (code) => {
-    const found = eliasProducts.find((product) => {
-      return product.info.code === code;
-    });
-    return found;
-  };
+  const findCode = useCallback(
+    (code) => {
+      return eliasProducts.find((product) => product.info.code === code);
+    },
+    [eliasProducts]
+  );
+
+  const handleBeforeChange = useCallback(() => {
+    setActiveCode(null);
+  }, []);
 
   var settings = {
     dots: true,
@@ -45,6 +49,7 @@ const EventSlide = () => {
       </div>
     ),
     customPaging: (i) => <div>{EventSlidePaging[i]}</div>,
+    beforeChange: handleBeforeChange,
 
     responsive: [
       {
@@ -213,4 +218,4 @@ const EventSlide = () => {
   );
 };
 
-export default EventSlide;
+export default React.memo(EventSlide);

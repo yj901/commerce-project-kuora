@@ -18,4 +18,4 @@ const EventTop = () => {
   );
 };
 
-export default EventTop;
+export default React.memo(EventTop);

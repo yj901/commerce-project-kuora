@@ -3,24 +3,62 @@
   border: 1px solid #ccc;
 }
 .DetailPaging img {
+  object-fit: cover;
   width: 128px;
   height: 80px;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
+}
+@media (max-width: 1200px) {
+  .DetailPaging img {
+    width: 90px;
+    height: 70px;
+  }
+}
+@media (max-width: 768px) {
+  .DetailPaging img {
+    width: 65px;
+    height: 40px;
+  }
 }
 
 .Detailslider-container {
-  /* Arrows */
+  position: relative;
+  margin-top: 50px;
   /* Dots */
+}
+@media (max-width: 1600px) {
+  .Detailslider-container {
+    margin-top: 100px;
+  }
+}
+@media (max-width: 1025px) {
+  .Detailslider-container {
+    margin-top: 0px;
+  }
+}
+.Detailslider-container .item {
+  /* Arrows */
 }
 .Detailslider-container .item img {
   width: 100%;
-  height: 600px;
+  max-height: 600px;
   display: flex;
   gap: 30px;
+  object-fit: cover;
+  margin-bottom: 100px;
 }
-.Detailslider-container .slick-prev,
-.Detailslider-container .slick-next {
+@media (max-width: 1025px) {
+  .Detailslider-container .item img {
+    margin-bottom: 70px;
+  }
+}
+@media (max-width: 768px) {
+  .Detailslider-container .item img {
+    margin-bottom: 45px;
+  }
+}
+.Detailslider-container .item .slick-prev,
+.Detailslider-container .item .slick-next {
   font-size: 0;
   line-height: 0;
   position: absolute;
@@ -31,16 +69,26 @@
   padding: 0;
   cursor: pointer;
 }
+.Detailslider-container .item .slick-dots.slick-thumb {
+  bottom: 0px;
+}
+@media (max-width: 1025px) {
+  .Detailslider-container .item .slick-dots.slick-thumb {
+    bottom: 45px;
+  }
+}
+.Detailslider-container .item .slick-dots li.slick-active .DetailPaging img {
+  opacity: 0.5;
+}
 .Detailslider-container .slick-prev {
-  left: 10px;
+  left: 2%;
   position: absolute;
   z-index: 1;
   background: url("../../assets/icons/VectorPrev.png") center/cover no-repeat;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 .Detailslider-container .slick-next {
-  right: 10px;
+  right: 2%;
   position: absolute;
   background: url("../../assets/icons/VectorNext.png") center/cover no-repeat;
 }
@@ -53,7 +101,7 @@
 }
 .Detailslider-container .slick-dots {
   position: absolute;
-  bottom: -25px;
+  bottom: 0px;
   display: block;
   width: 100%;
   padding: 0;
@@ -69,4 +117,4 @@
   margin: 0 5px;
   padding: 0;
   cursor: pointer;
-}/*# sourceMappingURL=DetailSlider.css.map */
+}

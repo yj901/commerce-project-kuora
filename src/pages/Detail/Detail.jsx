@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useProducts } from "../../contexts/ProductContext";
-import { useCart } from "../../contexts/CartContext";
 import { resolveImage } from "../../utils/resolveImg";
 import CustomPaging from "../../components/DetailSlider/DetailSlider";
 import "./Detail.scss";
 import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
+import NotFound from "../NotFound/NotFound";
+import useCartStore from "../../stores/cartStore";
 
 const Detail = () => {
   const { allProducts } = useProducts();
-  const { addToCart, setIsCartOpen } = useCart();
+  const setIsCartOpen = useCartStore((state) => state.setIsCartOpen);
+  const addToCart = useCartStore((state) => state.addToCart);
   const [searchParams] = useSearchParams();
   const productId = parseInt(searchParams.get("id"));
-  const [product, setProduct] = useState(null);
+  const [product, setProduct] = useState(undefined);
   const [quantity, setQuantity] = useState(1); // 수량 상태 추가
 
   useEffect(() => {
@@ -38,7 +40,15 @@ const Detail = () => {
     }
   };
 
-  if (!product) return <div>Loading...</div>;
+  if (!productId) return <NotFound />;
+  if (product === undefined) {
+    return (
+      <div className="detail-placeholder">
+        <Breadcrumb />
+      </div>
+    );
+  }
+  if (product === null) return <NotFound />;
 
   const handleAddToCart = () => {
     const cartItem = {

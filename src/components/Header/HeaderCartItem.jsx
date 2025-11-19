@@ -1,9 +1,11 @@
 import React from "react";
-import { useCart } from "../../contexts/CartContext";
 import IconRemove from "../../assets/icons/remove_icon.svg";
+import useCartStore from "../../stores/cartStore";
 
 const HeaderCartItem = ({ item }) => {
-  const { removeFromCart, increaseQuantity, decreaseQuantity } = useCart();
+  const removeFromCart = useCartStore((state) => state.removeFromCart);
+  const increaseQuantity = useCartStore((state) => state.increaseQuantity);
+  const decreaseQuantity = useCartStore((state) => state.decreaseQuantity);
 
   return (
     <div className="cart_item">
@@ -40,4 +42,4 @@ const HeaderCartItem = ({ item }) => {
   );
 };
 
-export default HeaderCartItem;
+export default React.memo(HeaderCartItem);

@@ -14,4 +14,4 @@ const EventDesinger = () => {
   );
 };
 
-export default EventDesinger;
+export default React.memo(EventDesinger);

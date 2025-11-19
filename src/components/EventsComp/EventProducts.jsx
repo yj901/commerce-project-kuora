@@ -37,4 +37,4 @@ const EventProducts = () => {
   );
 };
 
-export default EventProducts;
+export default React.memo(EventProducts);

@@ -1,11 +1,12 @@
-@import "/src/styles/variables";
-@import "/src/styles/responsive";
+@import "../../styles/variables";
+@import "../../styles/responsive";
 
 .eventslides {
   width: 100%;
   margin-bottom: 100px;
   position: relative;
   .eventslide {
+    position: relative;
     .item {
       position: relative;
       margin: 0 10px;
@@ -183,12 +184,14 @@
   position: absolute;
   z-index: 2;
   transform: translateX(-50%);
+  margin-top: 25px;
+  // border: 1px solid #f00;
   &.active {
     display: block;
   }
   .point_viewBox {
     z-index: 2;
-    margin-top: 40px;
+    margin-top: 13px;
     background: map-get($map: $color, $key: light);
     width: 310px;
     height: 400px;
@@ -204,7 +207,7 @@
       position: absolute;
       top: 0;
       left: 50%;
-      transform: translate(-50%, 26px);
+      transform: translateX(-50%);
       width: 26px;
       height: 15px;
       background: url("../../assets/icons/event_point_view_tr.svg") no-repeat
@@ -254,16 +257,11 @@
   }
 
   @include desktop {
+    margin-top: 20px;
     .point_viewBox {
-      margin-top: 40px;
       width: 280px;
       height: 370px;
       padding: 45px;
-      &::before {
-        width: 26px;
-        height: 15px;
-        transform: translate(-50%, 26px);
-      }
       figure {
         height: 130px;
       }
@@ -286,15 +284,15 @@
   }
 
   @include tablet {
+    margin-top: 15px;
     .point_viewBox {
-      margin-top: 30px;
       width: 230px;
       height: 320px;
       padding: 35px;
+      margin-top: 10px;
       &::before {
         width: 24px;
         height: 11px;
-        transform: translate(-50%, 20px);
       }
       figure {
         height: 110px;
@@ -318,15 +316,14 @@
   }
 
   @include mobile {
+    margin-top: 15px;
     .point_viewBox {
-      margin-top: 25px;
       width: 200px;
       height: 270px;
       padding: 30px;
       &::before {
         width: 24px;
         height: 11px;
-        transform: translate(-50%, 17px);
       }
       figure {
         height: 90px;
