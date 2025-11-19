@@ -11,7 +11,7 @@ import MAIN_SHELF from "../../assets/MAIN_SHELF.png";
 import MAIN_TABLE from "../../assets/MAIN_TABLE.png";
 import ProductCard from "../../components/ProductCard/ProductCard";
 
-export const Home = () => {
+const Home = () => {
   const { allProducts } = useProducts();
   const [bestProduct, setBestProduct] = useState([]);
   const [eliasProducts, setEliasProducts] = useState([]);
@@ -51,9 +51,9 @@ export const Home = () => {
             controls={false}
             loop={true}
             onReady={() => setVideoLoaded(true)}
+            className={"main_video"}
             style={{
               opacity: videoLoaded ? 1 : 0,
-              transition: "opacity 0.8s ease-in",
             }}
           />
         </div>
@@ -155,3 +155,5 @@ export const Home = () => {
     </div>
   );
 };
+
+export default Home;

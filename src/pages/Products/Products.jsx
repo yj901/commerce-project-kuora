@@ -48,6 +48,15 @@ const Products = () => {
     setMaterials(uniqueMaterials);
   }, [urlCategory, allProducts]);
 
+  useEffect(() => {
+    // 카테고리 변경될 때 필터 초기화
+    setFilters({
+      materials: [],
+      designer: [],
+      sort: "",
+    });
+  }, [urlCategory]);
+
   //Material 다중선택 체크박스 토글함수
   // ...prev가 핵심 - 이전값 유지하는 부분이 있어야 됨
   const toggleMaterialFilter = (material) => {

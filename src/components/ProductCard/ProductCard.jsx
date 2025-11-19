@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { resolveImage } from "../../utils/resolveImg";
 import "./ProductCard.scss";
@@ -10,24 +10,30 @@ const ProductCard = ({ product, showDivider = true }) => {
   // 제품 정보 구조 분해 할당
   const { code, title, price, img } = product;
 
-  let thumbnailImage;
-  let backgroundImage;
+  //이미지 경로 계산 메모이제이션
+  const { thumbnailImage, backgroundImage } = useMemo(() => {
+    let thumbnail;
+    let background;
 
-  // 썸네일 이미지 경로 설정
-  if (img && img.thumbnailImg && img.thumbnailImg.length > 0) {
-    const imgPath = img.thumbnailImg[0];
-    thumbnailImage = resolveImage(imgPath);
-  } else {
-    thumbnailImage = "/img/placeholder.jpg"; // 대체 이미지
-  }
+    // 썸네일 이미지 경로 설정
+    if (img?.thumbnailImg?.length > 0) {
+      thumbnail = resolveImage(img.thumbnailImg[0]);
+    } else {
+      thumbnail = "/img/placeholder.jpg";
+    }
 
-  // 배경 이미지 경로 설정
-  if (img && img.backgroundImg && img.backgroundImg.length > 0) {
-    const bgImgPath = img.backgroundImg[0];
-    backgroundImage = resolveImage(bgImgPath);
-  } else {
-    backgroundImage = thumbnailImage; // 배경 이미지가 없으면 썸네일 이미지 사용
-  }
+    // 배경 이미지 경로 설정
+    if (img?.thumbnailImg?.length > 0) {
+      background = resolveImage(img.backgroundImg[0]);
+    } else {
+      background = thumbnail; // 배경 이미지가 없으면 썸네일 이미지 사용
+    }
+
+    return { thumbnailImage: thumbnail, backgroundImage: background };
+  }, [img]);
+
+  const handleMouseEnter = useCallback(() => setIsHovered(true), []);
+  const handleMouseLeave = useCallback(() => setIsHovered(false), []);
 
   // 현재 표시할 이미지 결정
   const currentImage = isHovered ? backgroundImage : thumbnailImage;
@@ -35,12 +41,12 @@ const ProductCard = ({ product, showDivider = true }) => {
   return (
     <div
       className={`product-card ${showDivider ? "with-divider" : ""}`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <Link to={`/detail?id=${code}`}>
         <div className="product-image">
-          <img src={currentImage} alt={title} />
+          <img src={currentImage} alt={title} loading="lazy" />
         </div>
         <div className="product-info">
           <h3>{title}</h3>

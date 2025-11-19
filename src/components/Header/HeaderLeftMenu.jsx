@@ -45,4 +45,4 @@ const HeaderLeftMenu = ({ isActive, setisActive }) => {
   );
 };
 
-export default HeaderLeftMenu;
+export default React.memo(HeaderLeftMenu);

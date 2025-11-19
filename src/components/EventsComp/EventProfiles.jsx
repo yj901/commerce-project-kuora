@@ -57,4 +57,4 @@ const EventProfiles = () => {
   );
 };
 
-export default EventProfiles;
+export default React.memo(EventProfiles);

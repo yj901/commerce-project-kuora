@@ -1,5 +1,5 @@
-@import "/src/styles/responsive";
-@import "/src/styles/variables";
+@import "./responsive";
+@import "./variables";
 
 * {
   margin: 0;
@@ -25,6 +25,7 @@ body {
   font-size: 1.6rem;
   font-family: "Lato", "Pretendard Variable", sans-serif;
   color: map-get($map: $color, $key: dark);
+  overflow-x: hidden;
 }
 
 .inner {
