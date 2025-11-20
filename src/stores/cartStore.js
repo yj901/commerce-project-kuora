@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 import {
   addItemToCart,
   removeItemFromCart,
@@ -6,51 +7,48 @@ import {
   decreaseItemQuantity,
 } from "../utils/cartCalculations";
 
-const useCartStore = create((set, get) => ({
-  cartItems: (() => {
-    const localCart = localStorage.getItem("cart");
-    return localCart ? JSON.parse(localCart) : [];
-  })(),
-  isCartOpen: false,
+const useCartStore = create(
+  persist(
+    (set) => ({
+      cartItems: [],
+      isCartOpen: false,
 
-  addToCart: (product, quantity = 1) => {
-    set((state) => {
-      const newItems = addItemToCart(state.cartItems, product, quantity);
-      localStorage.setItem("cart", JSON.stringify(newItems));
-      return { cartItems: newItems };
-    });
-  },
+      addToCart: (product, quantity = 1) => {
+        set((state) => {
+          const newItems = addItemToCart(state.cartItems, product, quantity);
+          return { cartItems: newItems };
+        });
+      },
 
-  removeFromCart: (productCode) => {
-    set((state) => {
-      const newItems = removeItemFromCart(state.cartItems, productCode);
-      localStorage.setItem("cart", JSON.stringify(newItems));
-      return { cartItems: newItems };
-    });
-  },
+      removeFromCart: (productCode) => {
+        set((state) => {
+          const newItems = removeItemFromCart(state.cartItems, productCode);
+          return { cartItems: newItems };
+        });
+      },
 
-  increaseQuantity: (productCode) => {
-    set((state) => {
-      const newItems = increaseItemQuantity(state.cartItems, productCode);
-      localStorage.setItem("cart", JSON.stringify(newItems));
-      return { cartItems: newItems };
-    });
-  },
+      increaseQuantity: (productCode) => {
+        set((state) => {
+          const newItems = increaseItemQuantity(state.cartItems, productCode);
+          return { cartItems: newItems };
+        });
+      },
 
-  decreaseQuantity: (productCode) => {
-    set((state) => {
-      const newItems = decreaseItemQuantity(state.cartItems, productCode);
-      localStorage.setItem("cart", JSON.stringify(newItems));
-      return { cartItems: newItems };
-    });
-  },
+      decreaseQuantity: (productCode) => {
+        set((state) => {
+          const newItems = decreaseItemQuantity(state.cartItems, productCode);
+          return { cartItems: newItems };
+        });
+      },
 
-  clearCart: () => {
-    set({ cartItems: [] });
-    localStorage.setItem("cart", JSON.stringify([]));
-  },
+      clearCart: () => {
+        set({ cartItems: [] });
+      },
 
-  setIsCartOpen: (open) => set({ isCartOpen: open }),
-}));
+      setIsCartOpen: (open) => set({ isCartOpen: open }),
+    }),
+    { name: "cart-storage" }
+  )
+);
 
 export default useCartStore;
