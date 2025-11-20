@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useProducts } from "../../contexts/ProductContext";
 import HeaderLeftMenu from "./HeaderLeftMenu";
@@ -8,6 +8,7 @@ import IconCartBtn from "../../assets/icons/cartBtn.svg";
 import IconLogo from "../../assets/icons/logo_kuora.svg";
 import IconClose from "../../assets/icons/header_search_close.svg";
 import useCartStore from "../../stores/cartStore";
+import SearchDropdown from "./SearchDropdown";
 
 import "./Header.scss";
 
@@ -16,7 +17,8 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuActive, setIsMenuActive] = useState(false);
   const [isSearchActive, setIsSearchActive] = useState(false);
-  const [showNoResult, setShowNoResult] = useState(false);
+  const [searchKeyword, setSearchKeyword] = useState("");
+  const [debouncedKeyword, setDebouncedKeyword] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
   const { allProducts } = useProducts();
@@ -26,7 +28,10 @@ const Header = () => {
   useEffect(() => {
     setIsMenuActive(false);
     setIsCartOpen(false);
-  }, [location.pathname]);
+    setIsSearchActive(false);
+    setSearchKeyword("");
+    setDebouncedKeyword("");
+  }, [location.pathname, setIsCartOpen]);
 
   useEffect(() => {
     if (!isHome) return;
@@ -45,33 +50,76 @@ const Header = () => {
     };
   }, [isHome]);
 
-  const AllsearchProduct = Object.values(allProducts).flat();
+  //  debounce 효과
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedKeyword(searchKeyword);
+    }, 300); // 300ms 대기
+
+    return () => clearTimeout(timer);
+  }, [searchKeyword]);
+
+  const AllsearchProduct = useMemo(
+    () => Object.values(allProducts).flat(),
+    [allProducts]
+  );
+
+  //  debouncedKeyword 사용
+  const searchResults = useMemo(() => {
+    if (!debouncedKeyword.trim()) return [];
+
+    return AllsearchProduct.filter((product) =>
+      product?.title?.toLowerCase().includes(debouncedKeyword.toLowerCase())
+    )
+      .sort((a, b) => {
+        const aIndex = a.title
+          .toLowerCase()
+          .indexOf(debouncedKeyword.toLowerCase());
+        const bIndex = b.title
+          .toLowerCase()
+          .indexOf(debouncedKeyword.toLowerCase());
+
+        if (aIndex !== bIndex) return aIndex - bIndex; // 1순위: 관련도
+        return a.title.localeCompare(b.title); // 2순위: 알파벳
+      })
+      .slice(0, 5);
+  }, [debouncedKeyword, AllsearchProduct]);
+
+  const handleSearchInput = useCallback((e) => {
+    setSearchKeyword(e.target.value); // 즉시 업데이트 (타이핑 반응)
+  }, []);
+
+  //검색
+  const handleSearch = useCallback(() => {
+    if (searchResults.length > 0) {
+      const firstResult = searchResults[0];
+      navigate(`/detail?id=${firstResult.info.code}`);
+      setSearchKeyword("");
+      setDebouncedKeyword("");
+      setIsSearchActive(false);
+    }
+  }, [searchResults, navigate]);
 
   const onCheckEnter = useCallback(
     (e) => {
       if (e.key === "Enter") {
         e.preventDefault();
-
-        const keyword = e.target.value.toLowerCase();
-
-        const filterKeyword = AllsearchProduct.find(
-          (product) => product?.title?.toLowerCase() === keyword
-        );
-
-        const filterCode = filterKeyword?.info?.code;
-
-        if (filterKeyword) {
-          navigate(`/detail?id=${filterCode}`);
-        } else {
-          setShowNoResult(true);
-          setTimeout(() => setShowNoResult(false), 3000);
-        }
-
-        e.target.value = "";
+        handleSearch();
       }
     },
-    [AllsearchProduct]
+    [handleSearch]
   );
+
+  const handleCloseDropdown = useCallback(() => {
+    setSearchKeyword("");
+    setDebouncedKeyword("");
+  }, []);
+
+  const handleSearchToggle = useCallback(() => {
+    setIsSearchActive((prev) => !prev);
+    setSearchKeyword("");
+    setDebouncedKeyword("");
+  }, []);
 
   return (
     <>
@@ -107,31 +155,45 @@ const Header = () => {
                       }
                       type="text"
                       placeholder="찾으시는 상품을 입력해주세요."
-                      onKeyUp={onCheckEnter}
+                      value={searchKeyword}
+                      onChange={handleSearchInput}
+                      onKeyDown={onCheckEnter}
                     />
-                    {showNoResult && (
-                      <div className="noSearchbox">
-                        검색하신 상품이 존재하지 않습니다.
-                      </div>
-                    )}
+                    {/* 검색 드롭다운 */}
+                    {isSearchActive &&
+                      debouncedKeyword &&
+                      searchResults.length > 0 && (
+                        <SearchDropdown
+                          results={searchResults}
+                          onClose={handleCloseDropdown}
+                        />
+                      )}
+                    {/* 검색 결과 없음 */}
+                    {isSearchActive &&
+                      debouncedKeyword &&
+                      searchResults.length === 0 && (
+                        <div className="noSearchbox">
+                          검색하신 상품이 존재하지 않습니다.
+                        </div>
+                      )}
                   </div>
 
                   <button
                     id="search_btn"
-                    onClick={() => {
-                      setIsSearchActive(!isSearchActive);
-                    }}
+                    className={isSearchActive ? "active" : undefined}
+                    onClick={handleSearchToggle}
                   >
                     <img src={IconSearchBtn} alt="searchBtn1" />
+                    <img src={IconClose} alt="closeBtn1" />
                   </button>
-                  <div
+                  <button
                     id="mb_closeBtn"
                     className={isSearchActive ? "active" : undefined}
-                    onClick={() => setIsSearchActive(!isSearchActive)}
+                    onClick={handleSearchToggle}
                   >
                     <img src={IconSearchBtn} alt="searchBtn2" />
                     <img src={IconClose} alt="closeBtn2" />
-                  </div>
+                  </button>
                 </form>
               </div>
               <div className="cart_btn" onClick={() => setIsCartOpen(true)}>
@@ -151,15 +213,25 @@ const Header = () => {
               className="search_txt"
               type="text"
               placeholder="찾으시는 상품을 입력해주세요."
-              onKeyUp={onCheckEnter}
+              value={searchKeyword}
+              onChange={handleSearchInput}
+              onKeyDown={onCheckEnter}
             />
-            {showNoResult && (
+            {/* 모바일 드롭다운 */}
+            {debouncedKeyword && searchResults.length > 0 && (
+              <SearchDropdown
+                results={searchResults}
+                onClose={handleCloseDropdown}
+              />
+            )}
+            {/* 모바일 검색 결과 없음 */}
+            {debouncedKeyword && searchResults.length === 0 && (
               <div className="noSearchbox">
                 검색하신 상품이 존재하지 않습니다.
               </div>
             )}
           </div>
-          <button className="search_btn" onClick={onCheckEnter}>
+          <button className="search_btn" onClick={handleSearch}>
             <img src={IconSearchBtn} alt="searchBtn" />
           </button>
         </form>
