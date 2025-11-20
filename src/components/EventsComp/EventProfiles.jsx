@@ -1,6 +1,12 @@
 import React from "react";
+import Img1 from "../../assets/imgs/events/event_profileImg1.jpg";
+import Img2 from "../../assets/imgs/events/event_profileImg2.jpg";
+import useScrollAni from "../../hook/useScrollAni";
 
 const EventProfiles = () => {
+  const [ref1, isVisible1] = useScrollAni(0.1);
+  const [ref2, isVisible2] = useScrollAni(0.1);
+
   return (
     <>
       <section className="event_profile epf1">
@@ -22,8 +28,8 @@ const EventProfiles = () => {
                 고요하지만 공간 속에서 선명히 존재한다.
               </p>
             </dt>
-            <dd className="img">
-              <figure className="img1"></figure>
+            <dd ref={ref1} className={`img ${isVisible1 ? "ani" : ""}`}>
+              <img src={Img1} alt="img1" />
             </dd>
           </dl>
         </div>
@@ -47,8 +53,8 @@ const EventProfiles = () => {
                 사용자에게 조용한 영감을 건넨다.
               </p>
             </dt>
-            <dd className="img">
-              <figure className="img2"></figure>
+            <dd ref={ref2} className={`img ${isVisible2 ? "ani" : ""}`}>
+              <img src={Img2} alt="img2" />
             </dd>
           </dl>
         </div>
