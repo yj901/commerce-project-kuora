@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useProducts } from "../../contexts/ProductContext";
-import { resolveImage } from "../../utils/resolveImg";
+
 import CustomPaging from "../../components/DetailSlider/DetailSlider";
 import "./Detail.scss";
 import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
@@ -55,7 +55,7 @@ const Detail = () => {
       code: product.info.code,
       title: product.title,
       price: product.price,
-      thumbnail: resolveImage(product.img.thumbnailImg[0]),
+      thumbnail: product.img.thumbnailImg[0],
       quantity: quantity, // 수량 추가
     };
     addToCart(cartItem, quantity); // 수량을 addToCart에 전달
@@ -148,7 +148,7 @@ const Detail = () => {
               {product.img.backgroundImg.map((thumb, index) => (
                 <img
                   key={index}
-                  src={resolveImage(thumb)}
+                  src={thumb}
                   alt={`${product.title} ${index + 1}`}
                 />
               ))}

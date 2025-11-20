@@ -45,10 +45,9 @@ KUORA는 독창적인 디자인과 기능성을 추구하는 프리미엄 가구
 
 ## 🛠️ 기술 스택
 
-- **Frontend:** React, React Router, Context API, SCSS
-- **Infra:** GitHub Pages, Netlify
-- **Library & API:** react-slick, Kakao 주소 API
-- **Design & Collaboration:** Figma, GitHub, Slack
+- **Frontend:** React, React Router, Zustand, SCSS, react-slick
+- **Deployment:** GitHub Pages, Netlify
+- **Tools:** Figma, GitHub, Slack
 
 ---
 
