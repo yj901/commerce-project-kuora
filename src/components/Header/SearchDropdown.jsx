@@ -4,7 +4,7 @@ import "./SearchDropdown.scss";
 
 const SearchDropdown = ({ results, onClose }) => {
   if (results.length === 0) return null;
-  console.log(results);
+
   return (
     <div className="search_dropdown">
       {results.map((product) => (

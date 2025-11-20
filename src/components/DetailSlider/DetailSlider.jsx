@@ -5,7 +5,7 @@ import "./DetailSlider.scss";
 
 const CustomPaging = ({ product }) => {
   const images = product.img.thumbnailImg;
-  console.log(images);
+
   const settings = {
     customPaging: (i) => (
       <a className="DetailPaging">
