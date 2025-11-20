@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { resolveImage } from "../../utils/resolveImg";
+
 import "./ProductCard.scss";
 
 const ProductCard = ({ product, showDivider = true }) => {
@@ -17,14 +17,14 @@ const ProductCard = ({ product, showDivider = true }) => {
 
     // 썸네일 이미지 경로 설정
     if (img?.thumbnailImg?.length > 0) {
-      thumbnail = resolveImage(img.thumbnailImg[0]);
+      thumbnail = img.thumbnailImg[0];
     } else {
       thumbnail = "/img/placeholder.jpg";
     }
 
     // 배경 이미지 경로 설정
     if (img?.thumbnailImg?.length > 0) {
-      background = resolveImage(img.backgroundImg[0]);
+      background = img.backgroundImg[0];
     } else {
       background = thumbnail; // 배경 이미지가 없으면 썸네일 이미지 사용
     }

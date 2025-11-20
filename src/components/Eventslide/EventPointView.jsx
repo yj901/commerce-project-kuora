@@ -1,14 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Eventslide.scss";
-import { resolveImage } from "../../utils/resolveImg";
 
 const EventPointView = React.memo(({ data }) => {
   if (!data) return null;
   return (
     <div className="point_viewBox">
       <figure>
-        <img src={resolveImage(data?.img.thumbnailImg[0])} alt={data?.title} />
+        <img src={data?.img.thumbnailImg[0]} alt={data?.title} />
       </figure>
       <div className="txt">
         <h5>{data?.title}</h5>
